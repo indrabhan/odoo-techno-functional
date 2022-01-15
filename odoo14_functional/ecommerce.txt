@@ -1,0 +1,160 @@
+1.)Filter on website for product:
+        On website we have default option of search where we type the product name.You can even have options like search by Attribute or 		ecommerece category.
+
+	Webiste App --> Go To Website --> Shop Page --> Customise menu
+	Here you will have options 
+		1.)Product Attributes Filter (like legs,color, size)
+		2.)eCommmerece Category.
+
+	website category:-
+		On product form in sale tab, their is a field website category.
+		you can even create the category from website admin in Configuration menu.
+		Category:-Spare part(parent)
+			      --wheel(sequence 1)
+			      --handler(sequence 2)
+
+	For color attribute you can specify your customise like by giving Hexa color code or you can select color picker.
+	For this go in website Configuration menu and select Attributes menu.
+
+	Suppose we are having product variants with legs = steel and aluminium. and color having white, black and blue.
+	Now for this variants we do not have variant with legs = aluminium and color=black.
+	So on Product template you will have 'Configure Variants' button. Click on it and select the variant with aluminium and
+	there you will see 'Exculde for' one2many field there select the color value=black.
+	Now in website when you will select the product and select the attribute legs=aluminium then for black color option you will see
+	cross or you wont be able to select black color.
+		
+	
+2.)Ecommerece Optional, Alternative and Accessory product(Module):-
+	In product template in Sales tab you will have field 'Optional product.
+	In product template in Ecommerece tab you will have fields 'Alternate' and 'Accessory' Products.
+
+	Alternative product appears with the main product on website.
+	Optional Products appears when you click on Add to Cart. (like Warranty)
+	Accessory Products appears when you click Process to CheckOut. (suggested products)
+
+
+
+
+3.)Pricelist and Discount:-
+	Website Admin:-	setting--Pricing --select below option
+			1.)Pricelist:
+				This opion will enable the pricelist menu option in website --> Product menu.
+			2.)Discount:
+				It will make discount option available on pricelist.
+				In particular pricelis in configuration tab:
+					Discount Policy:
+							1.)Discount included in the price.
+							2.)Show public price & discount to the customer.
+
+				Example:-
+					In pricelist:
+						Apply on: product variant and select the product.
+						Price Computation: percentage.
+						Discount Policy: Show public price & discount to the customer.
+
+						In website when you will see above product you will difference in prices.
+	
+			Note:- From webiste when you will select the pricelist and discount option, then when you install the sale module 					you will find that this options are auto tick.
+
+4.)Fiscial Position:-
+		In Invoicing/Accounting App in Configuration you can see fiscal position.
+		You have set fiscal position for european country.
+		Suppose you have website of country United States and customer is from europe.
+		when the customer enter the address then the fiscal postion gets applied.
+		
+		Fiscal position can be get applied on country and country group. It have option to detect automatically.
+		
+		Fiscal position gets applied when you enter the address for 1st time, If you are already login and have address fill then
+		it gets applied automactically.
+
+
+
+
+	Website Admin:-	setting--sale price--select below option
+			Advanced pricing based on formulas (discounts, margins, rounding)
+			Now in pricelist you will have a Priclist Items enable you can create pricelist as your requirement.
+
+	Visitor user:-When the visitor user will log,he will be the public user which is inactive (see user)
+		      open the customer menu and filter for inactive you will find the inactive user(public user).
+		      public user will have public pricelist and that visitor user log in will see the price of public price list.
+		
+			When you click proced to checkout for 1st time also an entery will be genearted in sale app in quotations.
+
+	If you assign some code to a field E-commerce promotional code in pricelist and for that pricelist you have config a discount
+	than if a visitor know that code than he will also be able to get the benifite of that code.
+	you can see in sale app the quotation of that visiter(public)user will have the pricelist of that E-commerce promotional code
+	instead of public pricelist.
+	Note:- whenever you assign the E-commerce promotional code than have the start date and end date in pricelist other the user will
+		get the benfit of that code whole year.
+
+	Automatic pricelist selected:-
+		Create the pricelist and select the country groups
+		when user from specified country than that pricelist will be auto selected
+		This works only in online scenario.
+		Have multi currency activated.
+
+	Pricelist of Customer choice:-
+		have two pricelist mostly of same country, otherwise the country group pricelist will be default selected.
+		Select the Selectable option on Pricelist, to see the change select minimum 2 pricelist.
+		in the web user will have option to select the pricelist of hia choice
+		
+
+Taxes:- on website always include price included taxes(recommened)
+	on prodocut config the tax as tax included price.
+
+several image per product:- Go to website admin Setting, Multi Images, click Several images per product.
+	In the product product you will have "Image" tab select the multi image.
+	selected images will appear below the main product in the web.
+	Note:-Such extra image are common to all the product variants (if any).
+	
+Promotion Program:-
+	It is used to promote the business
+	here you can give free products if you buy X quantity.
+	here you can give X Discounts on products if you buy X quantity.
+	
+Coupons:-
+	You send the coupons to customers.
+	you can even generate coupon code specific to customer.
+	each coupon code can be used only once.
+	
+
+Delivery methods:-
+	Go to inventory app to see the delivery methods, click published on  website, those who are not published will not be visible on 		web.
+	In delivery method their is a destination method, if you select the country.
+	The shipping address has the same country than that option will be enable.
+	Else for other shpping addres you will see the methods in which the country is not specified.
+	
+	Question.)Where can your customers see their orders status?
+	
+		My account -> Quotations
+		My account -> Purchase Orders
+		My account -> Documents
+		My account -> Sales Orders 		(Correct Answer)
+		
+
+payment method:-
+	From the Customize the menu enable the payment option.
+	From the Customize the menu enable the option terms and condition(for this option you should be connected by user)
+	In Accounting--Config--Payment Acquirers
+	Select the payment and publised it than on web it will be visble you can even add the message on payment
+	If you select the country than that payment method will be visible for that country only
+	country is seen in shipping address.
+	On payment method we can set no automatic confirmation.(in last tab you will have this option) 
+	
+	Question.)How can I allow my customers to choose a different payment method?
+	
+		1.)By activating each payment method separately
+		2.)By activating all payment methods at the same time
+		3.)By installing and activating the payment method 		(Correct Answer)
+		4.)By installing the payment method
+		
+
+	Question.)Which other app do I need to allow this feature?
+		1.)Project
+		2.)Accounting/Invoicing 		(Correct Answer)
+		3.)CRM
+		4.)Billing
+
+
+Note:-Website layout depends upon the theme module.
+

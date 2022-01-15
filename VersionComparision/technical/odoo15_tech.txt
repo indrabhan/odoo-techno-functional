@@ -1,0 +1,3 @@
+Inventory Adjustment:
+	removed the stock.inventory and stock.inventory.line object
+	directly making entery in stock.quant

@@ -1,0 +1,166 @@
+Orders
+	
+1.)Purchase Order Approval:- Request managers to approve orders above a minimum amount.
+	This feature can be activated from purchase settings. 
+
+2.)Warnings:
+	The Warnings feature allows you to raise warnings or blocking messages on purchase orders based on a vendor or a product.
+
+	For example, if you often have a problem with a vendor, you might want to raise a warning when purchasing from that vendor. If a 		product is about to be discontinued, you may want to raise a blocking message on the purchase order.
+
+	Configuration:
+		For this feature to work, go to Purchases ‣ Configuration ‣ Settings and activate the Warnings feature.
+
+	Add a warning on a vendor
+		When you activate the feature, you get a new option under the Internal Notes tab on vendors. You can decide to write a simple 			warning or a blocking message.
+
+	Add a warning on a product
+		When you activate the feature, you get a new option under the Purchase tab on the product page where you can add a warning or 			a blocking message.
+
+	Note:- If it is a warning message you can ignore it.
+	       If it is Blocking message you can not ignore it.
+
+	Note:- Same feature is available for Sales App
+		For Customer and Product.
+		Need to activate this feature from Sales App.   
+		
+
+**************************************************************************************************
+		
+Lead Time:-
+	In the product form under the purchase tab you can set the lead time for every vendor.
+	suppose the lead time is 10 days the in the purchase order line you have a field scehulde date.
+	suppose your order date is 15th jan the the schedule date will be 25th.
+
+	
+Customer lead time.
+	In the product form under the inventory tab you ca set the customer lead time.
+	suppose the lead time is 5 days.
+	In the sale order you can see the "expected date" here the value will be 20th if the order date is 15th jan.
+	In the delivery order you will see the schedule date if the date is less then 20th jan you have set the security lead days.
+	security lead days are substracted from schedule date.
+	
+	
+**************************************************************************************************
+
+3.)Lock Confirmed Order:-
+	Activate this feature from settings of Purchase App.
+	
+	When you confirm the RFQ it will go in Locked state and you can not edit it.
+	On same PO you will find the button of Unlock and now you can edit the PO.
+
+4.)Purchase Agrements:- 
+	1.)Blanket Order:-(default created),  you can create your own also from config -- Agreemnet Type.
+		Its like a process of contract between you and vendor that he will provide you xx quantity of products with fixed rate or
+		till fixed period.
+		Suppose you required specific products requlary so you don't want to go through RFQ process every time and 
+		create n number of quotations instead you make contract(Blanket Order) with particular vendor.
+		When creating Purchase Agrements select vendor and Unit price.
+		
+		
+	Blanket Order = Contract
+	
+	Question.)When should I use Blanket Orders?
+		When making repetitive purchases from the same supplier within a certain time period	(correct)
+		When making repetitive purchases for the same product to several suppliers within a certain time period.
+		When ordering many different products in several deliveries to the same vendor within a certain time period.
+		
+
+ 	2.)Call for Tender:-(default created),  you can create your own also from config -- Agreement Type.
+		This is the biding process.
+		When creating Purchase Agrements do not select vendor and Unit price as we will send Quotations to multiple vendor.
+		When we confirm the quotation of one vendor the other RFQ will be automatically Cancelled and the Purchase Agrements goes in 			Closed State.
+
+	Step:-
+		Activate this feature from setting.
+		1st create Purchase Aggrement Type from config. (Call for tender or Balnket order)
+		2nd Create Purchase Agreemnet from Order menu.(where you specify product and price.)
+		Once you confirm the Purchase Agreemnet, you can create quotation from their,the quotation details will be auto filled 			from Purchase Agreement	
+
+
+*************************************************************************************************
+
+Invoicing
+
+1.)Bill Control:-
+	This feature is available in setting of Purchase App.
+		Order quantities
+		Delivered quantities (default)
+
+	You can even change Bill Control/Purchase Bill policy for particular product as it is available on product form in purchase tab.
+
+
+************************************************************************************************
+
+Logistics
+
+1.)DropShipping:-
+	Dropshipping is a method in which the vendor will directly delivery product to customer.
+
+	Configuration:-
+		Go to Purchases ‣ Configuration ‣ Settings and select Dropshipping.
+
+	A new route Dropshipping has been created. You can go on a product and tick the dropshipping route. You also need to define to 		which vendor you will buy the product. Now, each time this product will be sold, it will be drop shipped.
+	
+	Case 1:- You activate the route Dropship on Product form and assign the vendor.
+		 Create the SO and Confirm it, here now no Devlivery order will be created only PO will be created.
+		 when you validate the Receipt then the Delivery Order will be created in SO and it will be in done state
+
+	Note:- Even on Sale Order Line you can select the routes.
+	       To see the routes you need to activate "Multi Routes" from Inventory settings.
+	       At the end of Line header you will see 3 dots click on it and Routes option will appear click on it and now in line you 		       will find the column of Routes and select the route.
+
+
+************************************************************************************************
+
+
+Multiple vendors on product:
+	you can add multiple supplier on product form.
+	every first time the product is purchased from a new vendor, Odoo will automatically link the contact and price with the product.
+
+	Note:-
+		This Odoo feature also works with variants of your products, such as one t-shirt in different sizes!
+
+
+
+Analyze the performance of my vendors:-
+	You can analysis from  the Report Menu of Purchase App, you will find pivot, graph views.
+	
+	Analysis is done to know the suppliers price, discount , delivery time etc , so from this suppliers we can choose in future for which 		supplier we should order.
+
+	Note :- you should have many PO for analysis.
+
+
+
+
+
+Reordering Rule:-
+	Every time the product reaches the minimum quantity it will replenish your stock to your maximum quantity.
+	The system will automatically see how to fulfill that need based on the product configuration (e.g create an RfQ, create an MO, etc.).
+
+	Troubleshooting
+		For your reordering rules to work, your product needs to be correctly configured. If you are using Buy route, you need a 			vendor on the product. If you are using Manufacturing route you will need a BoM on the product. If the product is not 			fully configured or there is a mistake in your routes, a next activity will be logged on the product informing you there 			is an issue with the configuration(In Chatter).
+		
+	Note:- you can create more then 1 reordering rule for loaction wise.
+		If the rule is trigger then it will always keep the max qty in stock and accordingly manage the qty in RFQ.
+		
+	Question.)I have created a reordering rule with a minimum stock of 5 units and a maximum of 10 units. When the reordering rule is 		triggered, how many units will it order?
+	
+		1.)As much as needed so you have a minimum of 5 units in stock
+		2.)It will always order between 5 and 10 units
+		3.)As much as needed so you have 10 units in stock		(Correct)
+		4.)It will always order 10 units
+
+
+********************* 3 Way Matching Bills *****************************
+
+Activate this feature from setting.
+It will add the selection field "Should be Paid", here the values are auto reflected, values are "Yes", "NO" and "Exception".
+
+3 way matching means it will check PO, Receipt and Vendor Bill.
+
+Note: 3-way matching is intended to work with the bill control policy set to On received quantities. 
+
+Inter-Company Transfer:-
+	check videos on youtube.
+	https://www.youtube.com/watch?v=FIUlOk_j4Qk

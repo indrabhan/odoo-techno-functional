@@ -1,0 +1,36 @@
+1.)Change In Application
+
+	Moved to community from enterprise
+	
+		Sales coupon and Promotions module
+		Website builder
+		
+	Remove from community
+		Payroll module
+		
+	Addition 
+		Field Service Management
+		Rental Management 
+		Skill Management
+
+
+2.)MRP Subcontracting:
+	Added Subcontracting BOM Type in Manufacture Bill of material.
+	
+3.)POS
+	Log in to the POS via Employee(Earlier version it is via User).
+	Connect with Employee on POS. Any employee can work on a POS session, even if he has no user.
+	
+4.)Some Functional Features
+	“Is a Customer” and “Is a Vendor” fields are removed. Now a contact will define both customer and vendor by default
+	
+5.)Option for applying Coupons, Promotions, and Shipping in the sales.
+	In Sale order bottom you can find buuton
+		a.)Add Coupon
+		a.)Add Promotions
+		a.)Add Shipping
+		
+6.)Product grid configurator.   
+
+7.)Creation of employee from the user.
+	In the User form you can see "Create Employee" button

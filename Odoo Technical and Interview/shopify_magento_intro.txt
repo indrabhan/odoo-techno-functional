@@ -1,0 +1,24 @@
+Shopify:-
+	1.)To connect with shopify you nedd API_key(user name in Magento) and API_password (user password in magento).
+	2.)From shopify App menu you can create the Credentials.For the credentials you created you need to give access like Read and 			Read&Write.
+	3.)Make use of requests lib to connect using get method.
+		For magento 1st you need to generate access token using user name and user password.
+		then pass the access token to any api like customer api, product api.
+
+		For shopify no need to get access token, within the API you can pass the api_key and api_pass.
+	
+	4.)requests.get(url):-
+		get method is use to get the data.
+
+	5.requests.post(url, data={pass the data in dictionary format}):
+		post method is use to pass the data.
+		In shopify we need to pass some product data from odoo, so in product form we kept button "Export product" and on that button 			we have call the post method along with data using the data parameter of post method.
+
+	6.)resquest.put(url, data={pass the data in dictionary format}):
+		put method is use to update the data.Need to pass required data given by api.
+		suppose we want to update the product from odoo to shopify se we keep update product and make use of put method.
+
+	7.)First create instance menu and record where you will store shopify url, shopify api_key and shopify api_pass.
+	8.)get the stores and then work for other api's.
+			
+

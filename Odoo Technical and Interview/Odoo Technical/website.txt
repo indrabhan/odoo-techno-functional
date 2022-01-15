@@ -1,0 +1,145 @@
+Note:- Odoo13 :- odoo uses bootstrap4
+	you can get most of the widget from bootstrap like accordion(I have study it in JQuery), you will get code of accordion.
+	1.)accordion
+	2.)card style
+	3.)carousel slider. (in web at the top you see images, you can change by clicking next or even back)  
+
+
+
+Technical:-
+
+<input type="number">
+
+<a href=/route_name/>Add new car</a> 
+	when you will click on Add new car the cursor will go to the route in controller.
+
+return request.redirect('/route_name')
+
+
+<form action='/route_name' method="POST">
+
+the form fields name should be technical name of module fields, so you can get the dict {'technical_field_name: Value given by user on form}
+so you can call the create method and pass the dict.
+model.create(kw) 	kw is the dict specified in route.
+
+<button type='submit>SAVE</button>
+
+when you will click on save button the cursor will go to action and action is calling the route, so it will go to route.
+
+
+Update:
+	In table head
+		<th>
+			<a t-attf-href='/route_name?id=#(car.id)' 		#in car we are getting car object
+		</th>
+	
+	Difference between t-attf and t-att
+
+		t-attf : you can use object, here we have use the car object.
+		t-att : you can not use the object.
+
+
+	To send parameter we use "?" and parameter name and assign value to that parameter using "=" operator.
+
+
+	@http.route('/route_name', auth='public', type='http')
+	def abc(self, **kw):
+		print ('car id=', kw.get('id'))
+
+
+Image icons:
+	go to fontawesome website
+		<a href="route_name"<i class="fa fa-pencil"/> </a>
+
+
+
+Inheritance Controller
+
+	we want to inherite the controller class "CustomerPortal" available in portal.py file of portal module
+
+	addons
+		portal (module name)
+			 controllers (folder)
+				portal.py (file)
+					class CustomerPortal
+
+
+	from odoo.addons.portal.controllers.portal import CustomerPortal
+
+	class MyClass(CustomerPortal):
+	
+		@route  (if you want to write only @route then "from odoo.http import route")
+		
+			request.env  (if you want to write only @route then "from odoo.http import request")
+
+
+In template(xml file)
+
+	you can write below code directly
+
+	<t t-set='partners' t-value="request.env['res.partner'].search([])"/>
+
+
+	Fields:
+
+		1.)Many2one:
+			
+			<select name="">
+				<t t-foreach='partners' t-as='partner'>
+					<option t-att-value='partner.id'>
+						<t t-esc='partner.name>
+					</option>
+
+
+		2.)Boolean:
+			<input type='radio' name='' value='unique name'/>
+			<input type='radio' name='' value=''/>
+
+			If you specify same name value for both records then, if you click one record the other will be unselected
+			and vice-versa.
+					
+			value='unique name' in backend you will receive this name and will come to know which record is selected.
+
+
+
+		3.Date:-
+			<input type='date' name='technical_name'/>
+
+
+		4.)Binary:
+			In py file:
+				file = fields.Binary(string='File')
+
+			In view part you will see button 'upload file'.
+
+			
+			In website form:
+				<input type='file' accept='image/*, application/pdf*'
+
+
+				image/* :- /* means any extension of image.
+
+				applicatio/pdf*:- any pdf files.
+
+
+			In controller file:
+				import base64
+				
+				if kw[file]:
+					file = kw.get('file').stream.read()		// read the file.
+
+
+				in dictionary:
+					'file': base64.encodestring(file),
+
+
+
+dynamic image src:
+	
+	<img class='' alt='car1' t-attf-src="data:image/*; base64,{(car.file)}"
+
+
+	t-attf-href="/car/full_description?id=#(car.id)"
+
+
+	<t t-set="cars" t-value="request.env['car.car'].search([], limit=4, order='create_date desc')"

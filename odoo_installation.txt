@@ -1,0 +1,97 @@
+sudo su // login to root user
+
+1.)sudo apt-get update
+
+2.)sudo apt-get -y upgrade
+
+3.)sudo adduser odoo // here odoo is the username and create only user not group
+
+4.)Install Python dependencies and wkhtmltopdf.
+
+	wkhtmltopdf:
+		cmd :- sudo wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.bionic_amd64.deb
+
+		sudo apt install ./wkhtmltox_0.12.6-1.bionic_amd64.deb
+
+5.)sudo apt install postgresql
+
+6.)sudo systemctl enable --now postgresql.service //After installing the database server, enable and start it by running the command
+
+7.)sudo su - postgres -c "createuser -s odoo"  // here odoo is the username and create only user not group, Here in step 3&7 username must be same.
+
+8.)clone the odoo-addons into directory like "/opt/odoo/" and change the owner of the directory
+	cmd:- chown -R odoo. directory-path
+
+9.)sudo mkdir /var/log/odoo  // Here assign the user "root" to directory and the log file will be created from the config file once you start the server.
+
+10.)pip3 install wheel
+
+11.)pip3 install -r odoo/requirements.txt
+
+12.)sudo nano /etc/odoo-server.conf
+
+[options]
+; This is the password that allows database operations:
+; admin_passwd = admin
+db_host = False
+db_port = False
+db_user = odoo
+db_password = False
+logfile = /var/log/odoo/odoo-server.log
+addons_path = /opt/odoo/addons,/opt/odoo/odoo/addons
+
+sudo chown root: /etc/odoo-server.conf
+sudo chmod 755 /etc/odoo-server.conf
+
+
+12.)sudo nano /etc/systemd/system/odoo-server.service
+
+
+[Unit]
+
+Description=Odoo14
+
+Requires=postgresql.service
+
+After=network.target postgresql.service
+
+[Service]
+
+Type=simple
+
+SyslogIdentifier=odoo
+
+PermissionsStartOnly=true
+
+User=odoo14
+
+Group=odoo14
+
+ExecStart=python3 /opt/odoo14/odoo/odoo-bin -c /etc/odoo-server.conf
+
+StandardOutput=journal+console
+
+[Install]
+
+WantedBy=multi-user.target
+
+
+13.)
+	sudo chmod 755 /etc/systemd/system/odoo-server.service
+
+	sudo chown root: /etc/systemd/system/odoo-server.service
+
+14.)
+	sudo systemctl daemon-reload
+
+	sudo systemctl enable --now odoo-server  //here odoo-server is the service file name
+
+
+15.)sudo systemctl status odoo-server 	//here odoo-server is the service file name
+
+
+16.)
+
+	To check the Odoo messages logs, use the below-given command on the terminal:
+
+	sudo journalctl -u odoo-server //here odoo-server is the service file name

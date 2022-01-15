@@ -1,0 +1,107 @@
+Timesheet:- Install timesheet module.
+
+Timesheet --> Configuration
+	A.)Time Encoding
+		1.)Encoding Unit
+		2.)Awesome Timesheet
+		3.)Round Timesheets
+		
+	B.)Billing
+		1.)Invoicing Policy
+		
+	C.)Timesheet Control
+		1.)Employee Reminder
+		2.)Manager Reminder
+		
+	D.)Time OFF
+		1.)Record Time off
+		
+		
+A.)Time Encoding
+	1.)Encoding Unit:
+		Here you have only 2 values "Hours" and "Day", where hours is the default value.
+		If hours is selected then you can record task duration in hours.
+		If day is selected then you can record task duration in day.
+		when you will record the working duration for task at that time you will see the duration in hours/day.
+		The pdf report "Timesheet Entries" will be print the duration value depending upon the selection in Endcoing Unit.
+		
+	2.)Awesome Timesheet
+		Track your time from anywhere, even offline, with our web/mobile apps
+		Note:- Timesheet recorded offline get synch once you are online.
+		
+	3.)Round Timesheets
+		Minimal duration 15 minutes
+		Rounding up 15 minutes
+		
+		Rounding up works only when you make use of Timer for timesheet(when use START button on My Timesheet menu) and
+		it does not work when you use the "ADD A Line" (manually) in My Timesheets menu.
+		
+		Now the rounding up value is 15 minutes so if you log only 2 minutes using the START button then it will make entry of 
+		15 minutes.
+		Again you start and log 1 minutes it will add 15 minutes in the existing so now it will be 30 minutes.
+		Every time you log less then 15 minutes it will make entry of 15 minutes.
+		
+		Example 2
+			Minimal duration 35 minutes
+			Rounding up 30 minutes
+		
+				if you logged time 2 less then 35 minutes than it will record the time as 1 hours (minimal+rounding time)
+		
+		Note:- This will not work for manual entry.
+
+B.)Billing
+		1.)Invoicing Policy (Record time spent and invoice it based on:)
+			i.)All recorded timesheets
+			ii.)Approved timesheets only
+		
+		From Project Overview You have the button of Create Invoice.
+			If you have mark the invoice policy in Timesheet App -- "Approved timesheets only" then Create Invoice Button will 			not be visible untill you validate the timesheet.
+			
+			
+C.)Timesheet Control
+		1.)Employee Reminder :- send email
+		2.)Manager Reminder :- send email
+	
+
+******************* Menus	
+		
+My Timesheet:
+	Here you will see the "ADD A LINE" button and START button and the Porject name.
+	Before project name you can see "ABCD" characters assigned to the project/task
+	suppose project "Research and Development" has "B" alphabet before it.
+	so if you press hit "B" in the keyboard then timer will start automatically for that project.
+	Suppose for task RnD of project "Research and Development" has "c" alphabeat before it.
+	    "c"	"Research and Development / Rnd"
+	so if you press hit "c" in the keyboard then timer will start automatically for task RnD.
+	If you hit "Enter" or "Space" key then the timer will start but you have to select the project manually.
+	
+	In the table view you will see the logged hours and magnifying glass icon of particular task
+	if you click on magnifying glass icon then you will see all the logged records of that task.
+	you can even change the logged hours from there.
+	if you decrease the hours then the negative entry of hours is entered in that task.
+	
+
+To Validate
+	Being a manager you have to validate the timesheet
+	In Timesheet App , you will find the menu "To Validate", click on it and you will find 2 options Last week and Last Month.
+	By default "Non Validated" filter will be added so you will see only those records which need to be validated.
+	If you click on Validate button the whole timesheet will be validated.
+	You have project, task and other filter to select the particular task and project.
+	From the tree view select particular records and in "Action" button you will have validate option.
+			
+			
+		
+
+1.)Add timesheet on fly:
+	Go to Timesheet App, you will see the timesheet and in top left hand you will see the "Add A Line" button click on it 
+	you can select the project task and deadline and enetry the hours you took to complete the task.
+	In the date column of task row you can add the hours.
+
+
+
+3.)where you will define cost/per hour of employees working on Projects.
+	Go to employee App, select the employee and in HR Settings Tab you will find a field "Timesheet cost ____ per hour".
+
+
+
+Analysis Report from reporting menu

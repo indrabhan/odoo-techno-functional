@@ -1,0 +1,33 @@
+Install Planning App
+
+Planning is used to create shifts for employee.
+	Each shift has 1 employee, as employee is many2one field.
+
+Openshift means employee is not assign to shift.
+
+
+1st create the role and assign time to it(Planning App --> Configuration)
+	Saturday Delivery
+	Waiter
+
+2nd Create Shift template(Planning App --> Configuration)
+	In template you assign the working hours role wise
+		Saturday Delivery 9AM - 12AM
+		Saturday Delivery 1PM - 4PM
+		Waiter 2PM - 12AM
+
+In scheduling menu select any option and click on Add button to create shift, even you can create shift template here.
+	On that form in below you see 2 buttons
+
+		1.)Publish: the shift will be visible to employee.
+
+		2.)Publish & Send:-the shift will be visible to employee and notification will be send to employee.
+
+
+Planning App--> Configuratio -- Setting
+	Allow Unassignment :- It will allow employee to unassign from shift if he is not available, so that shift will be available to other 				       employee.
+
+			When employee see the shift assign to him their he will find option to "I am Unavailable" the shift and choose other 				shift (Open shift) to assign him as their is also option of "Assign to me".
+
+
+Note:- Shifts can be sepcific to project/task also, Only those project/task will be listed in dropdown whose planning boolean field is ticked on projects.

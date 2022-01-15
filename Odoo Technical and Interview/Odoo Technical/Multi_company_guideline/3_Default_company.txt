@@ -1,0 +1,21 @@
+Default company
+
+	When the field company_id is made required on a model, a good practice is to set a default company.
+	It eases the setup flow for the user or even guarantees its validity when the company is hidden from the view.
+	Indeed, the company is usually hidden if the user does not have access to multiple companies (i.e. when the user does not have the 	group base.group_multi_company).
+	
+	
+	from odoo import api, fields, models
+
+	class Record(models.Model):
+	    _name = 'record.restricted'
+	    _check_company_auto = True
+
+	    company_id = fields.Many2one(
+		'res.company', required=True, default=lambda self: self.env.company
+	    )
+	    other_record_id = fields.Many2one('other.record', check_company=True)
+
+
+	View:-
+		<field name="company_id" groups="base.group_multi_company"/>

@@ -1,0 +1,207 @@
+https://www.cybrosys.com/blog/types-of-actions-in-odoo
+
+https://www.cybrosys.com/blog/types-of-actions-in-odoo-13
+
+
+https://www.cybrosys.com/blog/server-actions-odoo-13
+
+
+
+Types of Actions:
+	1. Server Actions
+	2. Client Actions
+	3. Window Actions
+	4. URL Actions
+	5. Report Actions
+	6. Automated Actions 
+
+
+1.)Server Actions: 
+
+	Represents server action model.
+	Server action work on a base model and offer various type of actions that can be executed automatically.
+	The available server actions are:
+	    1. Execute Python Code
+	    2. Create a new record
+	    3. Update the record
+	    4. Send Email
+	    5. Execute several actions
+	    6. Add Followers
+	    7. Create the next Activity
+	    8. Send SMS text Message
+
+	Create the reord in xml file, mostly we preferd to write in data.xml
+
+	Example1:- We want to show menu in Action dropdown (appears beside the print button).menu should be seen in tree/form views.
+		   when selecting the records in tree view and click on Action dropdown and click on our customize menu created,when clicking 			   on menu it will print the PDF Reports.
+	
+		<record id="action_set_salesperson" model="ir.actions.server">
+			<field name="name">Set Sales Person</field>
+			<field name="model_id" ref="base.model_res_partner"/>
+			<field name="state">code</field> 				// Here it means execute python code.
+				action = model.get_sale_report()  			// This method will print the report. 
+		</record>
+
+	
+	Example2:- We want to send mail to partners from Action dropdown.Same we will create the menu and clicking on the menu the mail should 			  be trigger to selected records.
+
+		  In xml file we need to select state as email and select the template as well.
+
+
+	Example3:- 
+		<field name="state">multi</field>
+	
+		Here we will create the menu in Action dropdown, click on that menu it will open another wizard contenting the child_ids 			action. This child_ids action we need to define.
+	
+		Now you can select multiple actions.
+
+	
+
+2.)Client Actions:-
+
+	Represent client action model.
+	To refresh the whole interface you can make use of reload tag of client actions.
+	we can also create custome actions : these actions are defined as menu_items in xml and it mapped to a widget.
+
+	Example1: Refresh the original view after wizard action.
+		
+		Important fields:
+			tag: An arbitrary string, interpreted by the client according to its own needs and Wishes.
+			Example: ‘reload’, ‘reload_context’, ‘change_password’, 
+				 ‘bank_statement_reconciliation_view’
+
+		target: Selection field refers to the type of Target window. Options are,
+			    > current: Client action will open in the main content  area
+			    > new: will open in a dialog/popup window.
+			    > fullscreen: will open in fullscreen mode.
+			    > main: open in the main content area (without breadcrumbs)
+
+		res_model: Refers to the destination model, optional field.
+
+		For example, a simple client action to reload the whole interface is.
+			return {
+			    'type': 'ir.actions.client',
+			    'tag': 'reload',
+			}
+
+		Note:- When you will return nothing then it will it simply close that wizard and to reload you will need to pass this values. 
+
+
+
+	Example2:
+
+		Xml:
+		<record id="example_client_action" model="ir.actions.client">
+		    <field name="name">Pdf Report</field>
+		    <field name="tag">pdf_report_page</field>
+		</record>
+
+		<menuitem id="example_menuitem" name="Reporting" parent="report_menu"
+			  action="example_client_action"/>
+
+
+		Then we need to create a widget in js with name as pdf_report_page.
+
+
+	Example3:
+		One can also create custom client actions according to their need. For this, we have to define an action and need to map this 			action to a widget.	
+
+		Xml:
+		<record id="custom_client_action" model="ir.actions.client">
+			 <field name="name">Custom Action</field>
+			 <field name="tag">my_custom_tag</field>
+		</record>	
+
+		Here defined custom tag ‘my_custom_tag’ to represent the new client action.Now we have to map this tag to a widget.
+
+		odoo.define('my_module.MyCustomAction',  function (require) {
+		"use strict";
+		var AbstractAction = require('web.AbstractAction');
+		var core = require('web.core');
+		var  MyCustomAction = AbstractAction.extend({
+			template: "MyCustomAction",
+			 start: function () {
+				// Actions to do
+			  },    
+		  // Functions according to the working of the widget.        
+		}):
+		  // Following code will attach the above widget to the defined client action
+
+		core.action_registry.add("my_custom_tag", MyCustomAction);
+		}):
+
+				
+
+3.)URL Actions (ir.actions.act_url)
+
+	This action used to open a URL(website/web page).
+
+	Important fields: 
+		1.)url: The action URL 	
+		2.)target: Selection field to represent the action target.
+		    > new: opens the given URL in a new window/page.
+		    > Self: replaces the current content with the URL page.
+
+	Example:
+		 if one needs to redirect to a website in a button click, then have to  return the URL action on the button click method, like
+
+		 return {
+			   'type': 'ir.actions.act_url',
+			   'target': 'self',
+			   'url': 'https://google.com',
+			}
+
+	
+	Also one can redirect to the controller routes (web pages) by using the URL action.
+
+	Example, if one needs to redirect to the shop in the website from the product master, can use the URL action as
+		
+		return {
+			   'type': 'ir.actions.act_url',
+			   'target': 'self',
+			   'url': '/shop/product/%s' % product.id,  // controller routes.
+			}
+
+
+4.)Report Actions (ir.actions.report)
+
+	Triggers the printing of a report
+
+	Example:
+
+		<record id="pos_invoice_report" model="ir.actions.report">
+		    <field name="name">Invoice</field>
+		    <field name="model">pos.order</field>
+		    <field name="report_type">qweb-pdf</field>
+		    <field name="report_name">point_of_sale.report_invoice</field>
+		    <field name="print_report_name">'Invoice - %s' % (object.name)</field>
+		</record>
+
+
+	1.)name (mandatory)
+		only useful as a mnemonic/description of the report when looking for one in a list of some sort.
+
+	2.)model (mandatory)
+		the model your report will be about
+	
+	3.)report_type (default=qweb-pdf)
+		either qweb-pdf for PDF reports or qweb-html for HTML or Text.
+
+	4.)report_name (mandatory)
+		the name of your report (which will be the name of the PDF output)
+
+	5.)groups_id
+		Many2many field to the groups allowed to view/use the current report.
+
+	6.)multi
+		if set to True, the action will not be displayed on a form view.
+
+	7.)paperformat_id
+		Many2one field to the paper format you wish to use for this report (if not specified, the company format will be used)
+	
+	8.)attachment_use
+		if set to True, the report is only generated once the first time it is requested, and re-printed from the stored report 			afterwards instead of being re-generated every time.
+		Can be used for reports which must only be generated once (e.g. for legal reasons)
+
+	9.)attachment
+		python expression that defines the name of the report; the record is accessible as the variable object

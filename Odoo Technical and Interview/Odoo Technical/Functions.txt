@@ -1,0 +1,74 @@
+1.)filtered(func):
+	here is going to check True of False. when there is condition then we used filter.
+
+	Return the records in self satisfying func.
+
+	Parameters
+		func (callable or str) – a function or a dot-separated sequence of field names
+
+	Returns
+		recordset of records satisfying func, may be empty.
+		
+	Example:-
+		# only keep records whose company is the current user's
+		records.filtered(lambda r: r.company_id == user.company_id)
+
+		# only keep records whose partner is a company # partner_id.is_company == True
+		records.filtered("partner_id.is_company")
+		
+		
+
+2.)mapped(func):
+	Apply func on all records in self, and return the result as a list or a recordset (if func return recordsets).
+	
+	Parameters
+		func (callable or str) – a function or a dot-separated sequence of field names
+
+	Returns
+		self if func is falsy, result of func applied to all self records.
+
+	Return type
+		list or recordset
+		
+	Example:-
+		# returns a list of summing two fields for each record in the set
+		records.mapped(lambda r: r.field1 + r.field2)
+	
+
+		The provided function can be a string to get field values:
+
+		# returns a list of names
+		records.mapped('name')
+
+		# returns a recordset of partners
+		records.mapped('partner_id')
+
+		# returns the union of all partner banks, with duplicates removed
+		records.mapped('partner_id.bank_ids')
+
+
+	Note
+
+		Since V13, multi-relational field access is supported and works like a mapped call:
+
+		records.partner_id  # == records.mapped('partner_id')
+		records.partner_id.bank_ids  # == records.mapped('partner_id.bank_ids')
+		records.partner_id.mapped('name')  # == records.mapped('partner_id.name')
+		
+		
+		
+3.)sorted:-
+	Here the word "key" is important
+	
+	Return the recordset self ordered by key.
+	
+	Parameters
+		key (callable or str or None) – either a function of one argument that returns a comparison key for each record, or a 			field name, or None, in which case records are ordered according the default model’s order
+
+	reverse (bool) – if True, return the result in reverse order
+	
+	Example:-
+		# sort records by name
+		records.sorted(key=lambda r: r.name)
+		
+		here the return recordset will be in sorted by the names.

@@ -1,0 +1,316 @@
+search for ans of difference between binary and image field in odoo.
+
+Fields:
+
+	1.)company_dependent:-
+		
+
+	1.)simple/basic:- Char, Integer, Float, Boolean.
+
+	2.)Advance:- Binary, Html, Image, Monetary, Selection, Text, Date, Datetime.
+	
+			A.)Binary:-
+				Encapsulates a binary content (e.g. a file).
+
+				Parameters:- attachment (bool) – whether the field should be stored as ir_attachment or in a column of the 				model’s table (default: True).
+				
+			B.)Image:-
+				Encapsulates an image, extending Binary.
+				
+				If image size is greater than the max_width/max_height limit of pixels, the image will be resized to the 					limit by keeping aspect ratio.
+				
+				Parameters
+					max_width (int) – the maximum width of the image (default: 0, no limit)
+
+					max_height (int) – the maximum height of the image (default: 0, no limit)
+
+					verify_resolution (bool) – whether the image resolution should be verified to ensure it doesn’t go 						over the maximum image resolution (default: True). See odoo.tools.image.ImageProcess for maximum 						image resolution (default: 45e6).
+
+			C.)Monetary:-
+				Adding a monetary field to a Model Odoo has special support for monetary values related to a currency. 					usually while creating a fields that unit of measure have linked with currency ( Like 					amount_total, price_subtotal, payment_difference.) we user Monetary for that field.
+	
+  				Example:-
+					balance_start = fields.Monetary(string='Starting Balance', 
+					states={'confirm': [('readonly', True)]}, default=_default_opening_balance)
+					
+			D.)Selection:
+				selection = [('a', 'A'), ('b', 'B')]
+				selection_add = [('c', 'C'), ('b',)]
+				
+				>> result = [('a', 'A'), ('c', 'C'), ('b', 'B')]
+				
+			E.)Date and Datetime
+
+				to_date() will convert to a datetime.date
+				to_datetime() will convert to a datetime.datetime.
+
+			Example
+				To parse date/datetimes coming from external sources:
+
+				fields.Date.to_date(self._context.get('date_from'))
+				
+				
+			Timezones
+
+			Datetime fields are stored as timestamp without timezone columns in the database and are stored in the UTC 			timezone. This is by design, as it makes the Odoo database independent from the timezone of the hosting server 				system. Timezone conversion is managed entirely by the client side.
+
+
+	3.)Relational:- Many2one, One2many, Many2many
+		A.)Many2one:-
+			Parameters	
+				1.)comodel_name (str) – name of the target model Mandatory except for related or extended fields.
+				2.)domain – an optional domain to set on candidate values on the client side (domain or string)
+				3.)context (dict) – an optional context to use on the client side when handling that field
+				4.)ondelete (str) – what to do when the referred record is deleted; possible values are: 'set null', 								'restrict', 'cascade'.
+				5.)auto_join (bool) – whether JOINs are generated upon search through that field (default: False)
+				6.)delegate (bool) – set it to True to make fields of the target model accessible from the current model 								(corresponds to _inherits)
+				7.)check_company (bool) – Mark the field to be verified in _check_company(). Add a default company domain 						depending on the field attributes.
+
+		B.)One2many:-
+			Parameters	
+				1.)comodel_name (str) – name of the target model
+				2.)inverse_name (str) – name of the inverse Many2one field in comodel_name
+				3.)domain – an optional domain to set on candidate values on the client side (domain or string)
+				4.)context (dict) – an optional context to use on the client side when handling that field
+				5.)auto_join (bool) – whether JOINs are generated upon search through that field (default: False)
+				6.)limit (int) – optional limit to use upon read.
+
+
+		C.)Many2many:-
+			Parameters	
+				1.)comodel_name – name of the target model (string) mandatory except in the case of related or extended 							fields.
+				2.)relation (str) – optional name of the table that stores the relation in the database.
+				3.)column1 (str) – optional name of the column referring to “these / current” records in the table 						relation.
+				4.)column2 (str) – optional name of the column referring to “those” records in the table relation.
+				5.)domain – an optional domain to set on candidate values on the client side (domain or string)
+				6.)context (dict) – an optional context to use on the client side when handling that field
+				7.)check_company (bool) – Mark the field to be verified in _check_company(). Add a default company domain 						depending on the field attributes.
+				8.)limit (int) – optional limit to use upon read.
+			
+		Note:-	
+			Accessing a relational field (Many2one, One2many, Many2many) always returns a recordset, empty if the field is not set.
+
+
+
+	4.)Reference field:-
+		1.)A reference field will help to create a dynamic relationship in a model.
+		
+		2.)Which means we can select the model dynamically to create the relation. In Many2one, One2many and Many2many fields we can 			   pre-define the target model in which the relationship needs to be created. 
+			For example, in a Sale Order, if we create a Many2one field to Customers, it will only create a relation between these 				two models, here we pre-define the target model that is customers.
+
+		3.)In the case of the reference field first, we can select the target model and then select the record. 
+			For example, In Customer model I need to add a field ‘Document Source’, In this, for some customers, I need to add a 				Purchase Order as document source,  for some other customers need to add Sale Order as source,  and also sometimes I 				may need to add an Invoice as the source. In this case, I can define a reference field, so I can first choose the 				model (Purchase, Sale, or Invoice) and then select the record.
+
+		4.)Example in Odoo:-
+			We can see a simple example of a reference field from Settings >> Technical >> Menu Items.	
+			If we try to create a Menu Item from here, we have to choose an Action for this menu. This Action field is a Reference 				Field. Because first, we have to select the action model, ie have to select whether it is an ir.actions.the report, 				ir.actions.server, ir.actions.act_window, etc.
+			After selecting that, we have to selecte the model i.e sale, purchase etc.
+
+		5.)one way of writting:
+			source_document = fields.Reference(selection=[('sale.order', 'Sale Order'), 
+                                                                      ('purchase.order', 'Purchase Order'),
+                                                                      ('account.move', 'Invoice')],string=”Source Document”)
+
+		6.)second way of writting:-
+			source_document = fields.Reference(selection='_select_target_model’, string=”Source Document”)
+			@api.model
+			def _select_target_model(self):   
+			       models = self.env['ir.model'].search([])
+			       return [(model.model, model.name) for model in models]
+
+
+
+			Example 2:
+
+				record_ref = fields.Reference(string="Source Reference", \
+		                            selection=[('purchase.order', 'Purchase Order')], \
+		                            compute='_record_ref')
+
+				@api.dep ends('name')
+				def _record_ref(self):
+				    if self.name != 'New':
+					self.record_ref =  'purchase.order,' + str(self.id)
+
+
+
+		7.)A reference field will store in the database as <model_name>, id.
+
+			Eg: sale.order(10,)
+			    purchase.order(3,)
+
+		Note:-  We can access the reference fields like we access a Many2one filed.	
+			Create dynamic relationship, takes list of tuple so when writing method return list of tuple.
+			
+
+	5.)computed field:-
+		1.)The value of a computed field usually depends on the values of other fields on the computed record. 
+		2.)The ORM expects the developer to specify those dependencies on the compute method with the decorator depends().
+		3.)In depends we can use dot notated fields like "partner_id.name"
+		4.)The given dependencies are used by the ORM to trigger the recomputation of the field whenever some of its dependencies have 				been modified.
+
+		4.)Example:
+			name = fields.Char(compute='_compute_name')
+
+		5.)Computed fields are not stored by default, they are computed and returned when requested. Setting "store=True" will store 				them in the database and automatically enable searching.
+			
+		6.)searching on a computed field can also be enabled by setting the search parameter. The value is a method name 			returning a Search domains.
+		
+			Example:-
+				upper_name = field.Char(compute='_compute_upper', search='_search_upper')
+				def _search_upper(self, operator, value):
+				    if operator == 'like':
+					operator = 'ilike'
+				    return [('name', operator, value)]
+
+		7.)Computed fields are readonly by default. 
+			To allow writting values on a computed field, use the inverse parameter.
+		   	 It is the name of a function reversing the computation and setting the relevant fields:
+		   	 
+		   	 	document = fields.Char(compute='_get_document', inverse='_set_document')
+		   	 	
+		   	 	Example:-
+
+					def _get_document(self):
+					    for record in self:
+						with open(record.get_document_path) as f:
+						    record.document = f.read()
+						    
+					def _set_document(self):
+					    for record in self:
+						if not record.document: continue
+						with open(record.get_document_path()) as f:
+						    f.write(record.document)
+						    
+						    
+		Note:-
+			multiple fields can be computed at the same time by the same method, just use the same method on all fields and 				set all of them.
+			
+			Warning
+
+				While it is possible to use the same compute method for multiple fields, it is not recommended to do the 					same for the inverse method.
+
+
+
+	
+	6.)Related fields:-
+		1.)Provide the value of a sub-field on the current record.
+		2.)They are defined by setting the related parameter and like regular computed fields they are note stored, we need to use 			   'store' parameter equal to true.
+
+		3.)nickname = fields.Char(related='user_id.partner_id.name', store=True)
+		
+		4.)Related fields are automatically recomputed when their dependencies are modified.
+		
+		5.)By default, related fields are:
+
+			not stored
+			not copied
+			readonly
+			computed in superuser mode
+			
+		6.)Tip
+
+		You can specify precise field dependencies if you don’t want the related field to be recomputed on any dependency change:
+
+		nickname = fields.Char(
+		    related='partner_id.name', store=True,
+		    depends=['partner_id'])
+		    
+		# The nickname will only be recomputed when the partner_id
+		# is modified, not when the name is modified on the partner.
+		
+		7.)Warning
+
+			You cannot chain Many2many or One2many fields in related fields dependencies.
+
+			related can be used to refer to a One2many or Many2many field on another model on the condition that it’s done 				through a Many2one relation on the current model. One2many and Many2many are not supported and the results will 				not be aggregated correctly:
+			
+			m2o_id = fields.Many2one()
+			m2m_ids = fields.Many2many()
+			o2m_ids = fields.One2many()
+
+			# Supported
+			d_ids = fields.Many2many(related="m2o_id.m2m_ids")
+			e_ids = fields.One2many(related="m2o_id.o2m_ids")
+
+			# Won't work: use a custom Many2many computed field instead
+			f_ids = fields.Many2many(related="m2m_ids.m2m_ids")
+			g_ids = fields.One2many(related="o2m_ids.o2m_ids")
+
+
+	7.)Automatic/magic fields:-
+			id, create_date, create_uid, write_date, write_uid
+
+
+	8.)Reserved fields:-
+			name, _rec_name, active, state, parent_id, parent_path
+			
+			parent_id
+				default_value of _parent_name, used to organize records in a tree structure and enables the child_of and 					parent_of operators in domains.
+				
+			parent_path
+				When _parent_store is set to True, used to store a value reflecting the tree structure of _parent_name, 					and to optimize the operators child_of and parent_of in search domains.
+				It must be declared with index=True for proper operation.
+
+
+
+
+	9.)default field:-
+		Any field can be given a default value. 
+		In the field definition, add the option default=X where X is either a Python literal value (boolean, integer, float, string), 			or a function taking a recordset and returning a value.
+		Example:
+			name = fields.Char(default="Unknown")
+			user_id = fields.Many2one('res.users', default=lambda self: self.env.user)
+
+		The object self.env gives access to request parameters and other useful things:
+
+			1.)self.env.cr or self._cr is the database cursor object; it is used for querying the database
+			2.)self.env.uid or self._uid is the current user’s database id
+			3.)self.env.user is the current user’s record
+			4.)self.env.context or self._context is the context dictionary
+			5.)self.env.ref(xml_id) returns the record corresponding to an XML id
+			6.)self.env[model_name] returns an instance of the given model
+
+
+	10.)Attributes of fileds:- string, require, readonly, help, index, ondelete='cascade', ondelete='null', ondelete='restrict',
+					copy, invisible, groups, company_dependent, group_operator(str), group_expand (str)
+
+
+		All the things related to Ondelete is the database functionality and not of odoo.
+
+		ON DELETE CASCADE : SQL Server deletes the rows in the child table that is corresponding to the row deleted from the 						parent table. 
+		ON DELETE SET NULL : SQL Server sets the rows in the child table to NULL if the corresponding rows in the parent table 						are deleted.
+
+		Example:- sale order (parent) and sale order line (child table)
+
+			class sale_order(models.Model):
+    				_name = 'sale.order'
+
+				'order_line': fields.one2many('sale.order.line', 'order_id', 'Order Lines', readonly=True, 
+				states={'draft':[('readonly', False)], 'sent': [('readonly', False)]})
+
+
+			class sale_order_line(models.Model):
+    				_name = 'sale.order.line'
+
+				'order_id': fields.many2one('sale.order', 'Order Reference', required=True, ondelete='cascade', select=True, 					readonly=True, states={'draft':[('readonly',False)]})
+
+
+		group_operator (str) –
+
+			aggregate function used by read_group() when grouping on this field.
+
+			Supported aggregate functions are:
+
+			array_agg : values, including nulls, concatenated into an array
+			count : number of rows
+			count_distinct : number of distinct rows
+			bool_and : true if all values are true, otherwise false
+			bool_or : true if at least one value is true, otherwise false
+			max : maximum value of all values
+			min : minimum value of all values
+			avg : the average (arithmetic mean) of all values
+			sum : sum of all values
+			
+
+property field:- http://ninetynine-plus.com/2017/06/20/odoo-different-of-functional-field-vs-property-field/#:~:text=Property%20Fields%3A,field%20in%20respective%20object%20table.
+

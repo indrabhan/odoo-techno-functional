@@ -1,0 +1,300 @@
+1.)Payment Methods:
+	You can give various ways of payment to customer.
+	Activate the payment methods from Invoicing -->setting -->payment acquire.
+	In the customer invoice you can see the "preview" button. click on it and you will see "Pay Now" button
+
+
+2.)Online payment:
+	Activate it
+		Invoicing --> Setting --> Customer Payment Section --> Invoice Online Payment (Let your customers pay their invoices 
+																online)
+																
+3.)Report Layout:
+	you can change the report layout.
+	here odoo has provided 4 sample layout.
+	Settings -> General Settings -> Business Documents Section --> "Document Template".
+	here you can add the footer content and logo for header.
+	
+
+4)Sepa QR Code:
+	Activate it
+		Invoicing --> Setting --> Customer Payment Section --> OR Codes (Add a payment QR-code to your invoices)
+		It will add the QR code on invoice.
+		In the customer invoice you can see the "preview" button. Click on and in the bottom you will see QR Code image.
+		Preview button opens the website view.
+		In the invoice print also you can find QR code image.
+		
+		For "Wire Transfer" payment acquire, in the config tab you will have the option "enable OR Code"
+		Now this QR Code will be visible for the this payment.
+		
+		Note:- You have to add the bank account details. It work for in europen countries.
+			It will work by scanning only through Banking App.
+			
+	Question:
+		How can I display a QR Code on an eCommerce Website or on an invoice in the customer's portal?
+		
+		By enabling "SEPA QR Code" in Configuration -> Settings -> Customer Payments.
+		By adding a "SEPA QR Code" block to the Web Page Edition view.
+		By enabling "Use SEPA QR Code" in a Payment Acquirer's form view, under the Configuration tab.	(Correct)
+		By activating the "SEPA QR Code" Payment Acquirer.
+		
+		
+5.)Taxes:-
+	You can set the default sales and purchase taxes from Accounting Setting.
+	In SOL and POL this taxes get auto apply.
+	If you want to set tax specific to product then on product template you can set it on field Customer Taxes.
+	In SOL when selecting the specific product you will see that tax..
+	
+	Type of Taxes:
+		sales
+		purchase
+		none
+		
+	Taxes Scope:- Restrict the use of tax to the type of product.
+		services
+		Goods
+
+	Note:-
+		You have to pay amount collected from tax to Goverment
+		Amount to Goverment = Paid taxes to vendor(PO) - Receive taxes from customer(SO)
+		On every tax, account is configured so we know in which account the tax amount will go.
+
+	Example1:- SO amout 1000, tax applied as GST 5%, tax amount=50, Total amount=1050
+		   When you make the paymet using bank journal, so 
+		   In General Ledger Report:- the account linked with bank journal will get the amount.
+					      the tax account link with the tax will get the tax amount.
+					      
+		Tax group:- The Sequence Matter
+		Here you can specify the sequence.
+		Bydefault the sequence is 10.
+		If the sequence is 5 then this tax or tax group will be applied before the other tax or tax group depends on the sequence.
+		
+		How can you check it is applied before or not?
+			Apply two taxes on a product with diffeent sequence, Now in sale order line when you select the product the tax 
+			with lower tax group will be 1st in the taxes field (column). and it means this tax will be applied first.
+			
+		Affect Base of Subsequent taxes:
+			If set Taxes which are computed after this one will be computed based on the price taxed included.
+			This is the option in taxes.
+			If you select this option then the tax applied after this tax will be calculated including base price + tax amount 			of subsequent tax.
+			Example:-	OtherTax Amount = (price + tax amount of Subsequent tax).
+			
+	Question:- What does the "Affect Base of Subsequent Taxes" option do when activated on a tax?
+	
+		The next tax (listed after the current one in the taxes' list) will be added to the base on which the current tax will be 			applied.
+		
+		The amount of the tax will be included in the price.
+		
+		The current tax will be added to the base on which the next tax (listed after the current one in the taxes' list) will be 			applied. (Correct)
+		
+		It will summon an army of minions.
+		
+	
+	Question:- Why is the order of the taxes' list crucial?
+		
+		It defines the order in which the different taxes are displayed on the invoices, between the subtotal and the total.
+		
+		It defines in which order the taxes are computed.	(Correct)
+		
+		It is not crucial; it only allows us to keep our list well organized.
+		
+		Because taxes that affect the base of subsequent taxes and that are mapped in Fiscal Positions need to be next to each 			other for them to be correctly applied when you create a new invoice for a customer based abroad or taxed differently.
+
+	
+	
+
+
+General Terms:
+	
+	I.)Accrual and Cash Basis Methods:
+		1.)Odoo supports both accrual and cash basis reporting.
+		2.)The difference between cash and accrual accounting lies in the timing of when sales and purchases are recorded in your 				accounts. 
+		3.)Cash accounting recognizes revenue and expenses only when money changes hands, but accrual accounting recognizes 			revenue when it's earned, and expenses when they're billed (but not paid).
+
+
+What is consolidation:
+	consolidation means to combine assets, liabilities, and other financial items of two or more entities(child/sister companies) 		into one(parent).
+
+	we have consolidation reports also
+
+		
+
+1.)Credit Notes and Refunds.
+	Customer:- Anand
+	SO Amount:-10,500(including tax)
+	Create Invoice and Post the invoice:
+		The state of invoice is changed to Posted
+		when you post the invoice, In Aged Receivable Report the entery created with amount 10,500/-
+		The Amount which is receivable from customer is shown in Aged Receivable Report.
+		When you post the invocie, In Partner Ledger Report the entery is created with below details
+				Initial Balance 	Debit 	Credit 	Balance
+				0.00			10,500	null	10,500
+	Register the Payment:
+		As soon as you register the payment., The entery is created for that payment, Accounting App-- Customer--Payments.
+		suppose you pay 1000 and 2000, so 2 payments entery will be created.
+
+		Aged Receivable:
+			amount = 7500
+
+		Partner ledger:
+				Initial Balance 	Debit 	Credit 	Balance
+				0.00			10,500	null	10,500
+				10,500			null	1000	9,500
+				9,500			null	2000	7,500
+
+	Refund the Invoice:
+		The invoice is in posted state, Click on ADD CREDIT NOTE button
+		You will have 3 options:
+				1.)Partial Refund
+				2.)Full Refund
+				3.)Full refund and new draft invoice.
+		
+		Note:- when click on ADD CREDIT NOTE button above 3 options will appear only when the invoice is not paid even if you pay 				some amount then also all 3 options will not appear.You will only see "Partial Refund" Option.
+
+
+	Full Refund:-
+		you have validate the invoice but not paid even a single rupee for that invoice.
+		Click on Add Credit Note and now you will see all 3 options.
+		when you select Full Refund Odoo create a credit note, automatically validates it, and reconciles the original invoice 			with it.
+		In short the new invoice and the original invoice will be paid.
+
+	Partial Refund:-
+		when the invoice is paid and you want to refund it.
+		Click on ADD CREDIT NOTE button.
+		The Partial Refund option will be auto selected and it will be in readonly Mode.
+		It will create a Invoice in Draft mode.Pay the invoice fully.
+		It means you have refund full payment to customer.You can check the P&L Report's Net profit has been reduce.
+
+	Note :-This is the only option available for invoices that are already marked as Paid.
+
+		Case 2:- You want to return half payment and keep half with you(Outstanding) so next time you can adjust that amount with 				other invoices.
+			
+			SO1 the invoice will be halfy return.The invoice will be in posted state.
+
+			SO2 when you post the invoice you will find the option to reconcile the outstanding amount of SO1.
+			when you reconcile the amount of SO1 in SO2.
+			The half return invoice of SO1 will be in paid state.
+			  
+	Note:-
+		Credit Notes’ numbers start with “R” and are followed by the number of the document they are related to (e.g., RINV/2019/0004).
+
+
+2.)Payment Terms:
+	Payment Terms are the conditions that are used for invoices payments(installment payment),
+	like suppose you give 2% discount If paid within 10 days else need to pay full invoice within 30 days.
+	For 2% discount
+		In Payment Terms select discount option and value=98 and days=10
+		Select the balance entry and days=30
+	
+		Note:- The balance entry should always be last.
+			The 98% amount will get the due date of 10 days and remaining amount will get the due date of 30 days.
+
+	For Cash Discount create the Reconcile Model and keep the account type to expenses for the account used in Reconcile Model.
+
+	How does customer know what are Payment Term for his invoice?
+		When creating the payment term, entry the description about payment terms in the "Description on the Invoice" field.
+		This description will be visible or the Name of payment term when you will click on Customer Preview button on sale order.
+		
+	Note:- On customer form you will have "Invoice" and "Due Date" smart button.
+
+
+5.)General Ledger:
+	Here you will get the transactions of all the accounts that gets affected during transactions.
+	Like 
+	A general ledger is a bookkeeping ledger that serves as a central repository for accounting data transferred from all subledgers like 		accounts payable, accounts receivable, cash management, fixed assets, purchasing and projects
+
+
+6.)Bank Account:-
+	when you create the bank account , journal and Account(COA) is created.
+	you will find this bank acount option to select when paying the Payment.
+	In account overview this bank account is also seen.
+
+
+7.)Fiscal Position:-
+	Suppose In you country the deafult tax applied on product is 5% and if you sell same product to different country then the tax 		applied is 0%, So with the help of Fiscal Position you can manage this.
+	You even have the option of Account Mapping:
+		Account on product and Account to be used.
+
+	In Accounting App you will get the fiscal position menu.
+	You have the option of auto detect the fiscal position in fiscal position record.
+	You can applied to Country Group or to single country.
+	On Order base on partner country the fiscal position get auto selected, even you can specify the fiscal position on partner or 		you can select fiscal position on Order
+
+	Country Group:- Group of countries like Asia has India, Pakistan, Bangladesh .....
+			You can create country group on the fly or you will get menu in Contact App.
+			
+
+
+8.)Invoice project milestones:
+	Create milestone products
+		In Odoo, each milestone of your project is considered as a product. To configure products to work this way, go to any 			product form.
+
+		You have to set the product type as Service under general information and select Milestones in the sales tab.
+
+	Invoice milestones
+		From the sales order, you can manually edit the quantity delivered as you complete a milestone.
+
+	Note:-
+		You can create Milestone1, Milestone2, Milestone3 and select it in SOL and edit the deilvery quantity and create invoice.
+
+
+9.)Reconciliation process
+	A.)Reconciliation:
+		when you issued the invoice to customer of 1000rs it affect the "Customer Invoice" Journal and 
+		When the customer pays you of 1000rs via bank the "Bank" Journal get affected.
+		so it does'nt mean that this 2 enteries are related.
+		Reconcile is the process of linking two enteries and specify they balance with each other and not other enteries.
+
+	Two options of the reconciliation process exist in Odoo.
+
+	1.)We can directly specify the payment on the invoice :- it is of V13
+		1.)Create invoice and register the payment.It has done the reconcialiation process for you and the invoice is paid as you can 				see the amount due as zero.
+		2.)Or you can create the payment and in that invocie you see the "Add" button near the amount due.when you click on it you 				reconcile that payment with that invoice.
+		3.)Now in Odoo you have shown that you have receive money via Bank.
+		4.)In Bank Journal card(Kanban) of Accounting Overview you will see the paid amount in difference.
+		5.)It means that your actual bank account has received that amount.So in odoo you have to show that you have received that 			   money in account so you have to import the bank statement or create it and reconcile/validate it.
+		Note:- In bank statement make the ending balance equal to the computed balance.
+
+	2.)We can reconcile open invoices with bank statements:
+		1.)Suppose invoice is in posted state and you receive the money in you bank account, so you need to link the bank entery with 				this invoice. 
+		2.)Create the bank statement or import and reconcile/validate it with the invoice. 
+		3.)That invoice will be mark as paid.
+
+
+
+10.)Different ways to record a payment:-
+	In Odoo, a payment can either be linked directly to an invoice or be a stand alone record for use on a later date:
+
+	1.)If a payment is linked to an invoice, it reduces the amount due of the invoice. You can have multiple payments linked to the same 			invoice.
+	2.)If a payment is not linked to an invoice, the customer has an outstanding credit with your company, or your company as an 			outstanding balance with a vendor. You can use this outstanding credit/debit to pay future invoices or bills.
+
+	Paying an invoice:-
+		If you register a payment on a customer invoice or a vendor bill, the payment is automatically reconciled with the invoice 			reducing the amount due.
+
+	Payments not tied to an invoice:-
+		1.)In the Accounting application, you can create a new payment from the Sales menu (register a customer payment) or the 			Purchases menu (pay a vendor).
+		2.)If you use these menus, the payment is not linked to an invoice, but can easily be reconciled on an invoice later on.
+
+	Reconciling invoice payments:-
+		When validating a new invoice, Odoo will warn you that an outstanding payment for this customer or vendor is available. 
+
+	Reconciling all your outstanding payments and invoices:-
+		1.)In the Dashboard of Accounting App -- Tax Invoice(Sales) and Vendor Bills(Purchase) Journals.
+			Click on the 3 dots at right hand and select the Payments Matching.
+		2.)The payments matching tool will open all unreconciled customers or vendors and will give you the opportunity to process 				them all one by one, doing the matching of all their payments and invoices at once.
+		3.)Select the payments and the invoice
+		3.)when the total matches then you will see the Reconcile/Validate button.
+
+
+
+11.)Types of journals:
+	1.)sales
+	2.)Purchase
+	3.)Bank
+	4.)Cash
+	5.)Miscellaneous
+
+12.)Scopes of Taxes:
+	1.)Sales
+	2.)Purchase
+	3.)None

@@ -1,0 +1,48 @@
+*Linux:- Linux is an open source and free software operating system built around Linux kernel.
+	Linux usage is very high among servers, the majority of the web servers across the world run on Linux based operating system.
+    **Unbuntu:- Ubuntu is open source and freely available operating system, one of the Linux distributions.
+		There are several flavors of Ubuntu in markets like Ubuntu desktop for personal computing,Ubuntu server for servers and Ubuntu 			core for a network of physical devices popularly known as the Internet of things (IoT).
+
+
+ODoo Installation:-
+	1.)Creating a user account for Odoo:-
+		a.)If you are logged in as a root than please create another user since its consider as bad practice to work as root.
+		b.)In particular, the Odoo server will refuse to run if you start it as the root. 
+		c.)If you are using Ubuntu, you probably won't need this since the installation process must have already guided you through 			   the creation of a user.
+		d.)Make sure sudo is install (apt-get install sudo)
+		e.)user can be created by using "useradd" command.
+			command:- useradd -m -g sudo -s /bin/bash odoo 		# Create an 'odoo' user with sudo powers
+			command:- passwd odoo 					# Ask and set a password for the new user
+
+		You can change odoo to whatever username you may want. The "-m" option ensures its home directory is created. 
+		The "-g sudo" option adds it to the sudoers list so it can run commands as the root . The  option "-s /bin/bash" sets the   			default shell to bash which is nicer to use than the default sh.
+
+	2.)To keep things tidy, let's work in a /odoo-dev directory inside our home directory
+		mkdir odoo-dev
+
+	3.)make user you are logged-in with the user you have created, here we have created odoo as a user.
+	   confirm the logged-in user by using the command "whoami".
+
+	4.)First, install the basic dependencies to get us started:
+
+		sudo apt-get update && sudo apt-get upgrade 	#Install system updates
+		sudo apt-get install git 			# Install Git
+		sudo apt-get install npm 			# Install NodeJs and its package manager
+		sudo ln -s /usr/bin/nodejs /usr/bin/node 	# call node runs nodejs
+		sudo npm install -g less less-plugin-clean-css  #Install less compiler
+
+		Note:- Starting from version 9.0, the Odoo web client requires the MFTT CSS preprocessor to be installed in the system, in 				order for web pages to be rendered correctly. To install this, we need Node.js and npm.
+
+	$ mkdir odoo-dev 	# Create a directory to work in
+	$ cd odoo-dev		# Go into our work directory
+	$ git clone https://github.com/odoo/odoo.git -b 10.0 --depth=1 # Get Odoo source code, Here "-b" branch and "--depth=1" lastest update
+	$ ./odoo/setup/setup_dev.py setup_deps 			       # Installs Odoo system dependencies
+	$ ./odoo/setup/setup_dev.py setup_pg 			       # Installs PostgreSQL & db superuser for unix user.
+
+		
+
+Create Database:-
+	database can be created by login as superuser of postres than trigger the command "createdb DatabaseName"
+
+Duplicate existing database:-
+	createdb --template=Existing_DatabaseName NewDatabaseName.

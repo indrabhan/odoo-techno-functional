@@ -1,0 +1,71 @@
+Events
+
+Event --> setting 
+	1.)Tickets :- Sell tickets with sales orders
+	2.)Questions :- Ask questions to attendees when registering online.
+	3.)Online Ticketing :- Sell tickets on your website.
+
+
+Create the Event.
+In the event form "Limit Registrations" means that many seats are available.
+Ticket Tab
+	If you want to sell the paid tickets then enable the Event App --> Setting --> Tickets.
+	This will make the "Price" column enable in the Tickets tab of event.
+	Column:- Enter price and Maximum number.
+	Maximum number means that many paid tickets are available.
+	On the website you can see the under the event you will have "Register" button where you can register for paid tickets.
+	It will work like you are buying any product from shop page.
+	
+Questions Tab
+	It will help to ask the questions when user register for paid tickets.
+	Eg:- weather user eats Veg or Non-Veg.
+
+Once you register the event you will see the option of "Add to Calendar" 
+Here you will have 2 options "Google and Outlook"
+
+After register you will see users in "Attendees" (smart button of event)
+
+Communication tab
+	you can send mail and sms(require credit points) to the user for event.
+	You have to select the mail/sms template from the dropdown.
+	Suppose mail is trigger 10 days before the event and user opens it before 1 week then he see that event is after 1 week not after 	10 days.
+	Option to trigger mail:
+		Before/After Event and After each registration
+		Immediately/Hours/week/Days/Months
+
+Website Submenu and ​Register Button:
+	On the event you will find this buttons below the Name field.
+	Website Submenu: When tick this then on website for particular event it will show below buttons
+			Introduction
+			Location
+			Register
+	Register Button: When tick this then on website for particular event it will show below button.
+				Register
+		
+*****************************************************************************
+Event --> setting --> Schedule & Tracks(Manage & publish a schedule with tracks)
+	When tick "Schedule & Tracks" it will show another 2 boolean
+		a.)Live Broadcast (Air your tracks online through a Youtube integration)
+		b.)Event Gamification (Share a quiz to your attendees once a track is over)
+		
+		Showcase Tracks​Allow and Track Proposals Boolean field will be visible on event below the Name field
+		Track and Sponsors smart button will be visible on event.
+		In track button you can create the Talk and it will be visibile on web when you publish it under Talk button.
+		When ticked Track Proposals Boolean field the "Talk Proposal" button willbe visible on web.
+		In "Talk Proposal" user can submit his/her questions.
+		Once the user create talk from "Talk Proposal" button, you can get that record under Track smart button of that event.
+		You can see the created Talk Proposal in Talk menu.
+		you can confirmed, announced, published, refused and cancelled the event.
+		
+	Once the talk is over you can have quiz for you attendance by ticking this b.)Event Gamification (Share a quiz to your attendees 		once a track is over)
+	
+	on web under event you have Introduction, Talks, Talk Proposals, Location, Agenda and Register button.
+	
+
+Event --> setting --> Community Chat Rooms (Foster interactions between attendees by creating virtual conference rooms)
+
+Event --> setting --> Online Exhibitors (Upgrade Sponsors into Exhibitors with virtual conference booths)
+
+
+Event --> setting -->Barcode(Scan badges to confirm attendances)
+

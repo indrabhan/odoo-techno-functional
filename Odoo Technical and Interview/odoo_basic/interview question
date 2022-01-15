@@ -1,0 +1,114 @@
+1.)reports:-
+	we have to register the report with the report tag.
+	type:- qweb-pdf, html, 
+	name:- name of the pdf report 
+	file:- tempalte name to which the call will be made.
+
+	The custome report are define using the AbstractModel and _name id define with report.module_name.
+
+	Custome report:-
+		class ParticularReport(models.AbstractModel):
+	    		_name = 'report.module.report_name'
+
+	override the render_html() method.
+
+
+2.)stored procedure
+
+
+3.)Difference between api.onchnge and api.depends
+   Difference between onchnge and compute
+
+	onchange take simple field, depends take simple and relational field like 'parnter_id.name'.
+	onchange is called when the field is change in the view.means before save.
+	compute are mostly used for calculation, and its field value is not store by default, 
+	compute field get called when we save the record and onchange is called when we change the field value.
+	computed fields are automatically checked and recomputed.
+	It is not possible for a one2many or many2many field to modify itself via onchange
+
+	Note:-  computed field without inverse method is readonly by default.
+
+
+4.)related field:-which provide the value of a sub-field on the current record,value is not store by default
+	nickname = fields.Char(related='user_id.partner_id.name', store=True)
+
+
+5.)api.model and api.model_create_multi
+	 model() will always be called with a single dictionary. A method create decorated with the variant model_create_multi() will always be 	 called with a list of dicts.
+
+	)@api.model
+		def create(self, vals):
+    		...
+
+	@api.model_create_multi
+		def create(self, vals_list):
+
+
+6.)Action
+	a.)Window Actions (ir.actions.act_window)
+	b.)URL Actions (ir.actions.act_url):- Allow opening a URL (website/web page) via an Odoo action.
+	c.)Server Actions (ir.actions.server):- Allow triggering complex server code.you can call python expresion, several action and etc.
+		In expense Module "Submit to manger" from the tree view 'Action' dropdown button, throught the xml the python expression is 			called.
+		Run Procurement
+		"Mark as Lost" from the tree view 'Action' dropdown button of crm.
+	d.)Client Actions (ir.actions.client):- Triggers an action implemented entirely in the client.
+	e.)Report Actions (ir.actions.report):- Triggers the printing of a report.
+
+	In Window action, we are register Tree,Form,Kanban,Calendar etc ids. Based on priority, it will open related view.
+
+	While Server action are useful for following different-different purpose with selected Base model.
+		Send Email
+		Execute Python Code
+		Trigger a Workflow signal
+		Run client action
+		Create or Copy a new Record
+		Write a Record
+		Execute several actions
+
+Automated Action:-
+	Automated actions can be used to automatically trigger actions based on some conditions. We can use them to automatically perform some 		operations on records that meet certain criteria or based on time condition.
+
+
+To have button in Action/More dropdown
+	ir.value model is used
+	key=multi
+	call the server action--> server action calls the act_window action
+
+Change UI:-
+	their are n number of themes available in odoo app.
+
+
+
+python module:-
+	1.)pytz:- Used for timezone
+		import pytz:-
+			     my_timezone = datetime.datetime.now(tz=pytz.timezone('Asia/Calcutta'))
+
+	2._bs4 :-pulling data out of HTML and XML files
+		from bs4 import BeautifulSoup
+		soup = BeautifulSoup(data, 'html.parser')    ---- creates soup object.2 parser are used HTML5 amd lxml.
+
+	3.)regex:-special sequence character used to find string or set of string.mostly used for email,password format checking.
+		import re
+		r"[a-zA-Z0-9]+[@]{1}[a-z]+"
+
+	4.)psycopg2:- to connect to progress database.
+	   cx_oracle:- to connect to oracle database.
+	
+	5.)urllib package consist of 5 module:-
+		request:-	open url
+		response:-	used internally, used by request module, you will not work with it directly
+		error		request exceptions
+		parse		useful url function (breaking url into meaningful piece)
+		robotparser	robots.txt files
+
+	6.)json
+	7.)pickle
+	8.)pandas:-will return all tables into the list
+		import pandas as pd	
+		dfs = pd.read_html('https://www.pythonprogramming.net/parsememcparseface/',header=0) # will return all tables into the list
+												     # header=0 use to make the columns headers
+
+	9.)csv:-
+		import csv
+	10.)requests:- for session object.

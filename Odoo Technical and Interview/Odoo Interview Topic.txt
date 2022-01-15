@@ -1,0 +1,11 @@
+odoo technical
+qweb reports
+controllers.
+GIT
+odoo views type
+difference between Odoo12 and Odoo13.
+difference between python2 and python 3
+PEP-8 (python coding style)
+python libraries
+linux command
+web videos(technical and functional).

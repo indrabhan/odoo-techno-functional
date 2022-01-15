@@ -1,0 +1,77 @@
+1.)Accounting:
+	Register Payment:-
+		In the tree view select the invoices and Now you can see the "Register Payment" button.
+		Before it was available in the Action button.
+		
+	Resequence:-
+		In the tree view select the invoices and in Action button you will find "Resequence" menu
+		click on it, it will open a wizard and you can change the sequence of the selected invoices.
+		
+	Payment Flow:
+		The payment registration process in V13 is conducted directly on the bank account.
+		But
+			In V14 payments are registered on an outstanding account.
+			This default operation is valid for both customer invoices and vendor bills.
+			Create invoice and click on "Register Payment" button and make the payment
+			Now you can see the green ribbon "In Payment" on the invoice.
+			Now the payment, you have to reconcile the invoice with the bank statement and then only the invoice state will be 			marked as "Paid".
+			
+2.)MRP:
+	Lock Quantities To Consume:
+		It is in the settings of MRP Apps
+		Prevent manufacturing users to modify quantities to consume, unless the manager has unlock the document.
+		
+	Run Scheduler in the Planning Menu
+		Added 	Run Scheduler in the 	Planning Menu
+		
+	Workorder:
+		from the tree view you can start, pause, done , block as this buttons are available
+
+2.)Data Cleaning App:
+	Data Cleaning App is the new module that has been designed to sweep away all unnecessary documents and data from the computer 		memory.
+	The duplicated data can easily be removed from the system with the help of the application.
+	All data duplication including customer details, customer contact, field details, and other documents fall under the Data Cleaning 	process.
+	You have to set the rule for data cleaning
+	https://www.cybrosys.com/blog/odoo-14-data-cleaning-app (Brief explantation of this module.)
+	
+	
+3.)Purchase:
+	Ask confirmation:
+		Its is a boolean field
+		When ticked opens a new field where you have to give the input as number of days for mail trigger.
+		Automatically send an email to the vendor x days before the expected receipt date, asking him to confirm the exact date.
+		
+	New Dashboard:
+		All RFQ
+		My RFQ
+		Avg Order Value
+		Purchased Last 7 Days
+		RFQs Sent Last 7 Days
+		
+4.)Expense App:
+	New Dashboard:
+		
+		
+4.)New Website Builder
+	a.)Chart Snippet:- The Chart Snippet tool allows you to display your qualitative and numerical data on your website in graphical 					data charts.
+	b.)Timeline Snippet
+	c.)Countdown Snippet
+	d.)Step snippet
+	e.)Progress bar Snippet
+	f.)Auto Popup Snippet:
+	
+	
+5.)POS
+	POS App--> Setting --> Point of Sale
+		Manager Order:- Reprint receipt, refund and exchange orders.
+		Product Configurator:- select product attribute
+		Send the receipt by email:- you can decide whether you want to take the printout of the receipt or send the receipt by 							email. (pos bill)
+		
+6.)Re-capture Option:-
+	Introduce in the General settings from settings App.
+	reCAPTCHA: Easy on Humans, Hard on Bots
+	Protect your forms from spam and abuse.
+	
+	
+child MRP orders and show through smart button on main order
+purchase smart button is shown in sale order when the product is MTO

@@ -1,0 +1,72 @@
+Company-dependent fields:
+
+	When a record is available from multiple companies, we must expect that different values will be assigned to a given field 		depending on the company from which the value is set.
+
+	For the field of a same record to support several values, it must be defined with the attribute company_dependent set to True.
+
+		Example 1:-
+		from odoo import api, fields, models
+
+		class Record(models.Model):
+		    _name = 'record.public'
+
+		    info = fields.Text()
+		    company_info = fields.Text(company_dependent=True)		**************************************
+		    display_info = fields.Text(string='Infos', compute='_compute_display_info')
+
+		    @api.depends_context('company')
+		    def _compute_display_info(self):
+			for record in self:
+			    record.display_info = record.info + record.company_info
+			    
+		
+		Example 2:-	    
+		property_account_receivable_id = fields.Many2one('account.account', company_dependent=True,
+        					string="Account Receivable",
+        				domain="[('internal_type', '=', 'receivable'), ('deprecated', '=', False), ('company_id', '=', 								current_company_id)]",
+        				help="This account will be used instead of the default one as the receivable account for the 						current partner", required=True)    
+		
+		
+		 Note
+
+			The _compute_display_info method is decorated with depends_context('company') (see depends_context) to ensure that 			the computed field is recomputed depending on the current company (self.env.company).
+			
+			You can not store company_dependent field in a database. 
+			Because when the company is change then company_depedent field value is also changed. 
+			This field data is stored in ir. property object.
+			Settings Apps --> Technical --> Parameters --> Company Properties.
+			
+			
+Question:-
+	How to read company dependent field?
+		
+		with_company()
+		
+		When a company-dependent field is read, the current company is used to retrieve its value. 
+		In other words, if a user is logged in companies A and B with A as main company and creates a record for company B, the 			values of company-dependent fields will be that of company A.
+
+		To read the values of company-dependent fields set from another company than the current one, we need to ensure the 		company we are using is the correct one. This can be done with with_company(), which updates the current company.		
+			
+		Example:-
+			# Accessed as main company (self.env.company)
+			val = record.company_dependent_field
+
+			# Accessed as desired company (company_B)
+			val = record.with_company(company_B).company_dependent_field
+			# record.with_company(company_B).env.company == company_B
+		
+			
+	Warning
+
+	Whenever you are computing/creating/… things that may behave differently in different companies, you should make sure whatever you 	are doing is done in the right company. It doesn’t cost much to always use with_company to avoid problems later on.
+
+	@api.onchange('field_name')
+	def _onchange_field_name(self):
+	 self = self.with_company(self.company_id)
+	 ...
+
+	@api.depends('field_2')
+	def _compute_field_3(self):
+	 for record in self:
+	   record = record.with_company(record.company_id)
+	   ...

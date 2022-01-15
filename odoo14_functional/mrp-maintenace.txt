@@ -1,0 +1,45 @@
+Install Maintenance App
+
+Effective Date:-
+	In the Equipement you define the effective date (date from the machine will be in used)
+	
+
+Preventive Maintenance Frequency:-
+	Set the number of days so that after that many days machine will have its maintenance check.
+
+Next Preventive Maintenance:-
+	Once you save the machine the Next Preventive Maintenance date will be auto calculated based on effective days
+	Note:- In the initial case,  it will be calculated based on the effective date.
+	
+Maintenance duration: Duration of maintenance in hours.
+
+
+Expected mean time between failures: 
+	user set the value
+	One can set the expected mean time between failures in days.
+	This is nothing but average mean time between failures.
+
+
+Mean time between failures(MTBF): 
+	value is in days. It is readonly field. Autofield
+	It is calculated based on the corrective failure. 
+	Suppose an equipment failure happens on 06/04/2019(6th April 2019), and next failure happens on 10/04/2019(10th April 2019), mean
+	time between failures will be 4 days. 
+	However, the first failure is calculated based on the effective date.
+	means I thing the difference between the corrective failure and effective date.
+	
+
+Estimated Next Failure:-
+	Date field and it is readonly, Autofield.
+	Latest Failure + MTBF
+	In the case of the first failure of the equipment, it is calculated based on the effective date.
+	
+Latest failure: Last failure date will be updated automatically.
+
+
+Mean time to repair(MTTR):
+	value is in days. It is readonly field. Autofield
+	Mean time between maintenance and repair in days. 
+	If the maintenance started on 2nd May 2019 and equipment got repaired on 3rd May 2019. In that case, the mean time to repair will  	be 1 day.
+
+

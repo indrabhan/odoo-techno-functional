@@ -1,0 +1,104 @@
+1.)Product types:
+	Add new Product types:
+		a.)Gift Card
+		b.)Event Tickets
+		c.)Event Booth	
+		
+	
+2.)Import:
+	Has enhance the import screen (option for import records)
+	Here in the new screen you will find 
+		a.)"Format" and "Use first row as header" option.
+		b.)Advanced:
+			1.)Track history during import.
+			2.)Allow matching with subfields (default ticked)
+		c.)All the columns which are in the file.
+		
+
+3.)Inventory Adjustment:
+	Improved the view.
+	Now directly you can enter the products in stock.quant object.
+	Before it was create the new record (stock.inventory object) then click on "Start Inventory" and now enter the products name and 		qty. then it was recored in stock.quant object.
+	
+	
+4.)Removal strategy:
+	Removal strategy is defined on product categories.
+	New Removal strategy has been introduce i.e "Closest Location".
+	
+
+5.)Reservation Method:
+	Warehouse >> Configuration >> Operation Type 
+	You will find Reservation Method for "Delivery", "Internal" and "Manufacturing" operation type
+		a.)At Confirmation
+		b.)Manually
+		c.)Before scheduled date
+		
+	
+6.)POS
+	POS --> Configuration --> Setting --> Pricing section
+		a.)Coupons & Promotions (This feature was available for Sales and it is available for POS also.)
+		 	The Odoo 15 Point of sale module has added a new option of "Enter code" in the dial pad of the operation of the 				session of the POS.
+		 	Here you can enter Coupons & Promotions code.
+		b.)Gift card
+		
+	
+	POS --> Configuration --> Point of Sale
+		here you creates shops and in shops configurtaion you can find "Ship later" in the Inventory Section.
+		Ship Later where you can sell the products at the instance and deliver them later.
+	
+ 
+7.)Project Management:
+	1.)Project Updates to indicate the status of the respective project such as On Track, On Risk, On Hold, or at Risk in the Project 	module.
+	2.)Burndown Chart Smart Button in the respective projects
+		Open Graph view of that project.
+		
+		
+8.)Ecommerece and website:
+	Website App --> Settings --> Products Sections
+		Inventory
+			Out-of-Stock		​Continue Selling
+			Show Available Qty​ 	only if below .. Units
+			
+	Website --> Shop --> Select any product 
+		now in the Customize button (in menu bar) you will find Share Buttons option if you enable then you can share your products
+		details with friends.
+		On the product page you will find social media icons.
+		
+		
+9.)CRM:
+	CRM Apps --> Configuration --> 
+		Multi Teams
+			Assign salespersons into multiple Sales Teams.
+		Rule-Based Assignment:
+			Periodically assign leads based on rules All sales teams will use this setting by default unless specified 			otherwise.
+		
+
+5.)"Storage Categories capacity" menu in the Inventory app --> configuration.
+				
+
+1.)Start a Meeting:
+	In the Discuss app you will find "Start a Meeting" button at the left-Up side.
+	Here you can make video/audio call and even share the screen.
+	You can send out invitations to the users to take part in a meeting 
+
+
+2.)Favorite:
+	Products in kanban view has a "star" symbols, its means you can add produtcs as a Favorite .
+	Then in the Filter menu you will find "Favorite" filter, click on it and you can find all the Favorite products.
+	
+
+3.)Attribute:
+	Used in product variants
+	In the Display type added new option "Pills", before there were radio,select and color
+	Added eCommerce Filter Visibility option
+		eCommerce Filter Visibility:
+			1.)Visible
+			2.)Hidden
+	
+			
+4.)Update "Units of Measure" menus form view
+	In V14 we were having 2 menus Units of Measure Categories and Units of Measure.
+	Now In v15 the form view has both things
+		Units of Measure Categories		Uom
+		Length					mm, cm, km
+		

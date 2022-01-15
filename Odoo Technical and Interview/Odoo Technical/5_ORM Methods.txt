@@ -1,0 +1,161 @@
+1.)name_get(self):-
+	1.)name_get and name_search are used with Many2one field.
+	2.)When a many2one field is created who have a relation to an object(res.partner), then how the value needs to be shown is done 		through name_get method.
+
+	3.)Return type list(tuple)
+	   Returns list of pairs (id, text_repr) for each records
+	   
+
+	4.)In odoo when you select the product and save the record you will see that the product will be displayed as
+		[sku number]+product_name.
+
+2.)name_search(name='', args=None, operator='ilike', limit=100)
+
+	Parameters
+		name (str) – the name pattern to match
+		args (list) – optional search domain (see search() for syntax), specifying further restrictions
+		operator (str) – domain operator for matching name, such as 'like' or '='.
+		limit (int) – optional max number of records to return
+
+	1.)name_get and name_search are used with Many2one field.
+	2.)when you want to search with different criteria in any many2one field then we make use of name_search() method.
+	3.)In odoo you can search product by it sku_number or by product name.
+	
+	4.)Return type	list
+	   Returns list of pairs (id, text_repr) for all matching records.
+
+
+
+3.)fields_get([fields][, attributes])
+
+	Return the definition of each field.
+	The returned value is a dictionary.
+
+	Parameters
+		allfields – list of fields to document, all if empty or not provided
+		attributes – list of description attributes to return for each field, all if empty or not provided.
+
+	Or
+
+	invoice_obj = self.env['account.move']
+        invoice_obj_fileds = invoice_obj.fields_get() // here you will get list of all fields.
+        inv_default_value = invoice_obj.default_get(invoice_obj_fileds)
+
+
+
+4.)fields_view_get([view_id | view_type='form'])
+
+	We use it to modify the view dynamically.
+	
+	Returns	composition of the requested view (including inherited views and extensions)
+	Return type	dict
+
+	ref_link:- http://elico-corp.com.sg/2015/10/01/how-to-tech-dynamically-modify-your-view/
+
+
+
+5.)default_get(​fields_list)
+	Return default values for the fields in fields_list. 
+	Default values are determined by the context, user defaults, and the model itself.
+
+	Parameters:-  
+		fields_list (list)
+		fields_list:- a list of field names
+		
+	Returns:- dict
+		A dictionary mapping each field name to its corresponding default value, if it has one.
+
+
+6.)create:
+	Takes a dictionary of field values, or a list of such dictionaries, and returns a recordset containing the records created:
+
+	>>> self.create({'name': "Joe"})
+	res.partner(78)
+	>>> self.create([{'name': "Jack"}, {'name': "William"}, {'name': "Averell"}])
+	res.partner(79, 80, 81)
+	
+	Parameters:- vals_list (list)
+	Returns:- the created records
+	
+	B.)name_create(name)
+		Create a new record by calling create() with only one value provided: the display name of the new record.
+		The new record will be initialized with any default values applicable to this model, or provided through the context. The 			usual behavior of create() applies.
+		
+		Parameters
+			name – display name of the record to create
+
+		Return type:- tuple
+		Returns:-the name_get() pair value of the created record
+
+
+7.)copy(default=None):-
+	Duplicate record self updating it with default values
+	default is the dict.
+
+	Parameters:
+		default (dict)
+			dictionary of field values to override in the original values of the copied record, e.g: {'field_name': 				overridden_value, ...}.
+			
+	Returns:- new record
+
+
+8.)write (vals):
+	Updates all records in the current set with the provided values.
+	Here vals is the dict
+
+	Parameters:
+		vals (dict) –
+		fields to update and the value to set on them e.g: {'foo': 1, 'bar': "Qux"}
+
+
+9.)Browse [ids]:
+	take list of ids as parameter
+	Returns a recordset for the ids provided as parameter
+	
+	self.browse([7, 18, 12])
+	res.partner(7, 18, 12)
+
+
+10.)search(args[, offset=0][, limit=None][, order=None][, count=False])
+
+	Take the search domain. If empty domain pass it will fetch all records.
+	
+	Parameters	
+		args – A search domain. Use an empty list to match all records.
+		offset (int) – number of results to ignore (default: none)
+		limit (int) – maximum number of records to return (default: all)
+		order (str) – sort string
+		count (bool) – if True, only counts and returns the number of matching records (default: False)
+		Returns	at most limit records matching the search criteria
+
+	Returtype:-  recordset
+
+
+11.)search_count(domain):​ 
+	Returns the number of records in the current model matching the provided domain.
+	
+	self.serach_count([(‘is_company’, ‘=’, True) ])
+	
+
+12.)read([fields]):
+​
+ 	Take the number of fields.
+	read([‘fields_1’, ‘field_2’, ...])
+
+	Return list of dictionary mapping field names to their values.
+
+
+13.)search_read([domain],[fields]):
+
+	self.search_read([], [‘’name’’])
+	
+	It will do a search and return a list of dict mapping field names to their values.
+
+
+14.)unlink(): ​ ​ 
+		Takes id or list of ids and delete the record.
+
+	unlink([7, 18, 12])
+
+	Return True or False
+

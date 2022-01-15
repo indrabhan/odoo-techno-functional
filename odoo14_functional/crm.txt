@@ -1,0 +1,143 @@
+1.)Stages:
+	In the kanban view of opportunity/pipline you will see all the stages and data in it.
+	If you click on "create" button it will create opportunity/pipline in the 1st stage.
+	IF you directly clicked on "+" icon of any stage then it will create the opportunity/pipline in that stage.
+	In the stages setting you will see "Sale Team" field. If you add the sales team here then this stage will be visible to that sale 	team only.
+	
+2.)Pipeline:
+	In the pipline form you will see the below buttons:
+		New Quotation :- you can create mutliple quotation (sale order quotation) smart button "Quotation" in form
+		Rental :- you can create mutliple quotation (sale order quotation) smart button "Rental Quotation" in form
+		Mark WON :-
+		Mark LOST :-
+	
+	Note:- If no customer assigned then when converting lead into opportunities the lead name becomes the customer name
+		customer is created with that name.
+	
+2.)Activities:
+	In the Setting App --> General Setting --> Activities..
+	You can define activities model wise.
+	You can schedule default next activities and Recommended activities in the activity Form.
+	Once you schedule the activity you will see it in the chatter.
+	
+3.)Restore lost opportunities:
+	when you mark the oppprtunities as Lost the record is archieved.
+	When you applied "Lost" filter the opportunities will be visible.
+	Even if you applied archieved filter lost opportunities will be visible..
+	In the Lost opportunities you will see the "Restore" button, The restore button will unarchieve it.
+	Even you can unarchieve the Lost opportunities.
+	
+
+4.)Sales Team:
+
+	Generate leads/opportunities from emails:
+	
+	Each sales teams can have its own email alias, to generate leads/opportunities automatically assigned to it. 
+	It is useful if you manage several sales teams with specific business processes.
+	Assign mail alias to sales teams and mail send on that mail alias will generate leads/opportunities in odoo.
+	
+5.)Incoming Emails:
+		In the Crm App --> Configuration --> Settings --> Incoming Emails.
+		Then in setting App you have to tick mark a boolean field named as "Incoming Email".
+		If you want to receive lead to one common email and then use this feature.
+		
+	Note:- Emails received to that address generates new leads not assigned to any sales team
+		 
+
+	In the Crm App --> Sales --> Team
+		Here you will see the pipeline sales team wise.
+		
+	By default if the opportunity is created then it is assigned to team leader.
+	you can set invoicing target.
+	
+	Below are the boolean fields available
+	
+	Quotation:- You can send quotation to your customer rather than confirming orders straight away.
+	Pipeline:- If  is checked and lead is unchecked then direct opportiunity is created.
+	Lead:- If lead is checked and pipeline is unchecked then direct lead is created.
+	
+
+5.)Merge opportunities:-
+	Odoo will also automatically propose to merge opportunities if they have the same email address.
+	No information is lost: data from the other opportunity is logged in the chatter and the information fields for easy access.
+	
+	you can also merge opportunities or leads even if the system doesn’t propose it.
+	Select the opportunities or leads you want to merge and the action button will appear. Then, you can select merge.
+	
+	 Note:-
+		It is also possible to merge more than 2 opportunities or leads with different email or customer.
+
+2.)Generate leads/opportunities from your website contact page:
+	Automating the lead/opportunity generation will considerably improve your efficiency. Any visitor using the contact form on your 		website will create a lead/opportunity in the pipeline.
+	1.)Install Contact Form App for contact form to be displayed in wesbite.
+	2.)when you have several sales team so to which sales team the lead/opportunities will be genrated.so from website setting you 		have to assign that sales team so when some fill the contact form the lead/opportunities will be generated for that sales team.
+	3.)To change to a specific sales team, go to Website ‣ Configuration ‣ Settings under Communication you will find the Contact Form 			info and where to change the Sales Team or Salesperson.
+	4.)By default, any new contact form will send an email. You can switch to lead/opportunity generation in Change Form Parameters.
+
+		Note
+
+		If the same visitor uses the contact form twice, the second entry will be added to the first lead/opportunity in the 			chatter.
+
+
+3.)Lead Mining:-(Enterprise feature need to buy Credits)
+
+	Lead mining allows you to generate leads from scratch directly from your database. Target your leads based on a set of criteria 		such as the country, the size of the company, the industry your leads are coming from to make them relevant to your business.
+
+	Configuration
+		For this feature to work, go to CRM ‣ Configuration ‣ Settings and activate the Lead Mining feature.
+			1.)Enrich leads on demand only
+			2.)Enrich all leads automatically :- For this scheduler will run after every 1 hour.
+
+	Start generating leads
+		You will now have a new button "Generate Leads" available in your pipeline.
+		From there, click on the Generate Leads button, a window where you will be able to pick your criteria will pop up.
+		Same form can be open from CRM --> Configurations --> Lead Mining Requests.
+
+	Example:
+		Suppose you want to target the manufacturing industries base in USA country and based on xyz number of employes so fill 			Lead mining requests form and submit it,menu availabe in configuration as Lead Mining Requests and button available in 			tree view of lead with name as "Generate Leads". Both things open same form.
+		
+	Note:- you must fill the country else you can create lead using lead mining.
+	
+4.)Lead Enrichment:-
+	
+	Configuration
+		For this feature to work, go to CRM ‣ Configuration ‣ Settings and activate the Lead Enrichment feature.
+			1.)Enrich leads on demand only
+			2.)Enrich all leads automatically :- For this scheduler will run after every 1 hour.
+
+	Example :-
+		Suppose you have remember email of the contact,
+		you can create the lead with that inform and save it.
+		Now you will see the "ENRICH" button click on it. ODoo will search it.
+		It will fetch the remaining data like contact numbers, address and etc.
+		
+	Note:- You can only enrich information (search other details) if you have email id.
+		
+	
+	Q.)What happens if Odoo is not able to find extra information about your lead?
+		A.)You still pay a credit
+		B.)No credit gets debited from your account (Correct Answer)
+		C.)Odoo will always find a way to enrich your lead
+		
+	Q.)What is the default time for running scheduler of the lead enrichment feature?
+		A.)1 hour  (Correct Answer)
+		B.)12 hours
+		C.)1 day
+		
+	Q.)Which information does the external database need to enrich your leads?
+		A.)Email address  (Correct Answer)
+		B.)Website
+		C.)Phone number
+		D.)Any of the above
+				
+
+
+4.)Visits to Leads: (Enterprise feature need to buy Credits)
+
+	1.)Convert visitors of your website into leads and perform data enrichment based on their IP address.
+	2.)Create rules to generate B2B leads/opportunities from your website visitors.
+	3.)Activate the feature from settings.
+	4.)After activation you will see the menu named as "Visits to Leads Rules" in Configuration.
+
+	Fill the form with what ever your search criteria is and when the vistors visits your website and fulfill your visiting cretria 		then a lead will be generated.	
+	 

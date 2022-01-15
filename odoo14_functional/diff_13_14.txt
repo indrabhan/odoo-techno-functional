@@ -1,0 +1,6 @@
+MRP
+	routing menu is removed from v13
+	operation menu is added, In operation you add single workcenter and single BOM
+	
+In Landed cost:
+	In v14 landed cost can be applied for Manufacturing Orders whereas in V13 this feature was not available.

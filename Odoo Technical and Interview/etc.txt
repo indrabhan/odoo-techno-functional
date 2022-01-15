@@ -1,0 +1,27 @@
+1.)search:-
+
+	If you want search patient by its name and patient id but using only 1 search i.e name = patient name and name = patient id
+	<field name='name' filter_domain="['|', ('patient_name', 'ilike', self), ('patient_id', 'ilike', self)]"/>
+
+
+2.)Track visibility
+
+	suppose you want to track some fields like who has change it so you have to write track_visibility=always on that fields and in 	chatter you will see which user has change it to what value
+
+	Example:-
+		age = fields.Interger(string='Age', track_visibility='always')
+ 
+
+3.)set default filter for view
+	
+	<filter string='Man' name='my_male' domain='[('gender', '=', 'gender_male')]'
+	
+	When you click for sale quotation menu you will see the default filter "My Quotation" is applied.
+	for that in action you have to write in xml file.
+
+	Syntax
+		<field name='context'>{"search_default_filter_name"}</field>
+
+	<field name='context'>{"search_default_my_male"}</field>
+
+	

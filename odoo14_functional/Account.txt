@@ -1,0 +1,484 @@
+Types of account
+	asset :- asset is what you company own
+	liabilities:- Liabilities are any debts your company has, whether it's bank loans, mortgages, unpaid bills, IOUs, or any other 			      sum of money that you owe someone else.
+	equity = difference between liabilities and assets.
+
+
+Account:
+		
+	DOUBLE ENTRY BOOK-KEEPING SYSTEM	
+				
+		1.)Adding a value to an account is Debit, always shown on Left side
+	
+						Debit		Credit		Balance
+			Account Receivable	100		0		100
+			Bank			0		0		0
+	
+	
+		2.)Removing the value from account is credit, always shown on Right side
+				
+						Debit			Credit			Balance
+			Account Receivable	100(1st entry)		100(2nd entry)		0
+			Bank			100(2nd entry)					100
+			
+			
+		To Know the balance of an column always look at the Balance column.
+		Debit - Credit = Balance
+		
+		
+		
+	RECONCILIATION
+		Reconciliation is the process of Mapping or linking two journal entries to make a clear that they balance each other.
+		If two journal items on same account but with two different Journals (suppose you invoiced the customer, so one JV is 			created and the cutomer pays you via Bank so another JV is created)
+		Reconciling the enteries with each other makes the invoices as paid and this process is know as reconciled.
+	
+		Journal			Account			Debit		Credit
+		
+		Customer Invoice		Account Receivable				100
+		Bank				Account Receivable		100
+	
+	
+
+	Note:-
+		when you validate the customer invoice of Rs 100 then the entry goes in Debit column of Account Receivable.
+		When you actually recieve the money from customer then the enteries are created in Credit column of Account Receivable 			and Debit column of Bank account(received through bank).
+
+		For Vendor bill 1st entry will be in credit(means the amount you have to give)
+
+Journals:-
+	Journals are the book keeping where you will record similar type of transactions
+	For example to record invoice we have "Customer Invoice" journal.
+		    to record vendor bills we have "vendor bill" journal.
+		    to record money received/given online we have "Bank" journal.
+		    to record money received/given in cash we have "Cash" journal.
+
+Note:-
+	when you create the db, you select the country so according to country the taxes and chart of account are created.
+	
+
+********************************** Bank Reconcilation **********************************
+
+1.)	Create the invoice,register the payment (invoice will be in "in payment" state)and then reconcile the invoice with the bank 	 statement. (now the invoice will be paid state).
+	
+	A.)Invoice Status:
+		when you register the payment using the bank journal the invoice status will be "In payment".
+		In the Accounting Dashboard for Bank journal you will see "Oustanding Payment/Receipt" = invoice amount.
+		Go to Reconcile report with the 3 dots options. you will see the "Oustanding Payment/Receipt" entry
+		Now in you bank passbook 1 entry will be created/ printed.
+		Now you have receive the amount in Bank and now the Bank link in odoo should show the balance.
+		so to show the balance you have to again recconcile the invoice with the actual bank statement (passbook entry).
+		Then the invoice will be in paid state.
+		Go to Reconcile report with the 3 dots options. you will not see the "Oustanding Payment/Receipt" entry
+		
+		You can create the passbook entry into odoo or you can sync the entries automatically.
+		
+2.)  	Mark the invoice as paid directly.
+	
+	A.)Validate the invoice (invoice will in posted state) and create/import the bank statement (passbook entry) and reconcile, the 		invoice will in paid state.
+		
+3.)	Post at Bank Reconcilation:- boolean field in bank journal
+
+	odoo will post the journal entries only after the bank reconcile is done.
+	
+
+********************************** Bank Reconcilation **********************************
+
+
+********************************** Reconcilation Model **********************************
+	
+
+1.)Reconcilation Model / Write-off:
+	It is used for reconcile the bank fees, discount.
+	here you have to add the account.
+	In the reconcile you can select the reconcile model.
+	
+	Q.) What is a write-off?
+	
+	1.)It is a specific kind of discount.
+	2.)It is the action of reconciling all unreconciled entries.
+	3.)It is the action of deleting an issued invoice (e.g. if you made a mistake)
+	4.)It is a journal entry that clears an amount off the books.				(Correct)
+	
+	
+
+2.)Payment Terms:- This are the terms and condition for the customer invoice / vendor bill to be paid.
+		    According to the Payment terms the Due Date is calculated.
+		    In Payment term the balance line always should be the last one.
+		    
+		 
+3.)Cash Discount of 2% if paid immediatelly.
+
+	
+	A.)Create a payment terms line as 98% within 0 days and balance in 30 days.
+	B.)Whenever you confirm the SO with this payemnt term you will have 2 journal enteries of "Account Receivable".
+	
+							Debit 		Credit		Due Date
+	2000000	Product Sales					100
+	1012000	Acc Receivable			98				Date 1
+	1020000	Acc Receivable			2				Date 2
+
+	C.)First with 98% amount and immediate dute date and the other one with 2% amount and the dute date of 30 days.
+	D.)Create the Reconcile Model:-
+		Name:- 2% Discount
+		Here in the account field craete a new account with type as "Expense"
+		Write-Off Amount 100%
+		Journal as "Customer Invoice"
+		
+							Debit 		Credit			Due Date
+	2000000	Product Sales					100
+	1012000	Acc Receivable			98		98(2nd entry)		Date 1
+	1020000	Acc Receivable			2		2(2nd entry)		Date 2
+	
+	101401		Bank				98
+	120210		Cash Discount			2
+	
+	E.)98% will be reconcile with the invoice and 2% will be reconcile with the reconciliation model (2% Discount)
+	
+
+
+********************************** Reconcilation Model **********************************
+
+
+1.)Account Overview/dashboard:
+	here you will see all the Journals.
+
+	How to create bank account?
+		In Accounting App
+			Configuration -- You will see the menu Add a Bank Account.
+					 For every bank account you create, the journal for that bank will be automatically created.
+			Note:- From here you can also check that does your bank is support by odoo.
+				means for all online process like sync bank statement automatically.
+
+	From where you can see all the bank accounts?
+		In Accounting App
+			Configuration -- You will see the menu Bank Accounts.
+
+
+2.)Bank Synchronization: Automatic Import:
+	1.)Make sure the Automatic Import feature is activated by going to Accounting ‣ Configuration ‣ Settings in the Bank & Cash 	section.
+	2.)Every Bank account creates the journal, Go in that journal and tick mark the option of "Automated Bank Synchronization".
+	3.)In Accounting Overview for that bank if you see button "Online Synchronization". means everything is perfect.
+
+
+3.)Chart of Account:
+	1.)Default Taxes:-
+		Select a default tax that will be applied when this account is chosen for a product sale or purchase.
+		Means when you create particular account you can assign tax for it.And that tax will automatically used when you use this 			account in sale/ppurchase
+
+
+4.)Follow up:- 
+	Follow up is the process of sending reminder to customer for their unpaid invoices before or after the due dates via emails or 		sending the letters
+	Every time you do the follow up make sure you reconcile the bank statement or payment, so you don't send the reminder mail to the 		customer who already paid the invoice.
+	Follow up is made on Due dates.Due dates are auto calculated based on Payment Terms.
+
+	Example:-
+		Create the customer invoice with the payment terms and validate the invoice.
+		Now go the customer form, you will find smart button "Due".Click on it and you can send the mail from their for reminder.
+
+	How will you send the follow mail to all the customers to whom we need to send the mail?
+		In Accounting App -- Customer -- Follow up Reports (This menu is available default)
+		Click on it and you will find the customer to whom we need to send the mail with the "In need of action" filter applied default
+		when clicking on Follow up Reports menu.
+		Select the customers(tree view records) and in Action button click on Process follow ups.
+		A pdf document containing all of the follow-up letters for you to print will be automatically generated..		
+
+	Follow up levels:
+			Activate this feature from setting of Accounting App.
+			The menu "Follow-up levels" will be visible in the Configuration -- > settings.
+			Now you can set the number of days the email, letters or other activities should trigger depends upon due date.
+			This feature allows you to config the number of days before/after the reminder mail should trigger.
+
+		
+		Note:- If you would like to get a reminder before the due date, set a negative number of due days.
+			To send the Automatci follow-up to customer you need to activate the "Follow up levels" and then sets the email, 				letter and other activities.
+
+
+***********************************************	Batch Payment	    ***********************************************
+
+1.)Vendor
+
+	A Batch Deposit groups multiple payments in a single batch. 
+	This allows you to deposit several payments into your bank account with a single transaction. 
+	This is particularly useful to deposit cash and checks.
+
+	
+	A.)Payment by Checks to Vendor:
+		Payment mode for register payment will be "check".
+		This feature is where check payment is supported like USA. 
+		This feature is use to pay the vendor bills by check.
+		Activate this feature from Accounting App -- under Supplier Payment Section you will find the "Check" Options.
+
+		In Vendor Bill Journal(kanban) of Accounting App -- Overview, You will find button of "Bills to pay".
+		Bills to pay:- the bills which are remaining to pay.
+							OR
+		select the vendor bills from tree view that need to be pay and in Action click on "Register Payment" now you will find 			the payment method as "Check".
+	
+		In Bank Journal(kanban) of Accounting App -- Overview, You will find button "Checks to print".
+		click on it and select the reocrds and in action you will find the option of "Check Print".
+		The check is print for Bank Reconcilation
+					OR
+		In Accounting -- Vendor -- Payment select the payment made by check (tree view) and in Action you will find the option of 			Check Print.
+
+
+	B.)Sefa Credit Transfer:
+		Payment mode for register payment will be "SEPA Credit Transfer".
+		This feature is for European country.
+		This feature is use to pay the vendor bills.
+		Activate this feature from Accounting App -- under Supplier Payment Section you will find the 
+		"SEPA Credit Transfer (SCT)" Options.
+		
+		In Vendor Bill Journal(kanban) of Accounting App -- Overview, You will find button of Bills to pay or
+		select the vendor bills from tree view that need to be pay and in Action click on Register Payment now you will find the 			payment method as SEPA Credit Transfer.
+
+		In Bank Journal(kanban) of Accounting App -- Overview, You will find button "Payments to send via by SEPA".
+		Click on it, select the record and in Action click on Creat Batch Payment.
+		Now the xml file will be generated and you can upload it in your banking interface.
+
+		Note:-In Vendor form enter all details of bank.
+
+
+
+2.)Customer
+
+	Batch Payment:- By Checks or Cash
+
+	A Batch Deposit groups multiple payments in a single batch. 
+	This allows you to deposit several payments into your bank account with a single transaction. 
+	This is particularly useful to deposit cash and checks.
+	
+	Payment mode for register payment will be "Batch Deposit".
+
+	Customers paying through checks.
+	Suppose 10 customers pay you by check, so you will collect all the checks and deposit it in bank all at once.
+	After that you have to reconcile that 1 bank entery for 10 checks.
+
+	Steps to follow:
+		1.)Activate the setting Batch Payments under Customer Payment section of Accounting App.
+		2.)when you register the customer invoice select the payment method as Batch Deposit.Then invoice will be paid.
+		3.)Accounting -- Customer -- Batch Payment menu create the record.
+			Here in Payment Method you will have 2 options 1st is Batch Deposit and 2nd is SEPA Direct Debit.
+			select Batch deposit and click on Add aline you will get the record paid by Batch Deposit.
+		4.)Validate the record and print the pdf.
+			Once the bank statements are on your database, you can reconcile the bank statement line with the Batch Payment 			reference(the pdf you print).
+		5.)Now create the bank statement for the total amount paid by checks.Do not enter partner and Reconcile.		
+		6.)when you will reconcile you will find the page of Batch Deposit if partner is not selected, select that and validate.
+
+	Payment Method Types
+		1.)To record new payments as part of a Batch Deposit, you have to configure first the Journal on which you record them.
+		2.)For Journal Type = Bank, Cash. The Payments Configuration page appear. 		
+		3.)Here you will have Incoming and Outgoing Payments Section
+		4.)here you can select Batch Deposit, SEPA Direct Debit and etc for Incoming payments.
+		5.)here you can select SEPA Credit Transfer, Checks and etc for Outgoing payments.
+		
+		
+	Note:-
+		Your main bank accounts(Bank Journal) are automatically configured to process batch payments when you activate the 		feature.
+
+						****** SEPA Direct Debit(SDD) *****
+
+7.2.)Batch Payment:- By SEPA Direct Debit(SDD):
+	1.)SEPA stands for Single Euro Payments Area.
+	2.)With SEPA Direct Debit, your customers can sign a mandate that authorizes you to collect future payments from their bank 		accounts. 		
+	3.)This is particularly useful for recurring payments based on a subscription.
+
+	How it works:
+		Bank provide you with the Creditor Identifier Code.
+		Required the document with the signature of your and your customer's.
+		Odoo generate the XML file and you need to send it to you bank in order to debit the payment.
+		
+	Process:
+		1.)Activate the Sepa Direct Debit(SDD) feature from accounting setting and saving the setting the Creditor Identifier 				field will be visible assign the Creditor Identifier number given by your bank.
+		2.)Customer:- In the accounting tab of customer form, must have all details of bank.
+			      Journal:- Bank journal must have bank number and all details regarding bank.
+		3.)Go to Accounting App -- Customers -- Direct Debit Mandates menu and create the record for it.
+			Click on Print Button:-You will get one document, you and your customer must sign that document.
+					  	To get electronic signature of your customer you can make use of Signature App.
+			Enter the start date and validate it.
+			Once you get the signed document uplaod it on the same record as their is the option of upload.
+			
+		7.)In the invoice, when you Register Payment you can see "SEPA Direct Debit" as Payment method when the Bank Journal is 				selected.
+			In Payments Configuration tab of Bank Journal you can see the option "SEPA Direct Debit" default tick.
+			"SEPA Direct Debit" this option is available for Journal type as Bank, Cash.
+			
+		8.)Accounting -- Customer -- Batch Payment create the record.Here in Payment Method you will have 2 options 1st is Batch 				Deposit and 2nd is SEPA Direct Debit.select SEPA Direct Debit and click on line you will get the record paid by SEPA 				Direct Debit.
+		9.)Validate it, now you will get an xml file, upload it at your bank interface so that the money will be transfer from 			   customer account to your bank account.
+		10.)Print the PDF you will get the refernce of payment made, use this pdf for refenece while reconciling with the bank 			    statement.
+
+		Note:- On Direct Debit Mandates record after validating you will see 2 button "Revoke" and "Close".
+			Close:- The SDD functionality will still work for the invocies before the start date on Mandates.
+				The invoice before the closing date can be validated using SDD.
+				
+			Revoke:-This will completely stop the SDD functionality.
+				The invoice before the close date can not be validated.
+	
+	Configuration:-
+		Go to Accounting ‣ Configuration ‣ Settings, activate SEPA Direct Debit (SDD) and click on Save. Enter your company’s 			Creditor Identifier. 
+		This number is provided by your bank institution, or the authority responsible for delivering them.
+		
+
+	SEPA Direct Debit Mandates
+	Create a mandate
+		1.)The SEPA Direct Debit Mandate is the document that your customers sign to authorize you to collect money directly from 				their bank accounts.
+		2.)To create a new mandate, go to Accounting ‣ Customers ‣ Direct Debit Mandates, click on Create, and fill out the form.
+		3.)Export the PDF file by clicking on Print. It is then up to your customer to sign this document. Once done, upload the 				signed file in the Original Document field, and click on Validate to start running the mandate.
+		4.)Important
+			Make sure that the IBAN bank accounts details are correctly recorded on the debtor’s contact form, under the 				Accounting tab, and in your own Bank Account settings.
+	
+	SEPA Direct Debit as a Payment Method
+		1.)SEPA Direct Debit can be used as a payment method both on your eCommerce or on the Customer Portal by activating SDD 				as a Payment Acquirer. With this method, your customers can create and sign their mandates themselves.
+		2.)To do so, go to Accounting ‣ Configuration ‣ Payment Acquirers, click on SEPA Direct Debit,Install it and set it up 				according to your needs.
+		3.)Customers using SDD as payment method get prompted to add their IBAN, email address, and to sign their SEPA Direct 				Debit mandate.
+		4.)Important
+			Make sure to change the State field to Enabled, and to check Online Signature, as this is necessary to let your 			customers sign their mandates.
+			
+			
+***********************************************	Batch Payment	    ***********************************************
+
+8.)Multi Currencies:-
+	Activate this feature from Accounting App.
+	Now you can activate other curriencies from Curriencies Menu.
+	From setting only you will get the options from which Api/3rd paty you want to update your curriency rates like 
+	Daily/ Weekly/ Monthly.
+	From currency menu select the currency and click Rates(smart button).You will get history of currency rate.
+	
+	Example:-
+		1.)Select the customer in SO the currencies get auto selected(according to customer country or settings).now in line 				select the product and check the prices.
+		2.)Now change the currency value of that SO, and select same product in line and check price,the price has been converted 				from main currency to client currency.
+
+		You have invoice the customer and when customer actually payes you, If at that time the curriency rate was gain/loss then 			those gain/loss will be register in Exchange Difference Journals.
+		After you post the invoice you can see in Journal Enteries.
+
+10.)Reports:-
+	In reports you have option of comparision where you can also check of previous years.Like in Profit and Loss Report
+	
+	1.)Profit and Loss:-
+		Profit and Loss report is also know as Income report
+		Income - Expenses = Net Profit.
+
+	2.)Balance Sheet:-
+		Balance sheet is the summary of all the reports and give the snapshot at a specific dates, showing what company owns and what 			company owes on that date.
+		It also shows that all its financial records are correctly balance according to the formula
+		Assets = Liabilities + Equity
+
+	3.)Cash Flow:-
+		This report is useful to understand what exchange has happend in and out of company over the period of time.
+		where the company has invested the money and where the company requires money in operations.
+		
+		
+********************************** Analytic Account **********************************
+
+1.)Analytic Account:-	
+	we need to activate this feature from Accounting App.
+	Analytic Account:
+		The second accounting system used in some countries is called Analytical Accounting. 
+		Its main purpose is to track expense and revenue accounts by categories in order to derive profit and loss by activity.
+
+		Analytic accounts are used to track like say you have to calculate the profitablility of project.
+		Project Profit = minus(expenses+material used+ hours work of employees).
+		
+		If you launch new product and want trace the profilibility you can make use of analytic account.
+		
+	Create Analytic Account :-
+		Accounting --> Configuration -- Analytic Accounting -- Analytic Accounts
+		here you can create the record.
+		you can create analytic account to particular customer, as customer field is available
+		you can create a Group, as group field is available in form.
+			Group is used to add multi analytic accounts and get the result in analytic report.
+			
+	Analytic Item :-
+		Accounting --> Configuration -- Management -- Analytic Items
+		Create the Vendor Bill and in Line select the analytic accuount.
+		Now when you validate the analytic item will be created like journal items, 
+		No journal items will be create it will create the analytic items.
+		
+	Analytic tags:-
+		we need to activate this feature from Accounting App.
+		you can add multiple ananlytic account and the percentage.
+		Example:-
+			Analytic Account:
+				A1 and A2
+			Analytic tag:-
+				Name:- AA
+				Analytic Distribution field:- make it true. Now an One2many field will be visible.
+				In One2many field
+					Account		Percentage
+					A1			70
+					A2			30
+			
+			Create the vendor bill and only add analytic tag and not analytic account.
+			validate the bill and check the analytic item
+			you will find two entries 
+				A1 with 70% amount of vendor Bill
+				A2 with 30% amount of vendor Bill
+				
+			Question:-How can I partially link a financial transaction to one or multiple analytic accounts?
+			
+			1.)There is no use in having only a part of a value linked to an analytic account.
+			2.)By modifying the posted entries and adding a percentage value next to the analytic account field.
+			3.)When adding an analytic account to the financial transaction, by opening the external link and adding the 					required percentage value.
+			4.)By creating an analytic tag, selecting the "Analytic Distribution" option and adding the required analytic 					accounts and their percentages.	(Correct)	
+				
+	Project:-
+		For every project an analytic account will be created by default when analytic account is actiavted from accouting app.
+				
+		
+
+12)Analytic Report:-
+	Accounting --> Reporting -- Management -- Analytic Report
+	You can see balance of all the analytic accounts.
+	You can see the reports group wise (group created in analytic account)
+	In report you have option "Hierarchy and Subtotals". This will make the report group wise.
+	You can even see Profit and Loss report by analytic account wise. you have option "Analytic" where you enter the account name.
+	 
+	
+********************************** Analytic Account **********************************
+
+	
+
+12.)Closing Fiscal Year:-
+	make sure all the Invoice, Bills and Expenses are Validated
+	Reconciliation.
+	depreciation(Assets Management)/ Deffered Revenue enteries invoice are posted.
+
+	Follow the below steps:-
+	1.)In Accounting Setting set the last date of fiscal year.
+	2.)Set the lock date from the Lock Date Menu as the end date of fiscal year for Non Adviser.
+		so only the user with Adviser access right can only work on it,so the accountant is quite sure than no one 			is editing the previous year enteries while he is auditing.
+	3.)Go to Balance sheet report and make sure you select the end date of fiscal year for print the report.	
+		Scroll down you can see the Unallocated Earnings, see for Current Year total unallocated earnings and Retained Earning.
+
+	(allocate the current year earnings in order to have total current year unallocated earning reporting balance zero.
+	allocate all the current year earing to retained earning.(Journal entry step will perform it automatically))
+
+	Account1:-
+		name:- undistributed profit/losse, type:-Current Year earning, odoo create its default, If you create your own than type 				must be same.
+		
+	Account2:- Create another account with type as Equity or ask your accountant.
+
+	Create Journal Entry:-
+		Journal:- Misc
+		item 1:- 
+			name:-undistributed profit/losse(Account2)
+			debit:- Current Year total unallocated earnings(from balance sheet report)
+		item2:-
+			name:-Account2(select the account which you created just now)
+			credit:- Current Year total unallocated earnings
+		post this entry
+
+	Print Balance Sheet:- Check Total Current Year Unallocated Earnings is zero.
+			      Total Unallocated Earnings == Retained Earnings.
+
+	Print General Ledger:- unfold all account from Options menu and check balance should be zero of last Total line.
+	
+	Retained earnings (RE) is the amount of net income left over for the business after it has paid out dividends to its shareholders.
+
+
+13.)Inventory Valuation:-
+	when you make the inventory valuation as Automate in product then you need to set accounts in that form.
+	when you receieve the product the journal entry of that accounts is created.
+
+
+
+14.)Consolidation:
+	Consolidation used when you are using multi-company or you company has branches or sister company.
+	The consolidated accounts allow the parent company to assess its grip over its sister company.

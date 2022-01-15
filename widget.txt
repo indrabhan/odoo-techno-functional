@@ -1,0 +1,38 @@
+1.)statusbar:- use on status field.
+
+2.)statsinfo:- use in smart button to show the number of reocrds.
+
+3.)url:
+
+4.)email:- when click it will open mail compose window of the mail.
+
+6.)many2many_tags:- use in many2many fields
+
+7.)selection:- use on many2one fields to that create, create and edit option is not seen.
+
+8.)list_activity:-
+	Scheduled Activity
+		Next Activity field in the list view.
+		You can see the clock icon and the activity name 
+		when click on clock icon "+ Scheduled An Activity" will be visible, click on it and you can schedule the activity.
+	
+		<field name="activity_ids" widget="list_activity" optional="show"/>
+
+
+9.)many2one_avatar_user:
+	Users field in the tree view
+		will show image in small circle and beside that user name
+		when click on the image a chat window will open in the right side and you can direct chat with the user. 
+	
+10.)ribbon:- 
+	introduce in V13
+	
+11.)video_priview:
+	introduce in V13
+	In the ecommerce for the products to show multi video of products.
+	
+12.)Calculator Widget
+	In the price column of SOL you can enter "=50+100" and then it will show 150
+
+13.)image:-
+	use in image field.

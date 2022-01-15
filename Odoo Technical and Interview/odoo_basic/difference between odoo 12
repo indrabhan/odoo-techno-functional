@@ -1,0 +1,71 @@
+difference between odoo 12*****************************************
+
+New field in Users form view, 
+	User Type:-Internal, Public, Portal
+
+Multi-Website
+
+Create multiple records at a time using create_multi
+
+one2many line you can have 3 buttons:-Add line, Add section and Add note
+
+Accessing a fields Date or fields DateTime value will no longer return a string with the representation of the date but a native python date(time) object.
+
+
+Pivot:*-The only allowed element within a pivot view is field which can have the following attribute
+*	type=row, col, m*eausres, *interv*al
+*	<pivot string="Timesheet">
+	    <field name="employee_id" type="row"/>
+	    <field name="date" interval="month" type="col"/>
+	    <field name="unit_amount" type="measure" widget="float_time"/>
+	</pivot>
+
+Two new views: cohert and dashboard
+Dashboard:*-The dashboard view is used to display aggregate data.
+*	 the dashboard can embed sub views, tags used are view, aggregate,formula,group
+*	In view tag:* Type is m*anadatoty
+*	    aggregate:*- field and name* are manadatary
+*	    formula:*-v*alue is m*anadatary. Ex:*- record.price_total / record.order_id.
+
+	<dashboard>
+	    <view type="graph" ref="sale_report.view_order_product_graph"/>
+	    <group string="Sale">
+		<aggregate name="price_total" field="price_total" widget="monetary"/>
+		<aggregate name="order_id" field="order_id" string="Orders"/>
+		<formula name="price_average" string="Price Average"
+		    value="record.price_total / record.order_id" widget="percentage"/>
+	    </group>
+	    <view type="pivot" ref="sale_report.view_order_product_pivot"/>
+	</dashboard>
+
+Cohort:*-
+*	The cohort view is used to display and understand the way some data changes over a period of time. For example, imagine that for a 		given business, clients can subscribe to some service. The cohort view can then display the total number of subscriptions each month.
+	<cohort string="Subscription" date_start="date_start" date_stop="date" interval="month"/>
+*	date_start:*-m*anadatory
+*       date_stop:*-m*anadatory
+*       string:*-m*anadatory
+
+	By default the cohort view will use the same list and form views as those defined on the action. You can pass a list view and a form view to the context of the action in order to set/override the views that will be used (the context keys to use being form_view_id and list_view_id)
+
+
+New report type: qweb-text*
+
+
+Customers can pay with their mobile banking app using SEPA QR codes!*******
+
+*New Configuration bars*
+
+Faster data entry with pictures of expenses or bills on the side of their corresponding document.
+
+****************************************There’s a new attribute ‘date’ in filter tag, which automatically filters on given date or datetime field.
+
+It automatically give filters like today, yesterday, this month, last year, last 30 days, etc.
+
+Just add <filter date=”date_field_name” name=”filter_name”/>.*************
+
+You can also give default period of filter as:
+
+<filter name="filter_create_date" date="create_date" string="Creation Date" default_period="this_week"/>
+
+
+https://www.quora.com/What-are-the-new-features-provided-by-Odoo-12***

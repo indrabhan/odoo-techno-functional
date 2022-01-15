@@ -1,0 +1,50 @@
+Employee:- Install Employee App
+	
+	You can create Employee, Department, Job Position, Assign manager to employee.
+	
+	Company Working Hours:-
+		From setting of Employee App you can create and edit, default is Standard 40 hours/week.
+		The default value will be assign to every new employee you create.
+
+
+
+Attendance:- Install the attendance module.
+	
+	The simple way login user will go to attendance module and click on Check In / Check Out.
+	On the employee you can see the Attendance smart button, check your attendance their.
+	you will see Check In and Check Out column.If you want to know whether you have check out or not you can check from here.
+
+	Check In through Pin/Badge:-
+		1.)Activate this feature from setting of Attendance module.
+		2.)Create the pin, Go to HR Setting tab of Employee and write any pin in PIN Code field that you would like to entery for 				your attendance.
+		3.)Below the PIN Code field you will see the Badge ID field and "Generate" button.
+			Click on it to generate the Badge ID and from print menu print the Badge ID.
+		4.)Go to Attendance Module and in Manager menu will you see "Kisok Mode" menu click on it
+			select the PIN Code option and enter the pin code for Check In, and follow the same process for Check Out
+							OR
+			select the Badge option and scan the badge for Check In, and follow the same process for Check Out
+			(scan badge through barcode scanner)
+
+
+Time Off / Leave Management:- Install the Time Off module.
+	
+	1.)Time Off Type:- Create the leaves
+	
+		This are the leaves types like sick, casual and annual leaves.
+		From configuration menu you will get Time Off Type menu.
+
+	2.)Allocate the leaves:- Assign to everyone so that they can apply of time-off
+	
+		From Manager menu --  To Approve -- Allocation
+		you can allocate leaves to employees, means leave get credited in their account.
+		From My Time Off -- Dashboard they can check their leaves remaining.
+
+	3.)Apply for leave:-
+		From My Time Off -- Dashboard:- Clicking on any date from calendar they can apply for leave.
+		From My Time Off -- Time Off Request :- They can apply for leave request.
+	
+		Note:- 
+			Manager menu -- > Time-off menu
+			from Time Off Request record it will show who has taken leave for that month.
+			
+		

@@ -1,0 +1,72 @@
+widgets
+
+1.)model changes
+	account.invoice changed to account.move
+	account.invoice.line changed to account.move.line
+	account.invoice.tax changed to account.move.line
+	account.voucher changed to account.move
+	account.voucher.line changed to account.move.line
+	
+2.)Decorators Removed
+
+	@api.multi
+	@api.one
+	@api.guess
+	@api.noguess
+	@api.model_cr
+
+1.)Sales Coupons And Promotions Module
+	Sales Coupons and Promotions Module ’ also now available for Odoo community version in Odoo 13 as a new feature.
+	
+2.)MRP Subcontracting:
+	Added Subcontracting BOM Type in Manufacture Bill of material.
+	
+3.)Display product videos in eCommerce
+	In the Product form in the eCommerce tab you will find "Add Media"
+	Here you can add n number of images and videos.
+	
+	***************** Video Preview **************************
+
+	introduce from V13
+
+	from odoo.addons.website.tools import get_video_embed_code
+
+	video_url = fields.Char('Video URL',
+		                    help='URL of a video for showcasing your product.')
+	embed_code = fields.Char(compute="_compute_embed_code")
+
+	@api.depends('video_url')
+	def _compute_embed_code(self):
+	    for image in self:
+		image.embed_code = get_video_embed_code(image.video_url)
+
+	<field name="video_url"/>
+	<field name="embed_code" class="mt-2" widget="video_preview"/>
+	
+4.)************* Dynamic Tree View ********************
+
+	introduce from V13
+	In tree view we see the 3 dots at the end, where you can see some fields.
+	<field name="date" optional="show"/> this will be in 3 dots and the boolean box it has will be checked.
+
+	<field name="date" optional="hide"/> this will be in 3 dots and the boolean box it has will be unchecked
+
+
+5.)*****************Ribbon ************
+
+	ribbon widget is introduce from V13
+	example:- if the invoice is posted then at the right top corner you will find Ribbon
+
+6.)**************** Search Panel *****************
+
+	introduce from V13
+	In the employee in tree/kanban view you will find the search pannel at the left side.
+
+
+7.)Navigate to access rights, groups, record rules in Odoo 13 from user form view.
+	groups, record rules , access rights are seen of that user only
+	
+	
+8.)Calculator Widget
+	In the price column of SOL you can enter "=50+100" and then it will show 150
+

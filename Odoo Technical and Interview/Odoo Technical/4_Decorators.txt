@@ -1,0 +1,147 @@
+1.)@api.depends_context(argument)
+	Return a decorator that specifies the context dependencies of a non-stored “compute” method.
+	Each argument is a key in the context’s dictionary:
+	
+	Example 1:-
+		display_info = fields.Text(string='Infos', compute='_compute_display_info')
+		
+		@api.depends_context('company')
+	    	def _compute_display_info(self):
+		    for record in self:
+	
+	Example 2:-
+		@api.depends_context('pricelist')
+		def _compute_product_price(self):
+		    for product in self:
+		
+	Note:-    
+		All dependencies must be hashable. The following keys have special support:
+
+		A.)company (value in context or current company id),
+
+		B.)uid (current user id and superuser flag),
+
+		C.)active_test (value in env.context or value in field.context).
+
+
+1.)@api.depends('fieldName, fieldName.fieldName)
+	Return a decorator that specifies the field dependencies of a “compute” method.
+	We can use simple field and dot notated fields also.
+	Example:-
+            pname = fields.Char(compute='_compute_pname')
+
+            @api.depends('partner_id.name', 'partner_id.is_company')
+            def _compute_pname(self):
+                for record in self:
+                    if record.partner_id.is_company:
+                        record.pname = (record.partner_id.name or "").upper()
+                    else:
+                        record.pname = record.partner_id.name
+
+        One may also pass a single function as argument. In that case, the
+        dependencies are given by calling the function with the field's model.
+
+
+2.)api.depends_contex():
+	Return a decorator that specifies the context dependencies of a non-stored “compute” method. Each argument is a key in the context’s dictionary.
+	Example:-
+		@api.depends_context('pricelist')
+		def _compute_product_price(self):
+		    for product in self:
+			if product.env.context.get('pricelist'):
+			    pricelist = self.env['product.pricelist'].browse(product.env.context['pricelist'])
+			else:
+			    pricelist = self.env['product.pricelist'].get_default_pricelist()
+			product.price = pricelist.get_products_price(product).get(product.id, 0.0)
+
+	All dependencies must be hashable. The following keys have special support:
+
+		force_company (value in context or current company id),
+		uid (current user id and superuser flag),
+		active_test (value in env.context or value in field.context).
+
+3.)contrains:-
+	use for data validation.
+	
+	@api.constrains(*args)
+	Each argument must be a field name used in the check:
+		
+		@api.constrains('name', 'description')
+		def _check_description(self):
+		    for record in self:
+			if record.name == record.description:
+		
+			    raise ValidationError("Fields name and description must be different")
+	Note:		    
+		Invoked on the records on which one of the named fields has been modified.
+		@constrains only supports simple field names, dotted names are not supported liked(partner_id.name)
+		@constrains will be triggered only if the declared fields in the decorated method are included in the create or write 			call.
+		It implies that fields not present in a view will not trigger a call during a record creation.
+		
+	One may also pass a single function as argument. In that case, the field names are given by calling the function with a model 		instance. 
+
+
+4.)@api.onchange(fieldName)
+	In the form views where the field appears, the method will be called
+    	when one of the given fields is modified.
+
+	return {
+		    'domain': {'other_id': [('partner_id', '=', partner_id)]},
+		    'warning': {'title': "Warning", 'message': "What is this?", 'type': 'notification'},
+        	}
+
+	If the type is set to notification, the warning will be displayed in a notification.
+	Otherwise it will be displayed in a dialog as default.
+
+	
+        ``@onchange`` only supports simple field names, dotted names
+        (fields of relational fields e.g. ``partner_id.tz``) are not
+        supported and will be ignored
+
+	It is not possible for a ``one2many`` or ``many2many`` field to modify
+        itself via onchange. This is a webclient limitation - see `#2693 <https://github.com/odoo/odoo/issues/2693>`_.
+
+    """
+
+
+5.)returns
+	Return a decorator for methods that return instances of model.
+
+	Parameters	
+		model – a model name, or 'self' for the current model
+		downgrade – a function downgrade(self, value, *args, **kwargs) to convert the record-style value to a traditional-style output
+		upgrade – a function upgrade(self, value, *args, **kwargs) to convert the traditional-style value to a record-style output
+		The arguments self, *args and **kwargs are the ones passed to the method in the record-style.
+
+	The decorator adapts the method output to the api style: id, ids or False for the traditional style, and recordset for the record 		style:
+
+		@model
+		@returns('res.partner')
+		def find_partner(self, arg):
+		    ...     # return some record
+
+		# output depends on call style: traditional vs record style
+		partner_id = model.find_partner(cr, uid, arg, context=context)
+
+		# recs = model.browse(cr, uid, ids, context)
+		partner_record = recs.find_partner(arg)
+		Note that the decorated method must satisfy that convention.
+
+	Those decorators are automatically inherited: a method that overrides a decorated existing method will be decorated with the same 		@returns(model).
+
+
+6.)api.model
+
+7.)api.model_create_multi
+		Decorate a method that takes a list of dictionaries and creates multiple records. The method may be called with either a 			single dict or a list of dicts.
+
+		Example:
+			@api.model_create_multi
+			def create(self, vals_list):
+				return super(AccountMove, self).create(vals_list)
+				 
+
+
+SQL Execution:-
+	The cr attribute on environments is the cursor for the current database transaction.
+	self.env.cr.execute("some_sql", param1, param2, param3)

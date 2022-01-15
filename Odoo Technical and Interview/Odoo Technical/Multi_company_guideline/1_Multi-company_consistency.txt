@@ -1,0 +1,26 @@
+Multi-company consistency
+
+	When a record is made shareable between several companies by the mean of a company_id field.
+	we must take care that it cannot be linked to the record of another company through a relational field. 
+	For instance, we do not want to have a sales order and its invoice belonging to different companies.
+	
+To ensure this multi-company consistency, you must:
+
+	Set the class attribute "_check_company_auto" to True.
+	Define relational fields with the attribute "check_company" set to True if their model has a company_id field.
+
+On each create() and write(), automatic checks will be triggered to ensure the multi-company consistency of the record.
+
+	from odoo import fields, models
+
+	class Record(models.Model):
+	    _name = 'record.shareable'
+	    _check_company_auto = True
+
+	    company_id = fields.Many2one('res.company')
+	    other_record_id = fields.Many2one('other.record', check_company=True)
+	    
+	    
+	Note
+
+	The field company_id must not be defined with check_company=True.

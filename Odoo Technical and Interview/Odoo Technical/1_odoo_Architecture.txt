@@ -1,0 +1,60 @@
+1.)Odoo Architecture
+
+	MVC(module,viwe controller)
+	module:-db(postgres)
+	view:-request from browser
+	controller:-takes request from browser send it to postgres db and fetch data
+			its an orm framework which is api
+
+
+
+2.)Models:- Odoo has 3 types of models.
+	1.)Model: These types of model have permanent database persistence: database tables are created for them and their records are 			stored until explicitly deleted.
+
+		class MinimalModel(models.Model):
+    			_name = 'test.model'		: Table of this name will be created in postgres as test_model.
+	
+			
+	2.)Transient: Transient models are based on the models.TransientModel class and are used for wizard-style user interaction.
+			Their data is still stored in the database, but it is expected to be temporary.
+			A vacuum job periodically clears old data from these tables.
+			
+			A TransientModel has a simplified access rights management, all users can create new records, and may only access 				the records they created. The superuser has unrestricted access to all TransientModel records.
+
+	3.)AbstractModel: They don't have a database representation. no actual tables are created for them.
+			  We can think of them as templates with ready-to-use features.
+			  For Qweb Report we make use of them.
+			  They are expected to be used as mixin classes 
+			  The mail.thread is an abstract model.
+
+
+			2nd explanation
+				Sometimes, there is a particular feature that we want to be able to add to several different models. 				Repeating the same code in different files is bad programming practice, so it would be nice to be able to 					implement it once and be able to reuse it many times.
+
+				Abstract models allow us to just create a generic model that implements some feature that can then be 					inherited by regular models in order to make that feature available in them.
+			
+			Example:
+				class IrBranchCompanyMixin(models.AbstractModel):
+					_name = "ir.branch.company.mixin"
+
+					branch_id = fields.Many2one(
+						'res.branch', 'Branch', ondelete="restrict",
+						default=lambda self: self.env.user.default_branch_id)
+
+					company_id = fields.Many2one(
+						'res.company', 'Company', ondelete="restrict",
+						default=lambda self: self.env.user.company_id)
+
+
+				class AccountJournal(models.Model):
+				    _name = "account.journal"
+				    _inherit = ['ir.branch.company.mixin']
+
+
+			Note:- It mean you will have fields of ir.branch.company.mixin class into account_journal table.
+
+
+
+				class Partner(models.Model):
+				    _name = "res.partner"
+				    _inherit = ["res.partner", "ir.branch.company.mixin"]

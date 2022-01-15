@@ -1,0 +1,128 @@
+1.)Managing your Vendor Bills:
+	From the purchase application, you can create a purchase order with as many products as you need. If the vendor sends you a 		confirmation or quotation for an order, you may record the order reference number in the Vendor Reference field. 
+	This will enable you to easily match the PO with the the vendor bill later (as the vendor bill will probably include the Vendor 	Reference)
+
+	Batch Billing:- 
+			In Accounting App -- Vendors -- Bills:
+				In Bill form you can see Auto-Complete field, This field will show PO's based on Vendor selected.
+	
+			When creating a vendor bill and selecting the appropriate purchase order, you may continue to select additional 			purchase orders in Auto-Complete field. Odoo will add the additional line items from the purchase orders you select. 				If you have not deleted the previous line items from the first purchase order, the bill will be linked to all the 				appropriate purchase orders.
+
+	Note:- Bills are created of Purchase Orders only.
+		When you create Vendor Bills not linked to any PO.The product in lines will not be added to inventory.
+		This is wrong ways instead you can make Purchase receipt.
+		
+		Same thing for invoice, If you create invoice not linked to SO the product will not be deducted from inventory.
+		This is wrong ways instead you can make Sales receipt.
+
+2.)Purchase Receipt:-
+	Purchase receipts are different than vendor bills. Vendor bills are requests for payment. If I issue a Purchase Order my vendor will 		in most business cases send me a Vendor Bill. Depending on his invoice policy I then have a defined amount of time to pay the Bill.
+
+	A Purchase receipts are confirmations of received payments. They are my day-to-day ticket receipts.
+
+	Example:-
+		we need to buy tea for our customers from a local tea store that doesn't issue bills. We go every week buy 50 euros worth of 			tea. We pay with the company's bank account(like card or cash).
+		In this case create the Purchase Receipt and Register the Payment.
+	
+	Edit the Journal Entry before posting it
+		Once you have filled out the Invoice Lines tab, you can modify the Journal Entry before you post it.
+		To do so, click on the Journal Items tab, change the accounts and values according to your needs, and click on Post.
+
+	Note:-
+		Validate the Purchase Receipt to post it. Don't forget you need to reconcile payments in order to completely close the 			transaction in your accounting.
+
+3.)Deffered Revenue and Deferred Expenses:-
+	Deferred revenues, or unearned revenue, are payments made in advance by customers for products yet to deliver or services yet to 		render.In short pre-payments.
+	
+	The company cannot report them on the current Profit and Loss statement, or Income Statement, since the payments will be 		effectively revenue in the future.
+
+	These future revenue must be deferred on the company’s balance sheet until the moment in time they can be recognized, at once or 		over a defined period, on the Profit and Loss statement.
+
+	In short we can not show the profit all at once in month.Instead we have to show profit every month/year till the defined period 		of service.	
+
+	In Accounting Config you will find 2 menus
+		1.)Deferred Revenue Models
+		2.)Deferred Expense Models
+ 
+	Deferred Revenues
+		Are used to recognize revenues for sales of services that are provided over a long period of time. If you sell a 3 year 		maintenance contract, you can use the deferred revenue mechanism to recognize 1/36 of the revenue every month until the 		contract expires, rather than taking it all initially or at the end.
+		Even If your client paid it all, but still you want to record it period by period.
+
+	Create Deferred Revenue Model
+		Revenue account:- Account type income.
+		Differed Revenue Account:-Current Liabilities.
+		Journal:- Misc
+	
+	Note:- After creating 2nd account go their and select Create and Validate and Select the Revenue Model you created just now.
+
+	Create the service product(Warranty for 10 years) and in accounting tab assign the 2nd account to income field or you may select 		that account when you select that product for customer invoice.
+	when you post the record you will find record for Deferred Revenue in Accounting App -- Accounting -- Deferred Revenue.
+	The invoice enteries will be created in draft mode.
+
+	Example2:- If you don't have sale module.
+
+		 You can create record for Deferred Revenue in Accounting App -- Accounting -- Deferred Revenue.
+		 when you confirm it the invoice enteries are created in draft mode.
+
+	Note:-Invoice enteries will be posted automtically, Cron job runs every day.
+	
+	
+	
+	Question:-What does the "Prorata Temporis" option do?
+	
+	1.)This option doesn't exist at all.
+	2.)This option exists but has nothing to do with deferred revenues.
+	3.)The first entry has the same amount as all the following entries, regardless of the deferred revenue's starting date.
+	4.)The first entry is generated according to the deferred revenue's starting date, with an amount that is proportionate to what 			is left of the current financial year.	(Correct)
+
+
+4.)Asset management:- In Accounting config click on Asset Models menu.
+
+	To record the depricated cost of product every month/year.
+	For eaxmple:-
+		Company purchase a vehical at 20K, so current year company asset value will be 20k, but it will be not same in next year.
+		so we record the depreciation costs,so we know the actual values of asset company has in current year.
+
+	Asset:- Assets are the pyhsical thing that you purcahse for your company(computer, AC, etc)
+		In asset management we record the price of asset(in account) and its deprication cost(in account), use of asset for 			particular year.
+	Asset Type:- In accounting-- asset type- Here you will have all 3 account and depreciation details
+		such as, Number of enteries, and after how many months that entery should be genereated
+		This record(creating asset type) will be link as a category when we create asset(adviser menu).
+	Asset Type:-
+		Asset account:- holds the purchase value of asset.(account type fixed Asset.)
+		Depreciation:- deperciation cost on balance sheet.(create diff acc with account type fixed Asset.)This is for depreciation 				       enteries to decrease the value of assets.
+		Expense Account:- record every depreciation on income statement.(account type depreciation(10+).)
+		Journal:- Misc/ we can even create our other journal to record the depreciation enteries.
+
+	Note:-
+		Now go in Chart of Accounts and select the 1st account we created just for Asset Type.
+		Click on Edit and select "Create and Validate" and select the Asset Model we created just now.
+
+	Create the vendor bill and don't seletct product just entery description and select the 1st Account we created for Asset Type
+	and entery the price and validate the bill.
+	Assets entry will be created(smart button)
+
+	In Accounting App -- Accounting you will find Assets menu.
+
+
+5.) Bill Digitalization/Digitize Vendor Bills:-
+
+	In this process you upload the vendor bill pdf to create vendor bill.
+	from the pdf the vendor bill field will be autofill, If they are not autofill you can drag from pdf and drop that value to particular 		field.
+	The same window will be divided into 2 parts
+		1 side with vendor bill and other side with pdf so that you can perform drag and drop.
+
+	Config:-
+		Go to Accounting ‣ Settings ‣ Bill Digitalization, and choose whether the bills should be processed automatically or manually.
+
+	In Accounting App -- Vendor -- Bills
+		when you click on Bills menu in tree view you will see "upload" button.
+
+6.1)Batch Payment:- By check
+	This feature is just like customer batch payment.
+	Activate this feature from Accounting App -- Setting -- Vendor Payment Section - Checks
+		
+
+6.2)Batch Payment:- By SEPA
+	This feature is just like customer batch payment.
+	Activate this feature from Accounting App -- Setting -- Vendor Payment Section - SEPA Credit Transfer (SCT)

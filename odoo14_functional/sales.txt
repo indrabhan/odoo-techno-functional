@@ -1,0 +1,268 @@
+Product Catalog
+
+1.)Product variant:-
+	Impact of variants
+		1.)Barcode: the code and barcode is associated to a variant, not the template. Every variant may have its own barcode / 				SKU.
+		2.)Price: every product variant has its own public price that is computed based on the template price ($20) with an 			optional extra for every variant (+$3 for color red). However, you can define pricelist rules that apply on the 				template or the variant.
+		3.)Inventory: the inventory is managed by product variant. You don’t own t-shirts, you only own “T-shirts, S, Red”, or 
+			“T-Shirts, M, Blue”. For information purpose, on the product template form, you get the inventory that is the sum 				of every variant. (but the actual inventory is computed by variant)
+		4.)Picture: the picture is related to the variant, every variation of a product may have its own primary picture.
+		5.)Other fields: most of the other fields belongs to the product template. If you update them, it updates automatically 				all the variants. (example: Income Account, Taxes
+		
+	Note:-
+		1.)You have to activate this feature from settings of Sale App.
+		2.)You will also find menu with product variant name.
+		3.)In Product template you will find the button "Configure Variants" at the left top side after creating variants for that 		product template.
+
+2.)Variant Grid Entry:-
+	This feature will just change the view of selecting product variants on sale order.
+	When you activate this feature from sales setting it will automatically activate the feature Product Configurator.
+	
+	Note:-
+		In Variant tab of products form you will find 2 options:
+			1.)Product Configurator:- default selected
+						choose attribute values to add the matching product variant to the order.
+			2.)Order Grid Entry:-
+					    Add several variants at once from the grid of attribute values.
+
+3.)Product Packings:- 
+	This feature will allow you create packages of products.
+		Suppose Pack1 contains 10 products, Pack2 contains 5 products.
+		when you create SO and select the product and you will see the packages related to that product.
+		Say you select Pack1 then in quantity field you have to enter 10 quantity.
+		Even you don't enter that much quantity it will just raise a popup and allow you to save SO.
+
+	In the Inventory tab of product form you will find the options of packaging.
+
+	Note:- If the product has variants then packaging option will be available in product variants.
+	
+
+4.)Deliver Content by Email:-
+	Sending an email is useful if you need to share specific information or content about a product(instructions, rules, links, media, 		etc.)
+	Create and set the email template from the Sales tab of product form.
+	You will find the field "Automatic Email at Invoice" set the email template to this field.
+	That template will be send by mail once you validate the invoice.
+
+**********************************************************************************************
+
+Pricing
+
+1.)Pircelist:
+	Pircelist can be specific to country group also.we have option for that in pricelist.
+	In Pricelist we have option for Global(All products), Product Category, Product template and Product Variant.
+
+	You can assign single product to multiple pricelist.
+	Pricelist are assign on customer form, so when you select customer on SO the pricelist field gets autofill.
+
+2.)Discount:-
+	Grant discounts on sales order lines
+	Discount field will appear on lines.
+	
+	Note:-
+		The discount given in pricelist will not show in this discount field.
+		The price will be discounted price according to pricelist.
+
+3.)Coupons & Promotions:-
+	Activate this feature from sales settings and you will have 2 menus
+	1.)Promotion Program:-
+		Build up promotion programs to attract more customers with discounts, free products, free delivery, etc. You can share 			promotion codes or grant the promotions automatically if some conditions are met.
+	2.)Coupon Program:-
+		Generate and share coupon codes with your customers to get discounts or free products.
+
+	when you will create SO in bottom you will see 2 button
+		1.)Coupon
+		2.)Promotion
+	when you will click this button additional line of that discount will be added in line.
+
+4.)Margin:-
+	Activate this feature from sales settings.
+	In the bottom of order it will show you margin(sales price - cost price)
+
+**********************************************************************************************
+
+Quotations & Orders
+
+
+1.)Quotation Template:- Use templates to create polished, professional quotes in minutes. Send these quotes by email and let your customers 				sign online. Use cross-selling(Optional products) and discounts to push and boost your sales. 
+
+	In Sale Order when you select the value in "Quotation Template" field, the SOL will be auto fill with the products define in Quotation 		Template.
+	To enable this feature, go to Sales ‣ Configuration ‣ Settings and activate Quotation Templates.
+
+	You can even assign the default template when activating the above feature.
+	Means that template will be auto selected when creating sale order.
+
+	Sale/Setting/Quotation Template:-
+		when create Quotation Template you will find Confirmation Tab/Page
+			1.)Online Signature:- when the customer will do online sign then the quotation will be automatically confirmed.
+			2.)Online Payment:- when the customer will do online payment then the quotation will be automatically confirmed.
+			3.)Confirmation Email:- This template will be send when Confirming the Order.
+
+	Note:-
+		In template we can add Optional products
+
+2.)Online Signature:- Request an online signature to confirm orders
+	You can see its effect in Quotation Template.
+	From setting this feature can be activated.
+
+3.)Online Payment:-  Request an online payment to confirm orders 
+	You can see its effect in Quotation Template.
+	From setting this feature can be activated.
+
+4.)Quotation Builder:-	Design your quotation templates using building blocks
+	In Quotation template you will see the "Edit Template" Smart button.click on it and you will be able to design the template.
+	
+5.)Default Quotation Validity:-	Set a default validity on your quotations.
+	Activate this feature from  setting.
+	It will then show you Default Limit field  enter the number of days,
+	The Experiation date on quotation will be Current Date +  Default Limit field days.
+
+	If you make use of template in quotation then the Experiation date will be
+	Current Date + Quotation expires after _ days(field on template)
+
+5.)Customer Address:
+	This feature will allow you to have different address for an order.
+	In contact/customer form you can defined it invoice and shipping address and this address will be auto fill in SO when you select this 		customer.
+	Their will be different field for invoice and shipping address.
+
+6.)Sale Warnings:  Get warnings in orders for products or customers.
+	Activate this feature from sales setting
+
+	The Warnings feature allows you to raise warnings or blocking messages on sales orders based on a customer or a product.
+
+	For example, if you often have a problem with a Customer, you might want to raise a warning when selling for that customer. If a 		product is about to be discontinued, you may want to raise a blocking message on the sales order.
+
+	Configuration:
+		For this feature to work, go to Sales ‣ Configuration ‣ Settings and activate the Sales Warnings feature.
+
+	Add a warning on a Customer:
+		When you activate the feature, you get a new option under the Internal Notes tab on customer. You can decide to write a simple 			warning or a blocking message.
+
+	Add a warning on a product
+		When you activate the feature, you get a new option under the Sales tab on the product page where you can add a warning or 			a blocking message.
+
+	Note:- If it is a warning message you can ignore it.
+	       If it is Blocking message you can not ignore it.
+
+	Note:- Same feature is available for Purchase App
+		For Vendor and purchasable Product.
+		Need to activate this feature. 
+
+7.)Proforma Invoice:
+	In short you can say as estimated invoice.
+	It notes the kind and quantity of goods, their value, and other important information such as weight and transportation charges.
+	
+	To activate this feature go to sales App -- setting and tick mark the boolean Proforma Invoice.
+	In Quotation you will find the button "SEND PRO-FORMA INVOICE".
+
+8.)Lock Sales Order:-
+	Activate this feature from settings of Sales App.
+	
+	When you confirm the Quotation it will go in Locked state and you can not edit it.
+	On same SO you will find the button of Unlock and now you can edit the SO.
+
+**********************************************************************************************
+
+Shipping
+
+1.)Shipping Costs/Delivery Methods:
+	This feature allows you to add shipping cost/delievry cost to your delivery order.
+	To activate this feature go to Inventory App and tick mark the Shipping Costs.
+	This feature can also be activated from Sales App and tick mark the Shipping Costs.
+
+	Shipping methods can be based on fixed price or based on rule or even free if exceed a particular amount.
+	Assign the service type product to shipping method.
+	Shipping methods can also be applied to specific country or state or in particular zip code range.
+
+	Example:-
+		In sale order you can select the shipping method or it might be auto filled base on customer country/state/zip code if set on 			shipping methods.
+		You can calulate the price and product will be added to Sale order line.
+		you will get exact price when validating the delivery Order.
+
+	Note:-
+		when the shipping method is based on rule, the sequence of the rule matters.
+
+	Note:- UPS Connector, DHL Connector, USPS Connector, Easypost Connector, FedEx Connector, bpost Connector are availabe in enterprise.
+
+2.)Incoterm:- Display incoterms on orders & invoices 
+	International Commercial Terms are a series of predefined commercial terms used in international transactions.
+	Activated this feature from settings of Sales App.
+
+**********************************************************************************************
+
+Invoicing
+
+1.)Invoice based on:
+	1.)Order Quanity
+	2.)Delivered Quantity
+
+	Above both options found in Sales setting and on Product form in Sales tab.
+	default is Order Quantity.
+	
+	When your setting is Ordered Quantity you can create regular invoice even though you have not shipped the order.
+	
+	When your setting is Delivered Quantity and you create invoice as regular invoice it will raise
+	a warning and will not allow you to create invoice.You have to create invocie as downpayment.
+
+	Note:- when you make the downpayment the service type product with name as downpayment will be added in SOL.
+		From setting you can assign which downpayment product.That product will be use as downpayment product in SOL.
+
+
+**********************************************************************************************
+
+Portal Access:
+	In the Contact App create contact or select existing one and when the form is open click on Action button in dropdown you will find 		the option as "Grant Portal access".
+	In tree view also you find same.
+
+
+
+Add terms & conditions:
+	You can have your default terms and condition on every quotation/Invoice.
+	Show standard terms & conditions on invoices/orders 
+
+	Configuration
+		Go to Accounting ‣ Configuration ‣ Settings and activate Default Terms & Conditions.
+
+
+Default Taxes:
+	1.)You can assign taxes that will be default selected to every product when selected in SO/PO.To activate this feature Go to 			Accounting App-- setting their you will find the field "Sale Taxes" and "Purchase Taxes".
+	2.)Even on product form you can define sale tax.
+
+	Note:
+		1.)Fiscal Positions take the Default Tax into account. Therefore, if a Fiscal Position is applied to an invoice, Odoo applies 			   the related tax instead of the Default Taxes, as mapped in the Fiscal Position.
+		2.)Databases with multiple companies: the Default Taxes values are company-specific.
+
+Fiscal Position:
+	Default taxes and accounts are set on products and customers to create new transactions on the fly. However, you might have to use 		different taxes and record the transactions on different accounts, according to your customers’ and providers’ localizations and 		business types.
+
+	Fiscal Positions allow you to create sets of rules to automatically adapt the taxes and the accounts used for a transaction
+
+	Note:-
+		1.)To remove a tax, rather than replacing it with another, leave the field "Tax to Apply" empty.
+		2.)To replace a tax with multiple other taxes, add multiple lines with the same Tax on Product.
+		3.)The mapping only works with active taxes.
+		4.)Taxes on eCommerce orders are automatically updated once the visitor has logged in or filled out their billing details.
+		5.)The Fiscal Positions’ sequence - the order in which they are arranged - defines which Fiscal Position to apply if the 				conditions are met in multiple Fiscal Positions.
+
+			For example, if the first Fiscal Position targets country A, and the second Fiscal Position targets a Country Group 				that also comprises country A, only the first Fiscal Position will be applied to customers from country A.
+
+
+
+
+
+
+11.)Delivery Methods:
+	It can be base on fixed or rule.
+	you can apply it based on zip code or country.
+	If the Delivery Method is based on rules then you need to define rule, rules are define on weight, volume
+	If rule is define then you need to define product weight on product form.
+	
+	
+12.)Customer lead time:
+	Suppose today is 1st Jully
+	Customer lead time on product is 10 days.
+	So in SO the Expected date and scheduled date in Delivery will be 11th jully.
+	
+	If set the customer Security lead time = 2 days
+	then in SO the Expected date will be 11th jully and scheduled date in Delivery will be 9th jully.
+	
+	Note:- customer Security lead time is substracted from scheduled date in delivery.

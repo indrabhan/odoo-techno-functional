@@ -1,0 +1,45 @@
+https://www.cybrosys.com/blog/odoo-14-ui-and-technical-changes
+https://www.synconics.com/odoo-erp-community-enterprise-14-features-technical-changes/
+
+1.)Scheduled Activity
+	Next Activity field in the list view.
+	You can see the clock icon and the activity name 
+	when click on clock icon "+ Scheduled An Activity" will be visible, click on it and you can schedule the activity.
+	
+		<field name="activity_ids" widget="list_activity" optional="show"/>
+	
+	
+2.)The Import button moved under the “Favorites” menu.
+
+3.)We can access View access rights and Record rules of the current model from the debug menu.
+
+4.)Dashboard in purchase module for easy access to a quick summary.
+
+5.)Users field in the tree view
+	will show image in small circle and beside that user name
+	when click on the image a chat window will open in the right side and you can direct chat with the user. 
+	
+		<field name="user_id" optional="show" widget="many2one_avatar_user"/>
+	
+6.)Remaining_days - 
+		The remaining day's widget is used in odoo 14 to notify users about the remaining days for the deadlines.
+		In the purchase order tree view you can find Order Deadline filed and its widget is remaining days
+		According to the time remaining different colors are also given to them ie. Red if the deadline is over, Orange if it is 			today, Green if there is more than one day for the deadline.
+		If the dealine date is today then "today" string will be seen instead of date.
+		
+		It is used on datetime field.
+		
+7.)XML shortcut tags <act_window> and <report> are no longer valid, and must be replaced by its full definition through <record> tag.
+you have to use record tag and its model_id
+
+
+8.)For transient models, you have to add explicit security for them (and optionally record rules).
+add transient models in ir.model.access.csv
+
+
+9.)Char_emojis and text_emojis:
+	It will show the emojis
+	widget=Char_emojis shows on Char type fields
+	widget=text_emojis shows on Text type fields
+	
+	

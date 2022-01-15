@@ -1,0 +1,13 @@
+**Function return value:- 
+	The method does not need to return anything, but we should have it to at least return a True value. The reason is that clients 
+	can use XML-RPC to call these methods, and this protocol does not support server functions returning just a None value.
+
+
+**date field:-
+	For date field names, there is a convention to use date as a prefix. For example, we should
+	use date_effective field instead of effective_date.
+
+**Translate:- 
+	Translate applies only to $Char , Text , and Html fields, and makes the field contents translatable, holding different values for 		different languages.
+
+

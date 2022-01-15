@@ -1,0 +1,315 @@
+Mrp Process:
+	1.)Engineers work on final product design using Auto CADD/DESK
+	2.)Once the design is done they create the BOM.
+	3.)Once the BOM is done the responsibility is shifted to Manufacturing Engineering, 
+	They are responsible for Routing, Worksheets and Workcenters
+		Routing:- Routingis the set of steps a product goes through for production.
+		Worksheet:- worksheet are the instruction for manufacturor operator.
+		Workcenter:- workcenter are the places where the production is being conducted.
+	4.)Once everything is decided we need to buy the products required for manufacturing then we go for Purchase/Procurement.
+	5.)Once the product arrived at our plant the Inventory team receives the products.
+	6.)once we have everything then Manufacturing Foremen will create the MO and manage the planning of manufacturor operator.
+	7.)Once the product is produce the inventory team will create the shipment to delivery the product.
+	8.)If the customer raise an quality issue of the product then the Quality Team comes into picture.
+		They will check the root causes, 
+		If the cause is in component then they will raise control point at the receiving point(Receipt of PO).
+		If the problem is on Design they they will raise an ECO(Eningeering Change Order)
+		ECO will trigger the update of BOM to change the components used in design.
+	9.)The last thing we need is the Maintenance Porgram:
+		Two type of Maintenance:
+			i.)Corrective:- you will fixed the already existing issues means fixing what is broken.
+			ii.)Preventive:- If you know your machine fails after certain numner of production then you do some maintenance
+				before it fails. 	
+	Purcahse is also know as procurement. 
+	
+******************************************************************************************
+	
+	Department 					Documents/App
+	
+	1.)Engineering					CAD/BOM
+	2.)Manufacturing Engineering			Routings, Worksheets, Workcenter
+	3.)Purchase/Procurement			PO/RFQ
+	4.)Inventory Operators				Receipts/Barcode
+	5.)Manufacturing Foremen			MO/Planning
+	6.)Manufacturing Operators			WorkOrders (Timesheet on Tablets)
+	7.)Inventory Operators				Delivery
+	8.)Quality					Alert/Analysis
+	9.)Quality (Components isuue)			Controls Points
+	10.)Quality (Design issue)			ECO -> New BOM
+	11.)Maintenance				Corrective/Preventive
+
+************************************************************************
+
+
+Manfacture --->Setting
+	1.)Operations
+		i.)Work orders
+		ii.)Subcontracting
+		iii.)Timer:- Show the timer on the work order screen
+		iv.)Quality:- Add quality checks to your work orders
+	​	v.)Lock Quantities To Consume:- Prevent manufacturing users from modifying quantities to consume, unless a manager has 							unlocked the document.
+		vi.)By-Products
+	
+	2.)Planning
+		i.)Master Production Schedule :- Plan manufacturing or purchase orders based on forecasts.
+		ii.)Security Lead Time.
+		
+		
+		
+***Cost Analysis report will give you the cost of product.
+	Cost Analysis is the smart button where you can see the cost details and print it.
+	This button is seen when the MO is in Done state.
+	It will have cost of raw materials and the cost of workcenters.
+	
+***BOM Type:-
+	1.)Manufacture this product
+	2.)Kit (Phantom)
+	3.)Subcontracting
+	
+	Note:- 1.)On the BOM you have smart button "Structure $ Cost", where you will know the cost of manufactur product.
+		2.)The mrp order will not be created when BOM type is kit.
+
+***By Product:
+	Activate this feature from setting
+	This feature is used when some extra product is produce other then main product.
+	You can define in BOM which product and at which operation/workcenter is produce at what quantity.
+	""
+
+2.)BOM for variant:
+	Example:-
+		If you have T-shirt (product template) and its variant in red, blue and green color.
+		cotton(product) is common for all variant and color(product) vary according to variant.
+		So in BOM select product=Tshirt and in component select cotton(product) common for all.
+		now in next line select redColor product and select value in "Apply on variant" Column.
+		repeat the above steps with different color product for all variant if required.
+	
+		Now in Manufacturing Order when you select the product variant suppose say red T-shirt then in component you will see the 
+		cotton and the redColor product.
+
+3.)Use more Component/Raw Material then define in BOM
+	1)In the miscellaneous tab of BOM select the Flexible Consumption = Allowed 
+			Type of Flexible Consumption:
+						i.)Allowed
+						ii.)Allowed with warning(default selected)
+						iii.)Blocked
+	2.)In setting tick mark the Work Orders boolean
+	3.)Create the workcenter and routing and assign the routing to BOM,because products will be used in workcenter only.
+	4.)In setting tick mark the Quality boolean, It will install Quality App.
+	5.)In Quality App create the Quality Control Point:- 
+			select the BOM product and workcenter
+			select the type = Register Consumed Materials 
+			select Product To Register :- This product can be used in more quantity then specified in BOM.
+	6.)In the Work Order of selected workcenter you will see the button 'Continue Consumption' when you click it the 
+		quantity of consumed extra maerial/product will increase by 1 very time you click it.
+		means for extra consumned product you define 5 quantity, then you clicked the button Continue Consumption once it means you 			have consumed 5 quantity + 1 extra quantity.
+
+4.)Plan Work order:
+	Example:- Suppose you have two MRP Orders that uses the same workcenter and you process both the workorder having same workcenter.
+		   so the 2nd MRP Orders work order will be scheduled after the 1st MRP Order.you can check the Planned Date of both 			   workorder.
+		   You can even check date and time from Mrp App --> Planning --> Planning by workcenter.
+
+5.)Alternative Work Order
+	Example:- Suppose you want to use another workcenter when you main workcenter is in used.
+		   In workecenter you will see the option of Alternative workcenter, specify value their.
+		
+		When the 1st MRP Order is using the main workcenter and if you click on plan button of 2nd MRP Order then you can see 			that the alternative workcenter is in use.
+
+	Note:-
+		Keep in mind that, if you add time after production to your work center, you may have work orders scheduled for your 			alternative work center even if the main one is free.
+
+6.)Unbuilt Orders:-
+	Case1 :- when you manufacture any product and due to some reason the manufactured product has some defects, so you can not scrap 			the entire product as you can use some of its components, so unbuilding the manufactured product will bring back its 			components into stock.
+
+	Case2:- You purposely buy the defects products from any place and later unbuild that product so you can use its components.
+		in such case create the BOM of such product so when you unbuild it, its components will be in stock.
+
+	In MRP App --> Operations -- Unbuild Orders
+		Here either you have two options
+			1.) unbuild the product you have manufacture so select the mrp order number.
+			2.)product you have receive so select the product(make sure you have created BOM for that product.)
+
+
+7.)SubContracting:-
+	Subcontracting is the process where you deliver some raw materials to other vendor location so that he can return the 
+	finished/manufactured product to you.
+
+	1.)In Mrp App -- Configuration --> setting -- tick mark the Subcontracting boolean field.
+		This will make the option subcontracting available on BOM and route "Resupply Subcontractor on Order" on Product Form.
+		The route "Resupply Subcontractor on Order" on product form is use when you need to delivery materials to Subcontract 			vendor.For this you can see the Delivery Order created when confirming the Purchase order of Subcontract vendor.
+
+	2.)Create the BOM and select BOM type as subcontract and select the Subcontractor Vendor.
+		As the BOM product will be manufacture at subcontractor location, so don't select the route manufacture on product.
+		you will buy this product so select Buy route. and if required select MTO or Re-Ordering.
+		You can even have the MTO or Re-Ordering rule for this product. select supplier that you have assign to BOM and tick mark the 			subcontract boolean field.OR you might no need to select supplier it will auto detect from BOM.when scheduler runs.
+
+	3.)Create the Purchase order of Subcontractor Vendor and select the BOM product having BOM type as subcontractor.
+		The price on purcase line here will be treated as service charges of Subcontractor Vendor to manufacture the product.
+		Perform step 3 when you have not select route MTO or Reordering rule on product. else scheduler will trigger PO.
+
+	4.)The bom component has route "Resupply Subcontract on Order" so when you will confirm the PO the Delivery Order will be created 		   containing the BOM components to be delivery to Subcontractor location.
+	   This delivery you can see from Inventory App -- OverView -- Delivery picking type options from kanban cards.
+
+	5.)Validate the receipt as now you can receive the product from subcontractor vendor.
+
+	6.)You can register the Lot/serial number of components and finished products when you receive the product even though you have 			not manufacture the product.
+	In receipt you will see "Record Components" button apppears to register the Lot/serial number.
+
+	Note:- Product must have tick mark for Lot/serial number in product form.
+
+	Note:- In receipt line you will see the subcontract icon where you will come to know which raw materials has been used to build 			this finished product.
+
+
+	case 1 :- You have to create BOM of only subcontarcting product.
+			Here we will subcontarct Product C and for that we will use product A and B from our warehouese.
+			As product C will be subcontracted so will be mark the route only buy and not the manufacture as we will buy this 				product.
+			Craete a BOM with substractor as BOM type and with the substractor as vendor name
+		Product A and B must have route "Resupply subcontractor on order" as we will send this product to subcontractor vendor.
+		Create Purchase Order of product C for substarctor vendor, when you will confirm the purchase order a delivery order of 		product A and B will be created.
+
+	Note:- we have internal subcontractor location where the subcontracted product is stored for inventory valuation.
+
+	
+	case 2:- Want to manufatcure a product as some of its component will be subcontracted and some we will use from warehouse.
+
+		BOM product:- (product X) with mrp as route
+		Bom component:- (product A and B)
+		
+
+		Another BOM
+		 	BOM product:- Product C (subcontract) (route:- buy, MTO)
+			Bom component:-product A (route : Resupply subcontractor on order)
+			Bom component:-product B (route : Resupply subcontractor on order)
+
+		when confirm the MRP, PO will be created and when confirm the PO, delivery order will be created.
+
+
+8.)By default last workcenter is used
+		Example:-
+		suppose BOM has 1 component/raw material and has 1 routing and that routing has 2 workcenter.
+		In component line of BOM you have not specified that in which workcenter the component will be used.
+		So when you confirm the MO, 2 Workorder will be created as you have 2 workcenter.
+		when you will check the workcenter you will notice that component is used in 2nd workcenter i.e 2nd workorder.
+
+
+9.)Master Production Schedule(MPS): (Plan manufacturing or purchase orders based on forecasts)
+	You can activate this feature by clikcing on Mrp App --> Configuration --> Setting --> tick mark the Master Production Schedule 	boolean field. After saving the change you will find Time Range option Monthly/weekly/Daily below the boolean field.
+	suppose you selected Weekly here.
+	After that you will find menu for Master Production Schedule in Mrp App --> Planning --> Master Production Schedule.
+	In the above menu you will see the products at the left side of table and weeks at the right side of tables
+
+	At the top left side you will see the option to Add A PRODUCT.
+	The products appears in MPS, you can change its sequence by going in product list view and drag and drop the product sequence.
+	In Master data --> Products, click on list view and change products sequence by dragging and dropping.
+
+	You can add the fields in view by click on Row option available at the center of top.
+
+	In the particular product the row "+ To Replenish " their you will see 0<..<1000 click on it and enter the various values for 
+	Safety Stock Target, Minimum to Replenish, Maximum to Replenish.
+
+	In Demand Forecast row you can enter the value which means "estimate the demand for the period".
+
+	In (Actual Demand) row the value specify the Confirmed Sale Order.
+
+	The quantity to replenish for the different periods will be automatically computed. 
+	If you see the row "+ To Replenish Replenish" in green color then click the button Replenish (button in that row only),It will
+	launch the replenishment like RFQ or MRP.
+
+	If you see the row "+ To Replenish Replenish" in grey color it means you have already launch the replenishment.
+
+	The REPLENISH button at the top of left,If you click it, it will genearte replenishment for all products availabe in MPS.
+
+	Depending on the configuration of the product (buy vs. manufacture), requests for quotations or manufacturing orders will be created. 		You can easily access those by clicking on the Actual Replenishment cell.
+
+	In case you manually edit the To replenish quantity, a small cross will appear on the left.
+	In case you want to go back to the automatically computed value given by Odoo, you can click the cross.
+
+
+	Cells color signification
+	The cells, which are part of the To replenish line, can take different colors depending on the situation:
+
+	Green: quantity of products which should be replenished to reach the expected safety stock considering the demand forecast and the 			indirect demand forecast.
+	Grey: replenishment order has already been generated, and its quantity still matches current data.
+	Red: replenishment order has already been generated, and its quantity was too high considering current data.
+	Orange: replenishment order has already been generated, and its quantity was too low considering current data.
+	The Forecasted stock line can also contain red cells, which means the stock will be negative during the period in question.
+
+	What if I have underestimated the demand?
+	You can still increase the demand forecast. It will impact the quantity to replenish. The cell will become orange, and you’ll be able 		to launch a new replenishment.
+
+	What if I have overestimated the demand?
+	You can decrease the demand forecast. The cell will become red to inform you that you’ve ordered more than planned. If you’re still 		able to do it, you can cancel some RFQ or MO manually.
+
+	What if I wrongly added a product to the MPS?
+	You can easily remove a product from the MPS by clicking the small bin on the right of its name.
+
+
+10.)Repair Products:-The Odoo Repair app allows you to manage a complete after sales process but also to simply repair products you have 			     manufactured, if they present a defect.
+
+
+11.)OEE :- Overall Equipment Efficiency
+	Suppose in workcenter you set the OEE target=90%.(field) and in also at top right side you will see the smart button for OEE (it will 		display the grap) the value shown in percentage is auto calculated.
+
+	when you confirm the MRP Order,in workorder, in Time Tracking tab you will see the Expected duration field(auto cal) you can even edit 		it. suppose you set time of 10 second(00:10)
+	and process the workorder and that work order took 15 seconds to complete.
+
+	In Time Tracking tab you will see 2 enteries 
+		1.) with 10 seconds fully productive
+		2.)with 05 seconds Reduce Speed.
+
+	and now you can see the percentage of OEE(smart button) in particular Workcenter.say the percentage is 85%.
+	same you can see in the Overview menu of that workcenter (workcenter in kanban card type.) and the color of that percenatge will be 		red.
+	110% = green color (OEE target was 90%)
+	85% = red color (OEE target was 90%)
+	90% = orange color (exact match.)  (OEE target was 90%)
+
+
+12.)Produc LifeCycle Management(PLM):
+	PLM module helps you for Engineering Change Order.
+	1.)Go in PLM app -- Configuration -- ECO Type(create record)
+	2.)Then in Overview you will see the kanban box of record you created in ECO type.Click on the green box and create the stages.
+	3.)In stages you can set various option like:-	
+		Folded in kanban view
+		Allow to apply changes.
+		Final Stage.
+		Approvals :- here you can set the user for approval and approval type
+			     approval types are :- Approves, but the approval is optional
+						   Is required to approve.
+						   Comments Only.
+	4.)After creating the stages click on create.
+		A form will open their you will have 4 option of Apply on(ECO)
+		1.)Product Only :- this option allows you to attach the document on product and that document you will find in chatter of that 					   product form.
+				   Note:- from V12 onwards the options of adding attachments are in chatter,before it used to be at top.
+		2.)Bill of Material:- here you can change the BOM.like add/remove components or quantity.
+		3.)Routing:- Here you can change the Routings operations like workcenter
+		4.)BOM and Routing
+		
+	5.)You have another option of apply the change you made
+		1.)As soon as possible (default)
+		2.)At Date
+
+
+Q:- My workcenter OEE is 84.91%. What will be the OEE percentage Color be if my OEE target is 85%?
+1.)Green
+2.)Black
+3.)Red		This is the ans
+4.)Blue
+
+
+Questions:-
+
+1.)In workcenter you can attach the workSheet, so where you will find the option of worksheet.
+	While selecting the workcenter for routing you will find the option of worksheet in other tab..
+	why we don't get option of worksheet when we create workcenter, because you can use same workcenter for various routing.
+	Example:- suppose you have machine A and you use that machine to produce product A,B and C. so every product has different process of 			  production.so the worksheet will vary product wise even though you use same machine.
+
+2.)Suppose you have a MRP product with 1 routing and that routing has 2 workcenter.so when you plan the mrp how would you know which 		workcenter is the 1st one to be started by looking at the overview menu of MRP App.?
+	FYI overview menu has the workcenter dashboard.
+	In the workcenter you will find "To Launch" string in green color, so that is the workcenter has to be started 1st.and ater starting 		the workcenter that string will be "In progress" so we know that this work center is currently working
+
+3.)workcenter time efficiency and capacity field:
+	suppose your workcenter takes 60 miuntes and Time Efficiency is 100% and capacity is 5.
+	when you create MRP Order for 10 products then in workorder you can see the expected duration is 120 minutes.
+				      15 products then in workorder you can see the expected duration is 180 minutes.
+
+Note:- Phantom BOM is the kit BOM.
+

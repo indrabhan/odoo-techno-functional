@@ -1,0 +1,97 @@
+PEP 8
+
+PEP 8, sometimes spelled PEP8 or PEP-8, is a document that provides guidelines and best practices on how to write Python code. It was written in 2001 by Guido van Rossum, Barry Warsaw, and Nick Coghlan. The primary focus of PEP 8 is to improve the readability and consistency of Python code.
+
+PEP stands for Python Enhancement Proposal, and there are several of them. A PEP is a document that describes new features proposed for Python and documents aspects of Python, like design and style, for the community.
+
+Following are the some examples of way to write the code and style:
+
+1) Function =	Use a lowercase word or words. Separate words by underscores to improve readability.	
+   For Example, function, my_function
+2) Variable =	Use a lowercase single letter, word, or words. Separate words with underscores to improve readability.	
+   For Example,  x, var, my_variable
+3) Class =      Start each word with a capital letter. Do not separate words with underscores. This style is called camel case.
+   For Example, Model, MyClass
+4) Method	= Use a lowercase word or words. Separate words with underscores to improve readability.	
+   e.g. class_method, method 
+5) Constant	= Use an uppercase single letter, word, or words. Separate words with underscores to improve readability.	
+   e.g. CONSTANT, MY_CONSTANT, MY_LONG_CONSTANT
+6) Module	= Use a short, lowercase word or words. Separate words with underscores to improve readability.	
+   e.g. module.py, my_module.py
+7) Package	= Use a short, lowercase word or words. Do not separate words with underscores.	
+   e.g. package, mypackage
+
+
+Code Examples:
+>>> # Not recommended
+>>> x = 'John Smith'
+>>> y, z = x.split()
+>>> print(z, y, sep=', ')
+'Smith, John'
+This will work, but you’ll have to keep track of what x, y, and z represent. It may also be confusing for collaborators. A much clearer choice of names would be something like this:
+
+>>> # Recommended
+>>> name = 'John Smith'
+>>> first_name, last_name = name.split()
+>>> print(last_name, first_name, sep=', ')
+'Smith, John'
+
+
+# Not recommended
+def db(x):
+    return x * 2
+
+# Recommended
+def multiply_by_two(x):
+    return x * 2
+
+
+
+
+Maximum Line Length and Line Breaking
+
+def function(arg_one, arg_two,
+             arg_three, arg_four):
+    return arg_one
+
+
+# Recommended
+total = (first_variable
+         + second_variable
+         - third_variable)
+
+
+# Not Recommended
+total = (first_variable +
+         second_variable -
+         third_variable)
+
+
+Indentation
+“There should be one—and preferably only one—obvious way to do it.”
+
+— The Zen of Python
+
+Indentation, or leading whitespace, is extremely important in Python. The indentation level of lines of code in Python determines how statements are grouped together.
+
+Consider the following example:
+
+x = 3
+if x > 5:
+    print('x is larger than 5')
+
+
+
+Tabs vs. Spaces
+As mentioned above, you should use spaces instead of tabs when indenting code. You can adjust the settings in your text editor to output 4 spaces instead of a tab character, when you press the Tab key.
+
+
+
+
+Where to Put the Closing Brace
+
+list_of_numbers = [
+    1, 2, 3,
+    4, 5, 6,
+    7, 8, 9
+    ]

@@ -1,0 +1,235 @@
+Controllers interpret browser requests and send data back.
+
+Add a simple controller folder and ensure it is imported in __init__.py (so Odoo can find it).
+
+
+1.)Controllers need to provide extensibility, much like Model, but can’t use the same mechanism as the pre-requisites (a database with loaded 		modules) may not be available yet (e.g. no database created, or no database selected).
+2.)Controllers thus provide their own extension mechanism, separate from that of models
+
+	Example1:
+
+		1.)Controllers are created by inheriting from Controller. Routes are defined through methods decorated with route().
+
+			from odoo import http
+
+			class MyController(http.Controller):
+
+			    @http.route('/some_url', auth='public')
+			    def handler(self):
+				return stuff()
+		
+		2.)To override a controller, inherit from its class and override relevant methods, re-exposing them if necessary.
+
+			class Extension(MyController):
+
+			    @http.route()
+			    def handler(self):
+				do_before()
+				return super(Extension, self).handler()
+
+		3.)Decorating with route() is necessary to keep the method (and route) visible: if the method is redefined without 		decorating, it will be “unpublished”.
+
+		4.)The decorators of all methods are combined, if the overriding method’s decorator has no argument all previous ones 			will be kept, any provided argument will override previously defined ones e.g.:
+		
+			class Restrict(MyController):
+
+			    @http.route(auth='user')
+			    def handler(self):
+				return super(Restrict, self).handler()
+
+			will change /some_url from public authentication to user (requiring a log-in)
+
+
+
+Parameter of route:
+	Parameters	
+		route – string or array. The route part that will determine which http requests will match the decorated method. Can be a 				single string or an array of strings. See werkzeug’s routing documentation for the format of route expression 
+			( http://werkzeug.pocoo.org/docs/routing/ ).
+
+		type – The type of request, can be 'http' or 'json'.
+
+		auth – The type of authentication method, can on of the following:
+
+			1.)user: The user must be authenticated and the current request will perform using the rights of the user.
+
+			2.)public: The user may or may not be authenticated. If she isn’t, the current request will perform using the shared 					   Public user.
+
+			3.)none: The method is always active, even if there is no database. Mainly used by the framework and authentication 					 modules. 
+				 There request code will not have any facilities to access the database nor have any configuration indicating 					 the current database nor the current user.
+
+			4.)methods – A sequence of http methods this route applies to. If not specified, all methods are allowed.
+
+			5.)cors – The Access-Control-Allow-Origin cors directive value.
+
+			6.)csrf (bool) – Whether CSRF protection should be enabled for the route.Defaults to True.
+
+
+
+
+Make use of xml Template:
+	
+
+	1.)Create a template and ensure the template file is registered in the __manifest__.py manifest, and alter the controller to use our 	  	   template:
+
+		File1: academy/controllers.py
+
+			from odoo impport http   
+			
+			class Academy(http.Controller):
+
+			    @http.route('/academy/academy/', auth='public')
+			    def index(self, **kw):
+				return http.request.render('academy.index', {'teachers': ["Diana Padilla", "Jody Caroll", "Lester Vaughn"]})
+				return http.request.render('module_name.template_id, {}) // Syntax
+
+				Note:- here teachers is used in template
+
+		File2: academy/templates.xml
+
+			<template id="index">
+			    <title>Academy</title>
+			    <t t-foreach="teachers" t-as="teach">
+			      <p><t t-esc="teach"/></p>
+			    </t>
+			</template>
+
+
+	
+	2.)Will make use of data from database, like create some records in table and will access that data.
+
+		File1: academy/controllers.py
+			
+			from odoo import http
+
+			class Academy(http.Controller):
+
+			    @http.route('/academy/academy/', auth='public')
+			    def index(self, **kw):
+				Teachers = http.request.env['academy.teachers']		// creating the object
+				return http.request.render('academy.index', {
+				    'teachers': Teachers.search([])
+				})
+
+		File2: academy/templates.xml
+
+			<template id="index">
+			    <title>Academy</title>
+			    <t t-foreach="teachers" t-as="teach">
+				<p><t t-esc="teach.id"/> <t t-esc="teach.name"/></p>
+			    </t>
+			</template>
+
+
+
+
+Website support
+
+	First add the website module in depends.
+	Then add the website=True flag on the controller, this sets up a few new variables on the request object and allows using the website 		layout in our template.
+	Means in template we can make use of website layout to show header and footer.
+
+	File1: academy/__manifest__.py
+
+		'depends': ['website'],
+
+	File2: academy/controllers.py
+
+		from odoo import http
+
+		class Academy(http.Controller):
+		    @http.route('/academy/academy/', auth='public', website=True)	// we have added here website=True.
+		    def index(self, **kw):
+			Teachers = http.request.env['academy.teachers']
+			return http.request.render('academy.index', {'teachers':Teachers.search([])})
+
+
+	File3: academy/templates.xml
+
+		<template id="index">
+		    <t t-call="website.layout">
+		        <t t-set="title">Academy</t>
+		        <div class="oe_structure">
+		            <div class="container">
+		                <t t-foreach="teachers" t-as="teacher">
+		                    <p><t t-esc="teacher.id"/> <t t-esc="teacher.name"/></p>
+		                </t>
+		            </div>
+		        </div>
+		    </t>
+		</template>
+
+
+	
+
+URLs and Routing
+
+	
+	We’ve seen string in url parameter of routing , which matches a URL section exactly, 
+	but routing strings can also use converter patterns which match bits of URLs and make those available as local variables.
+
+
+		################### 1 ###################
+
+		here passing a name to url will give that name a local variable.
+		http://localhost:8069/academy/Alice
+
+		@http.route('/academy/<name>', auth='public', website=True)
+		def teacher_name(self, name):
+			
+		 	return '<h1>{}</h1>'.format(name)
+
+		Note :- here url keyword and argument in method must be same(means <name>words should exact macth)
+		 	here name word exact matches in url and in method also.
+
+
+
+		################### 2 ###################
+
+		As the name indicates, converter patterns don’t just do extraction, 
+		they also do validation and conversion, so we can change the new controller to only accept integers:
+		http://localhost:8069/academy/2
+
+		@http.route('/academy/<int:id>', auth='public', website=True)
+		def teacher_name(self, id):
+		 	return '<h1>{}</h1>'.format(id)
+
+
+		
+		################### 3 ###################
+
+		Odoo provides an additional converter called model which provides records directly when given their id
+
+		http://localhost:8069/academy/2
+
+		@http.route('/academy/<model("academy.teachers"):teacher>/', auth='public', website=True)
+		def teacher(self, teacher):
+			return http.request.render('my_module.biography', {'person': teacher})
+
+		Note:- here "person" is keyword used in template and "teacher" will be any integer value
+		       then it will fetch record of that integer value and result will be in teacher.
+
+
+		
+Altering view architectures:
+	
+	<template id="product_item_hide_no_price" inherit_id="website_sale.products_item">
+
+	    <xpath expr="//div[hasclass('product_price')]/b" position="attributes">
+	        <attribute name="t-if">product.price &gt; 0</attribute>
+	    </xpath>
+
+	</template>
+
+
+
+The second thing we will change is making the product categories sidebar visible by default: Customize ‣ Product Categories lets you toggle a tree of product categories (used to filter the main display) on and off.
+
+This is done via the customize_show and active fields of extension templates: an extension template (such as the one we’ve just created) can be customize_show=True. This choice will display the view in the Customize menu with a check box, allowing administrators to activate or disable them (and easily customize their website pages).
+
+We simply need to modify the Product Categories record and set its default to active=”True”:
+
+	File1: academy/templates.xml
+
+		<record id="website_sale.products_categories" model="ir.ui.view">
+            		<field name="active" eval="True"/>
+        	</record>

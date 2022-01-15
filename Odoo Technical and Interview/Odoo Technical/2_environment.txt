@@ -1,0 +1,55 @@
+Environment:
+	All recordsets have an environment, which is immutable, can be accessed using env and gives access to:
+	
+	the current user (user)
+	the cursor (cr)
+	the superuser flag (su)
+	or the context (context)
+
+
+
+
+
+	1.)Cursor
+		self.env.cr or self._cr is the database cursor object; it is used for querying the database
+	
+	2.)Database user id
+		self.env.uid or self._uid is the current user’s database id
+	
+	3.)User
+		self.env.user is the current user’s record.
+		
+	4.)Context
+		self.env.context or self._context is the context dictionary
+		
+	5.)Xml Id
+		self.env.ref(xml_id) returns the record corresponding to an XML id.
+		
+	6.)Model Object
+		self.env[model_name] returns an instance of the given model
+		
+	7.)Language: Return the current language code.
+		self.env.lang
+		Return type:- str
+		
+	8.)with_context
+		Altering the environment:-	with_context
+		Returns a new version of this recordset attached to an extended context.
+
+		The extended context is either the provided context in which overrides are merged or the current context in which 			overrides are merged.
+		Example:-
+			# current context is {'key1': True}
+			
+			r2 = records.with_context({}, key2=True)
+			# -> r2._context is {'key2': True}
+			
+			r2 = records.with_context(key2=True)
+			# -> r2._context is {'key1': True, 'key2': True}
+		
+
+	9.)with_env
+		Return a new version of this recordset attached to the provided environment.
+		
+		
+	10.)SQL Execution
+		self.env.cr.execute("some_sql", params)

@@ -1,0 +1,14 @@
+Install Forum (website_forum) module.
+Forum menu will be visible in elearning module.
+
+Forum is used for discussing on particluar topic where user will post their questions and other users will answer it
+just like odoo forum.
+Here you will earn karma(points) like in odoo forum.
+
+Create a Forum and it will be visible on website under "Forum" menu.
+
+you can link the forum with courses (Courses are created in elearning app).
+on the web when you will go to Course and if forum is linked with it then you will see another tab "Forum".
+
+you can linked the fourm to course from course menu
+In Course you will find many2one of forum

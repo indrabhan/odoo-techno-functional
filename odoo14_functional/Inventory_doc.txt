@@ -1,0 +1,347 @@
+stock moves are created equal to the number of lines(sol/pol), does not matter what quantity you have specified.
+
+In Inventory adjustment the stock moves are created equal to the number of lines.
+
+stock picking:
+	if your setting in warehouse --> customer then only 1 picking will be created.
+
+	Note:- creation of picking is depended on warehouse settings.
+
+
+1.)Different Units of Measure:
+	This feature allow you to have different units for sale and purchase.
+	To activate this feature go to Inventory App and tick mark the Units of Measure.
+	In Inventory App --> Configuration you will see Units of Measure.
+	In product form you will see the field of Purchase and sale units of measure.
+
+	Example:-
+		purchase unit for Eggs product: Eggs box (it contain 6 eggs)
+		sale unit for Eggs product: Units.
+		Suppose you buy 1 Eggs box, so in receipt(picking) you will receive 6 units of eggs.
+	
+	Note: Both purchase and sale units of measure, the category of measure should be same.
+	      Even when in sale order line if you change the UOM then the price will be auto calculated according to that unit.
+	      
+	      On the product form in the "Replenish" button you can change the UOM for replenishment.
+
+
+2.)Delivery Packages:-
+	Put your products in packs (e.g. parcels, boxes) and track them.
+	To activate this feature go to Inventory App and tick mark the Delivery Packages
+	Example:-
+		Suppose you have to deliver 10 products so you can put any number of products into packages.
+		In the delivery(picking) line entery the value say 5 in Done column and hit Put in Pack button( available below the bottom).
+		Now the Pack is created containing 5 products in it.
+		Once the delivery order is validated, you can retrieve which products have been included in the package.
+
+
+3.)Product Packagings:- (SO feature)
+	Manage product packagings (e.g. pack of 6 bottles, box of 10 pieces).
+	To activate this feature go to Inventory App and tick mark the Product Packagings.
+	In the Product form in Inventory tab you will see Packaging.where you will create pack and entery the quantity how many products 		contain in that pack.
+	In sale order line when you select that product and the package associate with a popup will raise for informative purpose telling 	how many products that package contain so you have to enter that many quantity in quantity column.
+	
+
+4.)Replenishment Strategy:
+	The Replenish(MTO) and Re-ordering rule for product must have Buy route tick and should have suppier assign to product.
+
+
+5.)Resupply from other warehouse:
+	when you will have multiple warehouse this option gets enabled on warehouse.
+	
+	example:-
+		warehouse1 and warehouse2.
+		suppose you tick the option for warehouse2:- resupply from warehouse1.
+		It will create a route on product form Inventory Tab. "resupply from other warehouse".
+		resupply works on MTO/Re-Ordering rule.
+		It means you will supply product to warehouse2 from warehouse1 based on MTO/Re-Ordering rule.
+		
+		If you use Re-Ordering rule then create Re-Ordering rule for warehouse2 and make sure that product is available in warehouse1.
+
+		If you use MTO then make sure that product is available in warehouse1.
+
+	Note:- This operation creates two picking
+		warehouse1 --> Transist location	(picking 1) delivery of warehouse1's company.
+		Transist location --> warehouse2	(picking 2) Receipt of warehouse2's company.
+
+
+7.)Outgoing shipment in 1, 2 and 3 steps.
+	enable the Multi Steps Route from inventory app.
+	In warehouse you will see the options of 2 and 3 steps bydefault step 1 is selected.
+
+	2steps:-
+		when you select two steps option.
+		Operation Type Pick is created.You can see it in inventory App --> Overview
+		Product will move from
+				WH/Stock 		 --> 	Output location(Pick)    (picking 1)
+				Output location		 --> 	Customer location(Ship)  (picking 2)
+
+	3steps:-
+		when you select three steps option.
+		Operation Type Pick and pack is created.You can see it in inventory App --> Overview
+		Product will move from
+				WH/Stock 		 --> 	Packing Zone location(Pack)     (picking 1)
+				Packing Zone location	 --> 	Output location(pick)		(picking 2)
+				Output location		 --> 	Customer location(ship)		(picking 3)
+
+
+8.)Shipping Costs/Delivery Methods:
+	This feature allows you to add shipping cost/delievry cost to your delivery order.
+	To activate this feature go to Inventory App and tick mark the Shipping Costs.
+	This feature can also be activated from Sales App and tick mark the Shipping Costs.
+
+	In the Inventory App -- Configuration you will see the Shipping Methods.
+	Shipping methods can be based on fixed price or based on rule or even free if exceed a particular amount.
+	Assign the service type product to shipping method.
+	Shipping methods can also be applied to specific country or in particular zip code range.
+
+	Example:-
+		In sale order you can select the shipping method or it might be auto filled base on customer country if set on shipping 		methods.
+		You can calulate the price and product will be added to Sale order line or you will get exact price when validating the 		delivery Order.
+
+
+9.)Ingoing shipment in 1, 2 and 3 steps.
+	enable the Multi Steps Route from inventory app.
+	In warehouse you will see the options of 2 and 3 steps bydefault step 1 is selected.
+
+
+	1 step:- 	Receipt
+	2 steps:-	Input + Stock
+	3 steps:-	Input + Quality + Stock
+
+	Note:- No picking type will be created like (pick, pack for delivery), here it will have internal transfer.
+
+
+10.)Manage Stock that you don’t own (consignee stock):-
+	Sometimes, suppliers can offer you to store and sell products without having to buy those items. This technique is called consignee stock.
+
+	To use this feature, go to Inventory ‣ Configuration ‣ Settings in the inventory app. Then, enable the Consignment feature in the 	  Traceability section.
+
+	Create the Receipt of this stock so that you can sell it, when creating the receipt you will see the option at right hand side
+	"Assign owner".
+
+	Once the receipt is validated, the products enter your stock but still belong to the owner. 
+	means They don’t impact your inventory valuation.
+
+
+11.)Schedule Date:
+	Todays date is 27/06/2020, Note:-Jully is of 31 days
+
+	Product Route is Buy
+
+		Product 1:- customer lead time 60 days, Security Lead Time for Sales is 2 days.
+
+		case1:-	Create SO , confirm it , the scheduled date is 	08/24/2020
+		
+		case2:- Create SO, set Delivery Date in Other Info tab to 08/03/2020, the scheduled date is 08/01/2020
+
+		Note:- from customer lead time  Security Lead Time is substracted.
+
+
+12.)Manage expiration dates:
+	Expiration dates on product is mostly used in food intdustry
+
+	To activate this feature go to inventory app
+	1st you need to activate the lot and serial number option then the Expiration dates become visible.
+	Once you enable this option you will see Expiration Date fields in product form in Inventory tab, but after clicking on Tracking 		option(By unique serial number or by lot)
+		By enabling the Expiration Date fields, It will make the Dates field visible.
+		
+		When you will validate the purchase receipt the dates will be auto calculated and you can see dates in the 
+		Lot/serial Number menu of inventory..
+		
+			Enter the number of days in below fields.
+			1.)Expiration Time:- The goods may become dangerous and must not be consumed.
+			2.)Best Before Time:- The goods may starts becoming worse, without being dangerous yet.
+			3.)Removal Time:- The goods must be removed from stock
+			4.)Alert Time:- Before the expiration date the alter should be raised.
+						To see the alter you can see the filter "Expiration Alerts" in the Lot/serial Number.
+		
+	fill the number of days in those 4 fields.
+	When you validate the receipt the date are auto calculated from the date of validate receipt base on number of days you entered 		in product form.
+	In inventory App -- Product -- Lots/Serial Number in particular record of serial number you will find the caluclated dates In 		Date page.
+	
+
+13.)Lots and Serial Number:
+
+	You also have the possibility to define how you will manage lots/serial for each operation type
+	In operation type you will see
+		Traceability
+			1.)Create New Lots/Serial Numbers. (default checked in Receipt)
+			2.)Use Existing Lots/Serial Numbers. (default checked in Delivery)
+			
+	Note:- for lots and serial number,odoo only tracks storable products.
+
+
+14.)Removal Strategy:-
+	When a product movement needs to be done, Odoo finds available products that can be assigned to the transfer. 
+	The way Odoo assigns these products depends on the Removal Strategy defined in the Product Category or on the Location.
+		A)FIFO (First In First Out):- default one
+		B)LILO (Last In Last Out):- Banned in most country.
+		C)FEFO (Fist Expire First Out):- Products are removed by their expiration date, you can find this date on Lot/Serial 							  Number. 
+						Note:- Other dates are for informational and reporting purposes only. 
+							If not removed from the stock, lots that are past the expiration dates may still be 							picked for delivery orders!
+
+13.)Costing method for inventory Valuation:
+	Costig method and Inventory Valuation options you will get in product category.
+	Costing Method:- Standard, Average and FIFO
+	Inventory Valuation:- Manual and Automate.	Note:- Keep Automate to claculate real inventory valuation
+				when we make the Inventory Valuation as Automate then in that form the below 4 fields becomes required.
+					1.)stock input account.
+					2.)stock output account.
+					3.)stock valuation account.
+					4.)stock Journal.
+
+	Note:-  Costing methods are on product category
+		
+	1.)Standard:-
+		In Standard Price, any product will be valued at the cost that you defined manually on the product form. Usually, this 			cost is an estimation based on the material and labor needed to obtain the product. This cost must be reviewed 			periodically.	
+
+	2.)Average:-
+		In AVCO (Average Cost), each product has the same value and this value is the average purchase cost of the product. With this 			costing method, the cost of the product is recomputed as each receipt.
+		The cost of the product does not change when products leave the warehouse.
+
+	3.)FIFO:-
+		Now let's keep the Costing Method as ‘FIFO’ of a Product category, also we can set the force removal strategy as ‘FIFO’. 			Now we shall make a purchase, in different price and quantity, of the newly created product with product category of 			‘FIFO’ Costing method. After that we shall sell the product, then the cost will be changed automatically.
+		 The cost price will be the price of last removed product.
+
+		 Here the product that was purchased first will be sold first. And the cost of the last moved product will be the cost of 			 the product here. 
+
+
+
+        * Account properties
+
+	1.)Price difference account: 
+		This account will be used to measure the difference in price between the purchase price and the accounting 		costs. The price differential account is for Anglo-Saxon accounting only. If the price for a commodity is different in the purchase 			order and the price in the purchase invoice, then the price difference account is used to keep the difference between these 			two values.
+
+	2.)Income account: 
+		This account is used while validating a customer invoice which ensures that the specifics of the sum invoiced (without 		tax) will be kept. When you manage a sales order that includes various products in different categories, then you can use different 		accounts for different categories of goods. So you can easily understand the accounting specifics of different products.
+
+	3.)Expense account: 
+		We use this account when we validate a vendor bill. When we process a purchase order that includes various products in 		different categories, then we shall use different accounts for different categories of goods. So that we can easily understand the 		accounting specifics of different product categories. 
+
+
+	 * Account stock properties
+
+	1.)Stock input account: 
+		while we do an inventory in real-time, all incoming stock movements will be listed in this account unless a different 			valuation account is set at the source location
+
+	2.)Stock output account:
+		 while we are doing a  real-time inventory valuation, all outgoing stock movements will be posted in this account, unless a 			 different valuation account is set on the location of the destination.
+
+	3.)Stock valuation account: This account is for holding the current value of the product during the real-time valuation.
+
+	4.)Stock journal: when we enable the real-time valuation all the stock moves will be automatically posted here.
+
+
+		
+
+14.)Landed Cost:-
+	The landed cost feature in Odoo allows to include additional costs (shipment, insurance, customs duties, etc.) into the cost of 		the product.
+	
+	Note:-Landed costs can only be applied to products with a FIFO or AVCO costing method and an automated inventory valuation (which 		      requires the accounting application to be installed).
+
+	Configuration :-First, you need to go in Inventory ‣ Configuration ‣ Settings and activate the landed costs feature. You can also 				determine the default journal in which the landed cost accounting entries will be recorded.
+
+	After activating the Landed Cost feature from setting, Create a product of type service and in product form in Purchase tab you 		will find the boolean option of landed cost. so that service product is used to apply as a landed cost on vendor bills.
+
+	Example1:- 
+		After receiving the product or vendor bill from supplier, later you receive bill of custom duties from custom officer.
+		so now apply landed cost on venrdor bill or receipt.
+		1.)Go to inventory App -- Operations -- landed cost.
+		2.)Create the record  and in Transfer field select the receipt or in Vendor Bill field select the vendor bill.
+		3.)In line select the landded cost product which you created just now. and validate it.
+		4.)After validating you will see that landed cost has been applied on products in inventory valuation.
+		5.)Inventory App -- Report -- Inventory Valuation.
+
+	Example2:-Create the PO, create the vendor bill now in lines you can add landed cost product, Once you added the landed cost 				product you will find a Button "create landed cost".
+		  1st post the normal vendor bill and pay it then click on Button "create landed cost". and follow the process.
+		  In Inventory valuation you can see the landed cost has been added on the product.
+
+15.)Taking stock from different warehouses:-
+	when you will deliver product to customer you don't know from which ware house it will come
+	either from Warehouse A or Warehouse B.
+
+	Set up virtual warehouses:-
+		Let’s say you have two warehouses: Warehouse A and Warehouse B. Create a new warehouse, that will be a virtual one. It will 			allow you to take the stock from A or B. To do so, go to your inventory app settings and enable the multi-warehouses feature. 			Then, go to the warehouses menu and click on create.
+
+	Now, you have to make sure that the main stock locations of warehouse A(WH/Stock) and warehouse B are children locations of the main 		stock location of warehouse A + B. Go to the locations menu, and edit the main location of your two warehouses. Then, change their 		parent location to main location of warehouse A+B.
+
+	Sell a product from the virtual warehouse
+	Let’s say you have two products, one stored in warehouse A and one stored in warehouse B. Now, you can create a new quotation for one 		of each product. Go to other information and choose Warehouse A+B in the shipping information.
+
+	Once you have done it, you can convert it to a sales order. Then, a delivery order will be automatically generated, with a product 		reserved in warehouse A and one in warehouse B.
+
+
+16.)What is a Putaway Rule?
+	A good warehouse implementation takes care that products automatically move to their appropriate destination location.
+	As we can not keep some chemical products in same location as they might catch fire.so we want that products to be moved to its 		appropriate loaction when shipment received.
+
+	Configuration:-
+	In the Inventory app, go to Configuration ‣ Settings and activate the Multi-Step Routes. By doing so, the Storage Locations will 		be automatically activated.
+	
+	now you will find the menu of "Putaway Rule" in Inventory App -- Config.
+	click on it you can configure product or product category, location in "when Arrives" column, location in "Store to" column.
+	when the product receives at "when Arrives" column of putaway rule it will be automatically move to location of "Store to" column.
+	define in putaway rule.
+	
+
+	Note:- The putaway rules can be defined either per product or per product category.
+		This information is available from Inventory Report, under the reporting menu.
+
+
+17.)Routes:- Sets of rules are called routes
+
+	1.)Pull Rule:- Pull rule will trigger a procurement, when their is need of product, say at customer location product is require.
+			With Pull Rules, a demand for some products triggers procurements.
+
+	2.)Push Rule:-  when product arrives at particular location push rule will push it to other location.
+			while Push Rules are triggered by products arriving in a specific location.
+
+	different rules can be applied to different products.
+	
+	3.)Use Routes and Rules:-
+		Since Routes are a collection of Push and Pull Rules, Odoo helps you manage advanced routes configuration such as:
+
+		A.)Manage product manufacturing chains;
+		B.)Manage default locations per product;
+		C.)Define routes within your warehouse according to business needs, such as quality control, after-sales services, or 				supplier returns;
+		D.)Help rental management by generating automated return moves for rented products.
+				
+	Note:-we have option to defined routes on product categories, products, warehouses and sale order lines.
+	
+	Example:-
+		suppose we want some products quality to be checked and others not.
+		so to achieve this we can define route on product category or on Products.
+		In routes we define pull and push rule.
+		
+	Trigger Another Rule:- It will create the picking.
+
+19.Picking Method
+
+	A.)Batch Picking:- Groups of order are picked together. 
+		Activate this option from Warehouse --> Configuration --> Setting --> Batch Picking.
+		Now you will get the "Batch Transfer" menu in the Operations menu.
+		
+			Transferring orders is a crucial element in business management. 
+			It is possible to transfer orders either by a single order or by batch. 
+			A batch means multiple orders transferred under a single click. The transfers include delivery orders, 				receipts, internal transfers, etc,
+		Exaample:-
+			You have 10 sale order, so you can validate the picking by going to each an every delivery of order.
+			Or by do batch picking.
+			create the record for batch picking and in lines select the picking of draft or ready state and click on Done 				button.
+			when clicked on Done button the respective transfer will be in done state.
+			when clicked on Cancel button the respective transfer will be in cancel state.
+			
+	B.)Wave Pcking:- Picking a specific product, Orders are broken into the item they consist of.
+			
+			Q.)If I set up two categories, each with a different route, and order three products from one category and two 				from the other, how many pickings will I have with the wave picking method (if it's accurately set up)?
+	
+			A.)Two, because we have two different routes,one per product category.
+			
+		Note:- For wave picking we need to config the routes and category. 
+
+
+Products that are set as Stockable or Consumable will allow you to keep track of their inventory levels. These options imply stock management and will allow for receiving these kinds of products.
+Means Delivery/Receipt will be created for both Stockable and Consumable.
+You will not have option of Update On Hand Quantity for Consumable products.
+Even In Inventory Adjustment only stockable products are selectable.

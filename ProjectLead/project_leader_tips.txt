@@ -1,0 +1,157 @@
+1.)Before taking any project or to getting the project
+
+    A.)Analysis Tips:
+        Be a salesperson, as the project is not sold yet! At this stage,
+        your goal is to reassure people and motivate them: do demos
+        of key features.
+
+
+        It's always good to observe how they currently work: ask
+        for demos of their current software and get a copy of each
+        document they use. The current situation is more important
+        than their future goals, as it defines the minimal scope to
+        cover. If you perfectly understand how they work today, you’ll
+        be able to better challenge their requirements and spot their
+        inefficiencies.
+
+
+
+
+        Find solutions for each problem, try to stick to standard
+        solutions as much as possible. It’s not required to do everything
+        key-users ask for, their demands should be challenged.
+    
+        Never present different options to the customer: as Project
+        Leader, you have to suggest the best one and make the
+        decisions yourself. The customer’s role is to challenge what
+        you offer, not to decide what to do.
+
+        • Avoid having the customer decide whether a feature is
+        “necessary” or “optional” or everything will be mandatory.
+        Make the decision for them by classifying items as “optional”,
+        when you think they should be excluded from the scope.
+        Customer’s role is to challenge your proposition.
+
+
+
+        2.)All necessary development should be divided into two
+        categories:
+            1.
+                Development that is absolutely necessary before going
+                into production (i.e. you cannot operate the business
+                without it).
+            2. 
+                Development that can be rolled out in the second
+                deployment phase, after the project goes live (i.e. you can
+                operate the business without it, but it’s not optimal).
+
+
+        At the end of the mission:
+            • Summarize your analysis (functional and business coverage,
+            resources required on both sides, planning and risks).
+
+            • Organize specific demos to reassure the stakeholders and
+            point out the benefits they will get from using Odoo.
+
+
+        Toolbox PEN Ready-to-use templates
+            
+            ROI - Key Users Interview:
+            https://www.odoo.com/r/roi_key_user_intw
+
+            ROI - Analysis Tool:
+            https://www.odoo.com/r/roi_analysis
+
+            ROI - Closing Presentation:
+            https://www.odoo.com/r/roi_closing
+
+
+
+
+
+    B.)Project Kick-Off
+
+	We need to get people on board. That’s what the Project Kick-Off is
+	about.
+
+	keep in mind that project managers
+	should not be afraid to make decisions on behalf of
+	the customer, it makes the process much easier. The
+	customer's role should not be to decide what to do, but
+	to approve what you suggest.
+
+	Kick-Off Tips
+
+		• Tackle issues directly: if you think the planning is too short,
+		negotiate a delay and ask to push the deadlines asap. Similarly,
+		if you detect misunderstanding about feasibility, mindset
+		or features, discuss these ASAP, rather than delaying the
+		conversation. Inexperienced Project Managers tend to avoid
+		difficult discussions, which is a common mistake.
+
+		• Check the customer’s involvement: ensure the right people
+		are involved on the customer's side. Ensure they have enough
+		time and knowledge to fulfill their duties.
+
+		• Invest time in training the SPoC: introduce them to the
+		eLearning platform, the online documentation, and train
+		them on key business flows. They won’t be able to perform
+		their duties if they don’t become an expert in the product
+		themselves.
+
+		• Managing customer expectations: this is a key skill of any
+		Project Leader. Don’t set deadlines that are too short, don’t
+		promise complex features, don’t say the change will be easy,
+		don’t say yes to everything. In short, if you promise less, you
+		can over deliver.
+	
+	Toolbox PEN Ready-to-use template
+			
+		ROI - Kick-off:
+		https://www.odoo.com/r/roi_kickoff
+
+
+    C.)Implementation
+	
+	No matter the level of complexity, the project must constantly move
+	forward.
+
+	Keeping a steady pace is a key success factor. The best way to maintain
+	a high level of involvement is to keep the SPoC engaged in everything.
+
+	After the Kick-Off phase, the designed solution has been demonstrated
+	to key-users. It’s now time to make it come to life!
+
+	Within each phase, the project team works in short cycles in order to
+	deliver functionalities every week. The solution is shaped progressively
+	throughout the phase and validated by the Project Leader and the
+	SPoC. The configuration, data import and specific development is
+	handled in parallel by the Project Leader and the developer, if required.	
+
+	Configuration
+		The Project Leader configures the software themselves, including
+		customization with the Studio app, but no custom development. Once
+		the apps are configured, the Project Leader involves the SPoC and
+		key-users through a series of training sessions in order to validate the
+		setup.
+	Data import
+		Depending on the volume and complexity of data to import this task is
+		handled either by the Project Leader or a developer. Following the Project
+		Leader’s instructions, the SPoC and the key-users gather the data and
+		prepare the file to import.
+
+	The data migration from the current software to Odoo can generate
+	delays and requires making the right decisions:
+		
+		Don’t delay the production launch due to data quality:
+			Importing the cleanest data possible is optimal, but not at the
+			cost of delaying the project. So, if your customer didn’t clean
+			it on time and was already using their data in this state, don’t
+			delay a production launch to clean it. Some cleaning can be
+			done directly in Odoo in post-production.
+		Import master data, but avoid the full history (if possible):
+			it takes a lot of time and money for very low ROI in the long run.
+			
+			
+			
+			page no 15 start reading

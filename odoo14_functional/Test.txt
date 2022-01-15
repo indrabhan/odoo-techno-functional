@@ -1,0 +1,42 @@
+Technical Test
+
+1.)Is not is possible for one2many or many2many field to modify itself via onchange
+	ans:- False (we can modify)
+______________________________________________________________________________________________________________________________________	
+
+2.)1 worker is ___________
+	ans:- equal to 6 concurrent user
+
+______________________________________________________________________________________________________________________________________	
+
+3.)which of the method returns the definition of each field?
+	ans:- fields_get()
+	
+______________________________________________________________________________________________________________________________________
+
+4.)The ___ in the __manifest__.py indicates whether this module must install automatically or not.
+	ans:- installable
+	
+______________________________________________________________________________________________________________________________________
+
+5.)Hooks for module installation/uninstallation, their value should be a string representing the name of a function defined inside the module’s.
+	ans:-__init__.py.
+
+______________________________________________________________________________________________________________________________________
+
+6.)In Automated Actions,if the action is expected to run indefinitely, set to
+	ans:- -1
+	
+______________________________________________________________________________________________________________________________________
+
+7.)All recordsets have an environment, which is 
+	ans:- immutable
+	
+______________________________________________________________________________________________________________________________________
+
+8.)what does the name_create() method return?
+	ans:- tuple
+	
+______________________________________________________________________________________________________________________________________
+
+9.)

@@ -1,0 +1,184 @@
+Groups:
+	user:- 
+		Users represent physical persons using OpenERP. They are identified with a login and a password.
+
+	groups:
+		Groups are define by using "res.groups" model.
+		first we need to create the groups and assign the groups to users.
+		If we are not making use of catergory_id then the group will appear as a boolean field anywhere on user form.
+		If we make use of category_id then it will appear as a dropdown.
+		
+	class res.groups
+		1.)name
+			serves as user-readable identification for the group (spells out the role / purpose of the group)
+
+		2.)category_id
+			The module category, serves to associate groups with an Odoo App (~a set of related business models) and convert 				them into an exclusive selection in the user form.
+
+		3.)implied_ids
+			In- short assign the other groups.
+			Other groups to set on the user alongside this one. This is a convenience pseudo-inheritance relationship: it’s 				possible to explicitly remove implied groups from a user without removing the implier.
+
+		comment
+		Additional notes on the group e.g.
+		
+		Example:
+
+			<record id="base.module_category_sales_sales" model="ir.module.category">
+			    <field name="description">Helps you handle your quotations, sale orders and invoicing.</field>
+			    <field name="sequence">1</field>
+			</record>
+
+			<record id="group_sale_salesman" model="res.groups">
+			    <field name="name">User: Own Documents Only</field>
+			    <field name="category_id" ref="base.module_category_sales_sales"/>
+			    <field name="users" eval="[(4, ref('base.group_user'))]"/>
+			    <field name="comment">the user will have access to his own data in the sales application.</field>
+			</record>
+
+			<record id="group_sale_salesman_all_leads" model="res.groups">
+			    <field name="name">User: All Documents</field>
+			    <field name="category_id" ref="base.module_category_sales_sales"/>
+			    <field name="implied_ids" eval="[(4, ref('group_sale_salesman'))]"/>
+			    <field name="comment">the user will have access to all records of everyone in the sales application.</field>
+			</record>
+
+			<record id="group_sale_manager" model="res.groups">
+			    <field name="name">Administrator</field>
+			    <field name="comment">the user will have an access to the sales configuration as well as statistic reports.</field>
+			    <field name="category_id" ref="base.module_category_sales_sales"/>
+			    <field name="implied_ids" eval="[(4, ref('group_sale_salesman_all_leads'))]"/>
+			    <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+			</record>
+
+
+***********************************************************************************
+			
+
+	Access Right:
+		Access rights are assign on every models with the permission, means whether the user can read/write/create/delete the 			records from that model.
+		Access right are assign on every model.
+		we need to assign groups and then read, write, create and unlink permission.
+		If we do not assign the group then it is consider as globally means applied to all users.
+
+		we write access rights in "ir.model.access.csv file"
+		need to define csv file in manifest.
+		
+		The perm_method attributes grant the corresponding CRUD access when set
+		They are all unset by default.
+			perm_read
+			perm_write
+			perm_create
+			perm_unlink
+		
+		Example:
+	
+		id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+		access_product_product_account_user,product.product.account.user,product.model_product_product,group_account_user,1,0,0,0
+		access_product_product_account_manager,product.product.account.manager,product.model_product_product,
+				account.group_account_manager,1,1,1,1
+				
+				
+	
+				
+				
+	Access rights are additive, a user’s accesses are the union of the accesses they get through all their groups
+	Example:-
+		given a user who is part of group A granting read and create access and a group B granting update access, the user will 			have all three of create, read, and update.
+		
+
+***********************************************************************************
+		
+
+Record rules:
+	Access rules are default-allow: if access rights grant access and no rule applies to the operation and model for the user, the 		access is granted.
+	
+	They are define by ir.rule mdoel.
+	record rules are use for filtering the records.
+	
+	1.)name
+	The description of the rule.
+
+	2.)model_id
+	The model to which the rule applies.
+
+	3.)groups
+		 Multiple groups can be specified. If no group is specified, the rule is global.
+		 
+	4.)domain_force
+		The domain is a python expression which can use the following variables:
+
+		A.)time
+			Python’s time module.
+
+		B.)user
+			The current user, as a singleton recordset.
+
+		C.)company_id
+			The current user’s currently selected company as a single company id (not a recordset).
+
+		D.)company_ids
+			All the companies to which the current user has access as a list of company ids (not a recordset), see Security 				rules for more details.
+			
+		E.)perm_method
+			The perm_method have completely different semantics than for ir.model.access: for rules, they specify which 			operation the rules applies.
+			If an operation is not selected, then the rule is not checked for it, as if the rule did not exist.
+			
+			Note:-
+				All operations are selected by default(true) for rule and for access right they are unset(false).
+
+				perm_create
+				perm_read
+				perm_write
+				perm_unlink
+
+	Example:-
+		suppose in your model you have 100 records with different salesperson, but for login user you want to show only his 		records where he is assign as a salesperson in this scenario we will make use of record rules.
+
+	A record rule has:
+
+		1.)A model on which it applies
+		2.)A set of permissions to which it applies (e.g. if perm_read is set, the rule will only be checked when reading a 					record)
+		3.)A set of user groups to which the rule applies, if no group is specified the rule is global
+		4.)A domain used to check whether a given record matches the rule (and is accessible) or does not (and is not 			accessible). The domain is evaluated with two variables in context: user is the current user’s record 			and time is the time module.
+
+		Example:
+
+			<record id="crm_rule_all_salesteam" model="ir.rule">
+			    <field name="name">All Salesteam</field>
+			    <field ref="sales_team.model_crm_team" name="model_id"/>
+			    <field name="domain_force">[(1,'=',1)]</field>
+			    <field name="groups" eval="[(4, ref('sales_team.group_sale_salesman_all_leads'))]"/>
+			</record>
+
+
+***********************************************************************************
+
+
+Field Access:
+	In py file on fields you can assign the groups.
+
+	If the current user is not in one of the listed groups, he will not have access to the field:
+
+		1.)Restricted fields are automatically removed from requested views
+		2.)Restricted fields are removed from fields_get() responses
+		3.)Attempts to (explicitly) read from or write to restricted fields results in an access error
+		
+
+***********************************************************************************
+	
+
+Global rules versus group rules
+
+There is a large difference between global and group rules in how they compose and combine:
+
+Global rules intersect, if two global rules apply then both must be satisfied for the access to be granted, this means adding global rules always restricts access further.
+
+Group rules unify, if two group rules apply then either can be satisfied for the access to be granted. This means adding group rules can expand access, but not beyond the bounds defined by global rules.
+
+The global and group rulesets intersect, which means the first group rule being added to a given global ruleset will restrict access.
+
+ 	Danger
+
+		Creating multiple global rules is risky as it’s possible to create non-overlapping rulesets, which will remove all access.

@@ -1,0 +1,50 @@
+Reports:-
+	Types of Reports
+		1.)pdf
+		2.)html
+		3.)text
+
+
+1.)PDF:-
+	First register the report with report tag in xml file, so in Print dropdown you will get the report name menu.
+	
+		<odoo>
+		<report id="print_report_pdf'"
+			string="Sample Report"
+			model="model_name"
+			report_type="qweb-pdf"
+			name="module_name.print_sample_report"
+			file="module_name.print_sample_report"
+			menu="False"/>
+		</odoo>
+
+	Second create the report template where value of id in template should be equalt to the value of name paramter.
+ 
+		<template id="print_sample_report’">
+		</template>
+	
+	Question:-
+		How to print report on button click.
+		ans:- 
+			First register the report with report tag and add the parameter with value equal to false.
+			create the template.
+
+			On that button the return value should be the method "report action()".
+
+			def button_name(self):
+			    	data = {
+					'model_id': self.id,
+				   	}
+			    	return self.env.ref(module_name.print_report_pdf').report_action(self, data=data)
+
+
+		Send mail template on button click
+			
+			self.env.ref('module_name.email_template_id').send_mail(self.id, force_send=True)
+
+
+	Question:-
+		Override existing report
+		ans:-Find the template id of report and inherit it and make use of xpath.
+		     The template id can be easily found by going to Settings-->Technical-->Report
+			search for name and in that record the External id is the template id.

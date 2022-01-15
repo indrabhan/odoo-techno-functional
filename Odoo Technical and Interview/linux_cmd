@@ -1,0 +1,199 @@
+1.)ssh command: Use to connect to server.
+	
+	Syntax:- ssh userName@Ip
+		
+	Example:- ssh root@139.59.27.125
+
+
+2.)Copy files and directory:
+	
+	1.)copy files
+		
+		Syntax:- cp <space> {filename or Path till file name} <space> /Destination Path/
+
+		Example:-
+			 cp /home/ind/workspace/sample.txt /home/ind/Documents
+
+
+	2.)copy directory
+	
+		Syntax:- cp <space> {directory or Path till directory name} <space> /Destination Path/
+
+		Example:-
+
+			cp -avr /home/ind/workspace/odoo_10 /home/ind/workspace
+
+		
+			-a : Preserve the specified attributes such as directory an file mode, ownership, timestamps, if possible additional 					attributes: context, links, xattr, all.
+			-v : Verbose output.
+			-r : Copy directories recursively.
+
+
+
+3.)mv:- 
+	This command moves files and directories from one directory to another. The file/directory once moved, is deleted from the working 		directory.
+
+	syntax:
+
+		$ mv <space> {filename} <space> /pathname/
+
+
+
+4.)rm:-
+	This command removes files from a directory. By default, the rm command does not remove directories. Once removed, the contents of a 		file cannot be recovered.
+	A directory cannot be removed if it is not empty.
+
+	syntax:
+
+		$ rm <space> {filename}
+
+
+5.)cat:-
+	This command can read, modify or concatenate text files. It also displays file contents.
+
+	Command		Explanation
+
+	cat -b		This is used to add line numbers to non-blank lines
+	cat -n		This is used to add line numbers to all lines
+	cat -s		This is used to squeeze blank lines into one line
+	cat –E		Show $ at the end of line
+
+
+6.)cd:- change directory
+	This command is used to change the current working directory of the user.
+
+
+2.)ls :- List the files in directory.
+
+	1.)ls -l
+		List the files witth its permissions in directory.
+	
+		Syntax:- ls <space> -l
+
+	2.)ls -R
+		shows all the files not only in directories but also subdirectories
+
+		Syntax:- ls <space> -R
+
+
+3.)tail:- tail displays the last part of a file.
+	
+	You usually don't need every log line to troubleshoot. Instead, you want to check what your logs say about the most recent request to 		your application. 
+
+	For example, you can use tail to check what happens in the logs when you make a request to your Odoo server.
+
+	Command:- tail -f /var/log/odoo/odoo-server.log
+
+
+4.)netstat:- 
+	netstat shows the network status. This command shows network ports in use with their PID and their incoming connections.
+
+	Command:- netstat -tnlp
+	
+
+
+
+
+5.)mkdir: Make Directory
+
+	Syntax:-
+		mkdir [option] dir_name
+
+	1.)create single directory
+	
+		command:- mkdir test1
+
+	
+	2.)create multiple directories
+
+		command:- mkdir test1, test2, test3
+
+	
+	3.)Make Parent Directories:
+		Building a structure with multiple subdirectories using mkdir requires adding the -p option.
+		Create directort test1 inside test1 we will have test2, inside test2 we will have test3.
+
+		command: mkdir -p test1/test2/test3
+
+	4.)How to Set Permissions When Making a Directory
+		The mkdir command by default gives rwx permissions for the current user only.
+		To add read, write, and execute permission for all users, add the -m option with the user 777 when creating a directory.
+
+		To create a directory DirM with rwx permissions:
+
+			command:- mkdir -m777 DirM 
+
+
+6.) Working with User Permissions:
+
+	1.)chmod:- ch stands for change mode.
+		   This command is used to change the access permissions of files and directories.
+		
+		syntax:
+			$ chmod <permissions of user,group,others> {filename}
+
+		Example:
+			nano executable_file.sh
+
+			./executable_file.sh		# Execute the file like we do in odoo ./odoo-bin
+			Permission Denied		Suppose this file denied as this file is not having execute permission.
+
+			chmod 777 executable_file.sh	# here we gave all 3 permissions read, write and execute.
+
+			
+
+7.)install Packages:-
+
+
+		1.)For an Debian based system;
+			syntax: $ sudo apt-get install package-name
+
+
+		2.)For an RHEL based system;
+			syntax: $ sudo yum install package-name
+
+
+		3.)For an Fedora based system;
+			syntax: $ sudo dnf install package-name
+						 
+		
+
+9) pwd: It displays the current working directory path and is useful when directory changes are often
+
+	In terminal you are in picture directory.
+	
+	command: pwd
+	output:  /home/ind/Pictures
+		
+
+
+Linux Commands
+
+
+6) ip address = ip address shows the interfaces and IP addresses of your application's host.
+
+7) cd /var/log = Change the current directory. The forward slash is to be used in Linux.
+
+8) su / sudo command = There are some commands that need elevated rights to run on a Linux system
+
+
+
+
+
+12) rm = This command is used to remove files in a directory or the directory itself.
+
+13) mkdir = to make a directory. mkdir [directory name] if you would like to create a directory in the name ‘myproject’ type.
+
+14) chmod = To change mode of a file system object. Files can have r – read, w- write and x-execute permissions.
+
+15) chown = This command is used to change the ownership of a file/folder or even multiple files/folders for a specified user/group.
+
+16) echo = This command is used to display a text or a string to the standard output or a file.
+
+17) wc = The wc (word count) command in Linux operating system is used to find out the number of new lines, word count, byte and characters count in a file specified by the file arguments.
+
+18) man = This command is used to view the on-line reference manual pages for commands/programs.
+
+19) history = This command is used to show previously used commands or to get information about the commands executed by a user.
+
+18) clear = This command lets you clear the terminal screen.

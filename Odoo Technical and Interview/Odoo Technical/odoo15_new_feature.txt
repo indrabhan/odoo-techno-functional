@@ -1,0 +1,43 @@
+1.)Product types:
+	Add new Product types:
+		a.)Gift Card
+		b.)Event Tickets
+		c.)Event Booth	
+		
+	
+2.)Import:
+	Has enhance the import screen (option for import records)
+	Here in the new screen you will find 
+		a.)"Format" and "Use first row as header" option.
+		b.)Advanced:
+			1.)Track history during import.
+			2.)Allow matching with subfields (default ticked)
+		c.)All the columns which are in the file.
+				
+
+1.)Start a Meeting:
+	In the Discuss app you will find "Start a Meeting" button at the left-Up side.
+	Here you can make video/audio call and even share the screen.
+	You can send out invitations to the users to take part in a meeting 
+
+
+2.)Favorite:
+	Products in kanban view has a "star" symbols, its means you can add produtcs as a Favorite .
+	Then in the Filter menu you will find "Favorite" filter, click on it and you can find all the Favorite products.
+	
+
+3.)Attribute:
+	Used in product variants
+	In the Display type added new option "Pills", before there were radio,select and color
+	Added eCommerce Filter Visibility option
+		eCommerce Filter Visibility:
+			1.)Visible
+			2.)Hidden
+	
+			
+4.)Update "Units of Measure" menus form view
+	In V14 we were having 2 menus Units of Measure Categories and Units of Measure.
+	Now In v15 the form view has both things
+		Units of Measure Categories		Uom
+		Length					mm, cm, km
+		
